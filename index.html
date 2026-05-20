@@ -368,7 +368,6 @@
     const url = dom.videoUrl.value.trim();
     if (!url) return showToast('Paste a link first.', 'error');
 
-    // Auto-detect platform
     if (/youtube\.com|youtu\.be/.test(url)) switchPlatform('youtube');
     else if (/facebook\.com|fb\.watch/.test(url)) switchPlatform('facebook');
     else if (/tiktok\.com/.test(url)) switchPlatform('tiktok');
@@ -382,50 +381,30 @@
     setProgress(20);
 
     try {
-        // ----- YOUTUBE: use Invidious fallback -----
+        let data;
         if (state.platform === 'youtube') {
-    const resp = await fetch(`${BACKEND}/api/youtube?url=${encodeURIComponent(url)}`);
-    if (!resp.ok) throw new Error((await resp.json()).error);
-    const data = await resp.json();
-    state.videoInfo = { title: data.title, thumbnail: data.thumbnail };
-    state.directUrl = data.downloadUrl;
-    setProgress(80);
-
-
-
-}
-        // ----- TIKTOK: use tikwm.com -----
-        else if (state.platform === 'tiktok') {
+            const resp = await fetch(`${BACKEND}/api/youtube?url=${encodeURIComponent(url)}`);
+            if (!resp.ok) throw new Error((await resp.json()).error);
+            data = await resp.json();
+            state.videoInfo = { title: data.title, thumbnail: data.thumbnail };
+            state.directUrl = data.downloadUrl;
+        } else if (state.platform === 'tiktok') {
             const resp = await fetch(`${BACKEND}/api/tiktok?url=${encodeURIComponent(url)}`);
             if (!resp.ok) throw new Error((await resp.json()).error);
-            const data = await resp.json();
-            state.videoInfo = {
-                title: data.title,
-                thumbnail: data.thumbnail,
-                duration: data.duration,
-                author: data.author,
-            };
+            data = await resp.json();
+            state.videoInfo = { title: data.title, thumbnail: data.thumbnail, duration: data.duration, author: data.author };
             state.directUrl = data.downloadUrl;
-            setProgress(80);
-        }
-        // ----- FACEBOOK: use yt-dlp -----
-        else {
-            const infoUrl = `${BACKEND}/api/info?url=${encodeURIComponent(url)}&format=${state.format}`;
-            const infoResp = await fetch(infoUrl);
+        } else {
+            const infoResp = await fetch(`${BACKEND}/api/info?url=${encodeURIComponent(url)}&format=${state.format}`);
             if (!infoResp.ok) throw new Error((await infoResp.json()).error);
             const infoData = await infoResp.json();
             state.videoInfo = infoData;
-            setProgress(60);
-
-            const dlUrl = `${BACKEND}/api/download?url=${encodeURIComponent(url)}&formatId=${infoData.formatId}`;
-            const dlResp = await fetch(dlUrl);
+            const dlResp = await fetch(`${BACKEND}/api/download?url=${encodeURIComponent(url)}&formatId=${infoData.formatId}`);
             if (!dlResp.ok) throw new Error((await dlResp.json()).error);
             const dlData = await dlResp.json();
             state.directUrl = dlData.downloadUrl;
-            setProgress(90);
         }
 
-        // Update UI
         dom.previewThumb.src = state.videoInfo.thumbnail || '';
         dom.previewTitle.textContent = state.videoInfo.title || 'Video';
         let meta = `Format: ${state.format === 'mp3' ? 'MP3' : 'MP4'}`;
@@ -444,27 +423,22 @@
         dom.btnFetch.innerHTML = '🔍 Fetch Info';
     }
 }
-      async function downloadMedia() {
+
+async function downloadMedia() {
     if (!state.directUrl) return showToast('Fetch info first.', 'error');
     dom.btnDownload.disabled = true;
     dom.btnDownload.innerHTML = '<span class="spinner"></span> Downloading...';
-    try {
-        const ext = state.format === 'mp3' ? 'mp3' : 'mp4';
-        const title = (state.videoInfo?.title || 'video').substring(0, 60);
-        const proxyUrl = `${BACKEND}/api/proxy-download?url=${encodeURIComponent(state.directUrl)}&title=${encodeURIComponent(title)}&ext=${ext}`;
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.src = proxyUrl;
-        document.body.appendChild(iframe);
-        setTimeout(() => document.body.removeChild(iframe), 5000);
-        showToast('Download started! ✅', 'success');
-    } catch (err) {
-        window.open(state.directUrl, '_blank');
-        showToast('Opening in new tab...', 'info');
-    } finally {
-        dom.btnDownload.disabled = false;
-        dom.btnDownload.innerHTML = state.format === 'mp3' ? '⬇️ Download MP3' : '⬇️ Download MP4';
-    }
+    const ext = state.format === 'mp3' ? 'mp3' : 'mp4';
+    const title = (state.videoInfo?.title || 'video').substring(0, 60);
+    const proxyUrl = `${BACKEND}/api/proxy-download?url=${encodeURIComponent(state.directUrl)}&title=${encodeURIComponent(title)}&ext=${ext}`;
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = proxyUrl;
+    document.body.appendChild(iframe);
+    setTimeout(() => document.body.removeChild(iframe), 5000);
+    showToast('Download started! ✅', 'success');
+    dom.btnDownload.disabled = false;
+    dom.btnDownload.innerHTML = state.format === 'mp3' ? '⬇️ Download MP3' : '⬇️ Download MP4';
 }
 
             function clearResult(clearInput = true) {
