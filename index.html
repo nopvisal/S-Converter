@@ -431,26 +431,26 @@ async function downloadMedia() {
     dom.btnDownload.innerHTML = '<span class="spinner"></span> Downloading...';
 
     try {
-        // 1. Attempt direct blob download (like the original TikTok method)
-        const response = await fetchWithTimeout(state.directUrl, {}, 15000);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const blob = await response.blob();
-        const blobUrl = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = blobUrl;
         const ext = state.format === 'mp3' ? 'mp3' : 'mp4';
-        const name = (state.videoInfo?.title || 'download').replace(/[^a-zA-Z0-9\s]/g, '').substring(0, 60).trim() || 'video';
-        a.download = `${name}.${ext}`;
+        const title = (state.videoInfo?.title || 'video').replace(/[^a-zA-Z0-9\s]/g, '').substring(0, 60).trim() || 'video';
+
+        // Build the proxy URL that forces a file download
+        const proxyUrl = `${BACKEND}/api/proxy-download?url=${encodeURIComponent(state.directUrl)}&title=${encodeURIComponent(title)}&ext=${ext}`;
+
+        // Create an invisible anchor and click it
+        const a = document.createElement('a');
+        a.href = proxyUrl;
+        a.download = '';
+        a.style.display = 'none';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
-        showToast('Download complete! ✅', 'success');
+
+        showToast('Download started! ✅', 'success');
     } catch (err) {
-        console.warn('Blob download failed, opening in new tab:', err.message);
-        // 2. Fallback – open the direct URL in a new tab (works for TikTok/Facebook, may play YouTube)
+        console.error(err);
+        showToast('Download failed. Opening in new tab.', 'error');
         window.open(state.directUrl, '_blank');
-        showToast('Opening in new tab...', 'info');
     } finally {
         dom.btnDownload.disabled = false;
         dom.btnDownload.innerHTML = state.format === 'mp3' ? '⬇️ Download MP3' : '⬇️ Download MP4';
