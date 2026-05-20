@@ -382,7 +382,7 @@
     setProgress(20);
 
     try {
-        // ----- YOUTUBE: use Invidious fallback (no yt-dlp) -----
+        // ----- YOUTUBE: use Invidious fallback -----
         if (state.platform === 'youtube') {
             const resp = await fetch(`${BACKEND}/api/youtube?url=${encodeURIComponent(url)}`);
             if (!resp.ok) throw new Error((await resp.json()).error);
@@ -409,9 +409,8 @@
             state.directUrl = data.downloadUrl;
             setProgress(80);
         }
-        // ----- FACEBOOK: use yt-dlp (still works in most cases) -----
+        // ----- FACEBOOK: use yt-dlp -----
         else {
-            // Get video info (format selection)
             const infoUrl = `${BACKEND}/api/info?url=${encodeURIComponent(url)}&format=${state.format}`;
             const infoResp = await fetch(infoUrl);
             if (!infoResp.ok) throw new Error((await infoResp.json()).error);
@@ -419,7 +418,6 @@
             state.videoInfo = infoData;
             setProgress(60);
 
-            // Get direct download URL
             const dlUrl = `${BACKEND}/api/download?url=${encodeURIComponent(url)}&formatId=${infoData.formatId}`;
             const dlResp = await fetch(dlUrl);
             if (!dlResp.ok) throw new Error((await dlResp.json()).error);
@@ -428,7 +426,7 @@
             setProgress(90);
         }
 
-        // ----- Update UI for all platforms -----
+        // Update UI
         dom.previewThumb.src = state.videoInfo.thumbnail || '';
         dom.previewTitle.textContent = state.videoInfo.title || 'Video';
         let meta = `Format: ${state.format === 'mp3' ? 'MP3' : 'MP4'}`;
