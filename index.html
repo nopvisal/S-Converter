@@ -384,17 +384,20 @@
     try {
         // ----- YOUTUBE: use Invidious fallback -----
         if (state.platform === 'youtube') {
-            const resp = await fetch(`${BACKEND}/api/youtube?url=${encodeURIComponent(url)}`);
-            if (!resp.ok) throw new Error((await resp.json()).error);
-            const data = await resp.json();
-            state.videoInfo = {
-                title: data.title,
-                thumbnail: data.thumbnail,
-                duration: data.duration,
-            };
-            state.directUrl = data.downloadUrl;
-            setProgress(80);
-        }
+    const infoUrl = `${BACKEND}/api/info?url=${encodeURIComponent(url)}&format=${state.format}`;
+    const infoResp = await fetch(infoUrl);
+    if (!infoResp.ok) throw new Error((await infoResp.json()).error);
+    const infoData = await infoResp.json();
+    state.videoInfo = infoData;
+    setProgress(60);
+
+    const dlUrl = `${BACKEND}/api/download?url=${encodeURIComponent(url)}&formatId=${infoData.formatId}`;
+    const dlResp = await fetch(dlUrl);
+    if (!dlResp.ok) throw new Error((await dlResp.json()).error);
+    const dlData = await dlResp.json();
+    state.directUrl = dlData.downloadUrl;
+    setProgress(90);
+}
         // ----- TIKTOK: use tikwm.com -----
         else if (state.platform === 'tiktok') {
             const resp = await fetch(`${BACKEND}/api/tiktok?url=${encodeURIComponent(url)}`);
