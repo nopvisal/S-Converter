@@ -382,8 +382,21 @@
     setProgress(20);
 
     try {
-        if (state.platform === 'tiktok') {
-            // Use dedicated TikTok endpoint
+        // ----- YOUTUBE: use Invidious fallback (no yt-dlp) -----
+        if (state.platform === 'youtube') {
+            const resp = await fetch(`${BACKEND}/api/youtube?url=${encodeURIComponent(url)}`);
+            if (!resp.ok) throw new Error((await resp.json()).error);
+            const data = await resp.json();
+            state.videoInfo = {
+                title: data.title,
+                thumbnail: data.thumbnail,
+                duration: data.duration,
+            };
+            state.directUrl = data.downloadUrl;
+            setProgress(80);
+        }
+        // ----- TIKTOK: use tikwm.com -----
+        else if (state.platform === 'tiktok') {
             const resp = await fetch(`${BACKEND}/api/tiktok?url=${encodeURIComponent(url)}`);
             if (!resp.ok) throw new Error((await resp.json()).error);
             const data = await resp.json();
@@ -395,8 +408,10 @@
             };
             state.directUrl = data.downloadUrl;
             setProgress(80);
-        } else {
-            // YouTube / Facebook flow
+        }
+        // ----- FACEBOOK: use yt-dlp (still works in most cases) -----
+        else {
+            // Get video info (format selection)
             const infoUrl = `${BACKEND}/api/info?url=${encodeURIComponent(url)}&format=${state.format}`;
             const infoResp = await fetch(infoUrl);
             if (!infoResp.ok) throw new Error((await infoResp.json()).error);
@@ -404,6 +419,7 @@
             state.videoInfo = infoData;
             setProgress(60);
 
+            // Get direct download URL
             const dlUrl = `${BACKEND}/api/download?url=${encodeURIComponent(url)}&formatId=${infoData.formatId}`;
             const dlResp = await fetch(dlUrl);
             if (!dlResp.ok) throw new Error((await dlResp.json()).error);
@@ -412,12 +428,12 @@
             setProgress(90);
         }
 
-        // Update UI
+        // ----- Update UI for all platforms -----
         dom.previewThumb.src = state.videoInfo.thumbnail || '';
         dom.previewTitle.textContent = state.videoInfo.title || 'Video';
         let meta = `Format: ${state.format === 'mp3' ? 'MP3' : 'MP4'}`;
         if (state.videoInfo.duration) meta += ` | Duration: ${state.videoInfo.duration}`;
-        if (state.videoInfo.author) meta += ` | Author: @${state.videoInfo.author}`;
+        if (state.videoInfo.author) meta += ` | @${state.videoInfo.author}`;
         dom.previewMeta.textContent = meta;
         dom.resultArea.classList.add('show');
         dom.btnDownload.textContent = state.format === 'mp3' ? '⬇️ Download MP3' : '⬇️ Download MP4';
