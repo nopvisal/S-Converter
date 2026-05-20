@@ -133,6 +133,56 @@
         .nav-cta:hover{
             transform:translateY(-2px);
         }
+        /* ================= PLATFORM COLORS ================= */
+
+.platform-btn[data-platform="youtube"]{
+    background:rgba(255,0,51,.06);
+    color:#ff0033;
+}
+
+.platform-btn[data-platform="youtube"]:hover{
+    border-color:#ff0033;
+    background:rgba(255,0,51,.1);
+}
+
+.platform-btn[data-platform="youtube"].active{
+    background:#ff0033;
+    color:white;
+    box-shadow:0 14px 30px rgba(255,0,51,.25);
+}
+
+.platform-btn[data-platform="facebook"]{
+    background:rgba(24,119,242,.06);
+    color:#1877f2;
+}
+
+.platform-btn[data-platform="facebook"]:hover{
+    border-color:#1877f2;
+    background:rgba(24,119,242,.1);
+}
+
+.platform-btn[data-platform="facebook"].active{
+    background:#1877f2;
+    color:white;
+    box-shadow:0 14px 30px rgba(24,119,242,.25);
+}
+
+.platform-btn[data-platform="tiktok"]{
+    background:rgba(0,0,0,.05);
+    color:#111111;
+}
+
+.platform-btn[data-platform="tiktok"]:hover{
+    border-color:#111111;
+    background:rgba(0,0,0,.08);
+}
+
+.platform-btn[data-platform="tiktok"].active{
+    background:#111111;
+    color:white;
+    box-shadow:0 14px 30px rgba(0,0,0,.2);
+}
+        }
 
         /* ================= HERO ================= */
 
@@ -874,7 +924,80 @@
             .hero h1{
                 font-size:2.6rem;
             }
-        }
+            
+        html,
+body{
+    overflow-x:hidden;
+}
+
+.container,
+.tool-card,
+.panel,
+.preview-card,
+.preview-content,
+.preview-meta,
+.preview-content h3{
+    min-width:0;
+}
+
+.preview-content h3{
+    overflow-wrap:anywhere;
+    word-break:break-word;
+}
+
+.preview-meta{
+    overflow-wrap:anywhere;
+}
+
+.preview-thumb{
+    width:100%;
+    max-width:100%;
+}
+
+.result-area{
+    width:100%;
+    overflow:hidden;
+}
+
+.download-btns{
+    width:100%;
+}
+
+.download-btns .btn{
+    flex:1;
+    justify-content:center;
+}
+
+@media(max-width:640px){
+
+    .tool-card{
+        overflow:hidden;
+    }
+
+    .preview-card{
+        overflow:hidden;
+    }
+
+    .preview-content{
+        padding:16px;
+    }
+
+    .download-btns{
+        flex-direction:column;
+    }
+
+    .download-btns .btn{
+        width:100%;
+    }
+
+    .platform-selector{
+        scrollbar-width:none;
+    }
+
+    .platform-selector::-webkit-scrollbar{
+        display:none;
+    }
+}
     </style>
 </head>
 <body>
@@ -991,22 +1114,37 @@
                 <!-- PLATFORM -->
                 <div class="platform-selector">
 
-                    <button class="platform-btn active" id="btnYt" data-platform="youtube">
-                        ▶️ YouTube
-                        <span class="badge">MP4 / MP3</span>
-                    </button>
+    <button class="platform-btn active" id="btnYt" data-platform="youtube">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8ZM9.6 15.5v-7L16 12l-6.4 3.5Z"/>
+        </svg>
 
-                    <button class="platform-btn" id="btnFb" data-platform="facebook">
-                        📘 Facebook
-                        <span class="badge">MP4</span>
-                    </button>
+        YouTube
 
-                    <button class="platform-btn" id="btnTt" data-platform="tiktok">
-                        🎵 TikTok
-                        <span class="badge">MP4</span>
-                    </button>
+        <span class="badge">MP4 / MP3</span>
+    </button>
 
-                </div>
+    <button class="platform-btn" id="btnFb" data-platform="facebook">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9v-2.9h2.5V9.7c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.7-1.6 1.5v1.8h2.8l-.5 2.9h-2.3v7A10 10 0 0 0 22 12"/>
+        </svg>
+
+        Facebook
+
+        <span class="badge">MP4</span>
+    </button>
+
+    <button class="platform-btn" id="btnTt" data-platform="tiktok">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.6 8.7a7.8 7.8 0 0 1-4.6-1.5v6.9a5.6 5.6 0 1 1-5.6-5.6c.3 0 .7 0 1 .1v2.8a2.7 2.7 0 1 0 1.8 2.6V2h2.8a4.9 4.9 0 0 0 4.6 4.6v2.1Z"/>
+        </svg>
+
+        TikTok
+
+        <span class="badge">MP4</span>
+    </button>
+
+</div>
 
                 <div class="tool-grid">
 
