@@ -2,13 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>S-CONVERTER — Professional Media Converter & AI Upscaler</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>S-CONVERTER — Professional Media Converter, AI Upscaler, QR Generator & Financial Analytics</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome 6 Free CDN for professional icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js">
+    </script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
     </script>
 
     <style>
@@ -32,6 +39,16 @@
             --shadow-md: 0 10px 25px rgba(15, 23, 42, .06);
             --shadow-lg: 0 20px 40px rgba(15, 23, 42, .08);
             --transition: .25s cubic-bezier(.4, 0, .2, 1);
+            --cyan-700: #116b6b;
+            --cyan-600: #1a7e7c;
+            --cyan-500: #29c5c5;
+            --cyan-100: #dcf6f5;
+            --cyan-50: #eef9f9;
+            --white: #ffffff;
+            --gray-100: #f4f7f9;
+            --gray-200: #e2e8f0;
+            --gray-700: #2d3748;
+            --gray-600: #4a5568;
         }
 
         * {
@@ -57,11 +74,11 @@
             max-width: 100%;
         }
         .container {
-            width: min(1180px, calc(100% - 40px));
+            width: min(1280px, calc(100% - 40px));
             margin: auto;
         }
 
-        /* ================= NAVBAR ================= */
+        /* Navbar */
         .navbar {
             position: sticky;
             top: 0;
@@ -94,6 +111,7 @@
             justify-content: center;
             color: white;
             font-weight: 700;
+            font-size: 1.1rem;
             box-shadow: 0 10px 20px rgba(8, 145, 178, .2);
         }
         .nav-links {
@@ -119,7 +137,7 @@
             transform: translateY(-2px);
         }
 
-        /* ================= HERO ================= */
+        /* Hero */
         .hero {
             padding: 90px 0 70px;
             position: relative;
@@ -154,11 +172,12 @@
             margin-bottom: 22px;
             box-shadow: var(--shadow-sm);
         }
-        .hero-badge span {
+        .hero-badge .dot {
             width: 8px;
             height: 8px;
             background: var(--success);
             border-radius: 50%;
+            display: inline-block;
         }
         .hero h1 {
             font-size: clamp(2.6rem, 5vw, 4.6rem);
@@ -185,6 +204,9 @@
             cursor: pointer;
             transition: var(--transition);
             font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         .btn-primary {
             background: linear-gradient(135deg, var(--accent-2), var(--accent));
@@ -245,7 +267,7 @@
             font-size: .95rem;
         }
 
-        /* ================= FEATURES ================= */
+        /* Features */
         .feature-strip {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -278,9 +300,10 @@
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
+            color: var(--accent);
         }
 
-        /* ================= TOOL TOGGLE ================= */
+        /* Tool Toggle */
         .tool-toggle-wrap {
             display: flex;
             gap: 8px;
@@ -294,17 +317,18 @@
             flex: 1;
             border: none;
             background: transparent;
-            padding: 15px 22px;
+            padding: 15px 12px;
             border-radius: 16px;
             cursor: pointer;
             font-weight: 700;
-            font-size: .95rem;
+            font-size: .9rem;
             transition: var(--transition);
             color: var(--text-soft);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
+            white-space: nowrap;
         }
         .tool-toggle-btn.active {
             background: white;
@@ -317,10 +341,10 @@
             background: rgba(255, 255, 255, .5);
         }
         .tool-toggle-icon {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
         }
 
-        /* ================= PLATFORM COLORS ================= */
+        /* Platform buttons */
         .platform-btn[data-platform="youtube"] {
             background: rgba(255, 0, 51, .06);
             color: #ff0033;
@@ -361,7 +385,6 @@
             box-shadow: 0 14px 30px rgba(0, 0, 0, .2);
         }
 
-        /* ================= MAIN TOOL ================= */
         .tool-section {
             padding: 90px 0;
         }
@@ -406,15 +429,11 @@
             transition: var(--transition);
             font-weight: 600;
             color: var(--text-soft);
+            font-size: .9rem;
         }
         .platform-btn:hover {
             border-color: #cbd5e1;
             background: white;
-        }
-        .platform-btn.active {
-            background: linear-gradient(135deg, var(--accent-2), var(--accent));
-            color: white;
-            box-shadow: 0 12px 25px rgba(8, 145, 178, .22);
         }
         .badge {
             font-size: .72rem;
@@ -437,6 +456,9 @@
             font-size: 1.05rem;
             font-weight: 700;
             margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         .input-group {
             display: flex;
@@ -577,22 +599,7 @@
             transition: .5s ease;
         }
 
-        /* ================= QR GENERATOR STYLES ================= */
-        .qr-content-wrap {
-            display: none;
-            animation: fade .4s ease;
-        }
-        .qr-content-wrap.show {
-            display: block;
-        }
-        .media-content-wrap {
-            display: block;
-            animation: fade .4s ease;
-        }
-        .media-content-wrap.hidden {
-            display: none;
-        }
-
+        /* QR */
         .qr-main-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -805,7 +812,7 @@
             margin-top: 20px;
         }
 
-        /* ================= UPSCALER ================= */
+        /* Upscaler */
         .drop-zone {
             border: 2px dashed #cbd5e1;
             background: white;
@@ -822,6 +829,7 @@
         .drop-icon {
             font-size: 3rem;
             margin-bottom: 14px;
+            color: var(--accent);
         }
         .drop-zone input {
             display: none;
@@ -868,7 +876,7 @@
             flex-wrap: wrap;
         }
 
-        /* ================= ABOUT ================= */
+        /* About */
         .about {
             padding: 90px 0;
         }
@@ -923,7 +931,239 @@
             font-size: .9rem;
         }
 
-        /* ================= FOOTER ================= */
+        /* Financial */
+        .sheet-tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            padding: 0.5rem 0;
+        }
+        .sheet-tab {
+            padding: 5px 16px;
+            border-radius: 20px;
+            background: var(--gray-100);
+            border: 1px solid #dceef3;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .sheet-tab.active {
+            background: var(--cyan-600);
+            color: white;
+            border-color: var(--cyan-600);
+        }
+        .fin-hero-card {
+            background: linear-gradient(135deg, #ffffff, #f0ffff);
+            padding: 2rem;
+            border-radius: 30px;
+            border: 1px solid #dff3f5;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, .05);
+            margin-bottom: 1.5rem;
+        }
+        .fin-app-container {
+            display: flex;
+            gap: 1.8rem;
+            min-height: 60vh;
+        }
+        .fin-sidebar {
+            width: 290px;
+            flex-shrink: 0;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            border: 1px solid #e2eef5;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            height: fit-content;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .fin-content-panel {
+            flex: 1;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            border: 1px solid #e2eef5;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            min-width: 0;
+        }
+        .file-summary {
+            background: var(--cyan-50);
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+        }
+        .function-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .function-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            background: white;
+            border: 1px solid #deecf2;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.15s;
+            color: var(--gray-700);
+            text-align: left;
+        }
+        .function-btn:hover {
+            background: var(--cyan-100);
+            border-color: var(--cyan-500);
+        }
+        .function-btn.active {
+            background: var(--cyan-600);
+            color: white;
+            border-color: var(--cyan-600);
+            box-shadow: 0 2px 8px rgba(26, 126, 124, 0.3);
+        }
+        .search-box input {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid #cde3ed;
+            font-size: 0.85rem;
+            outline: none;
+        }
+        .search-box input:focus {
+            border-color: var(--cyan-500);
+            box-shadow: 0 0 0 3px var(--cyan-100);
+        }
+        .content-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            border-left: 4px solid var(--cyan-500);
+            padding-left: 14px;
+            color: var(--cyan-700);
+        }
+        .table-wrapper {
+            overflow-x: auto;
+            max-height: 450px;
+            overflow-y: auto;
+            border-radius: 12px;
+            border: 1px solid #e9f0f4;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        th {
+            background: #f5fafc;
+            padding: 10px 12px;
+            font-weight: 600;
+            color: var(--cyan-700);
+            border-bottom: 1px solid #d4e5ee;
+            white-space: nowrap;
+        }
+        td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #edf4f8;
+            white-space: nowrap;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .money-positive {
+            color: #1b8a6f;
+            font-weight: 500;
+        }
+        .chart-container {
+            width: 100%;
+            max-height: 300px;
+            margin-top: 0.5rem;
+        }
+        .expandable-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .expandable-item {
+            border: 1px solid #dceef3;
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+            transition: box-shadow 0.2s;
+        }
+        .expandable-item:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        .expandable-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: #f9fdfe;
+            cursor: pointer;
+            user-select: none;
+        }
+        .expandable-header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+        .toggle-icon {
+            font-size: 0.9rem;
+            transition: transform 0.2s;
+            color: var(--cyan-700);
+        }
+        .expanded .toggle-icon {
+            transform: rotate(90deg);
+        }
+        .expandable-details {
+            display: none;
+            border-top: 1px solid #e2eef5;
+            padding: 10px 16px;
+            background: #fafeff;
+        }
+        .expanded .expandable-details {
+            display: block;
+        }
+        .detail-table {
+            width: 100%;
+            font-size: 0.8rem;
+        }
+        .export-detail-btn {
+            margin-top: 6px;
+        }
+        .column-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+        .column-selector-toggle {
+            background: var(--cyan-100);
+            border: 1px solid var(--cyan-500);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .empty-content {
+            text-align: center;
+            padding: 3rem;
+            color: #7b9eaa;
+        }
+        .btn-small {
+            padding: 0.3rem 0.8rem;
+            font-size: 0.7rem;
+            border-radius: 20px;
+        }
+
+        /* Footer */
         .footer {
             background: #0f172a;
             color: #cbd5e1;
@@ -967,7 +1207,7 @@
             font-size: .9rem;
         }
 
-        /* ================= TOAST ================= */
+        /* Toast */
         .toast-container {
             position: fixed;
             top: 20px;
@@ -1019,13 +1259,14 @@
             }
         }
 
-        /* ================= RESPONSIVE ================= */
-        @media(max-width:980px) {
+        /* Responsive */
+        @media (max-width: 980px) {
             .hero-grid,
             .tool-grid,
             .about-grid,
             .footer-grid,
-            .qr-main-grid {
+            .qr-main-grid,
+            .fin-app-container {
                 grid-template-columns: 1fr;
             }
             .feature-strip {
@@ -1037,8 +1278,14 @@
             .image-compare {
                 grid-template-columns: 1fr;
             }
+            .fin-app-container {
+                flex-direction: column;
+            }
+            .fin-sidebar {
+                width: 100%;
+            }
         }
-        @media(max-width:720px) {
+        @media (max-width: 720px) {
             .nav-links {
                 display: none;
             }
@@ -1075,8 +1322,25 @@
             .qr-opt-item input[type="range"] {
                 width: 60px;
             }
+            /* Tool toggle stacks vertically on mobile */
+            .tool-toggle-wrap {
+                flex-direction: column;
+                gap: 6px;
+                padding: 8px;
+                border-radius: 18px;
+            }
+            .tool-toggle-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 14px 16px;
+                border-radius: 14px;
+                font-size: .85rem;
+            }
+            .tool-toggle-btn .tool-toggle-icon {
+                font-size: 1.1rem;
+            }
         }
-        @media(max-width:640px) {
+        @media (max-width: 640px) {
             .tool-card {
                 overflow: hidden;
             }
@@ -1092,12 +1356,6 @@
             .download-btns .btn {
                 width: 100%;
                 justify-content: center;
-            }
-            .platform-selector {
-                scrollbar-width: none;
-            }
-            .platform-selector::-webkit-scrollbar {
-                display: none;
             }
             .qr-action-buttons {
                 flex-direction: column;
@@ -1138,12 +1396,11 @@
     </style>
 </head>
 <body>
-
     <!-- NAVBAR -->
     <nav class="navbar">
         <div class="container nav-inner">
             <div class="logo">
-                <div class="logo-badge">S</div>
+                <div class="logo-badge"><i class="fa-solid fa-bolt"></i></div>
                 S-CONVERTER
             </div>
             <div class="nav-links">
@@ -1152,7 +1409,7 @@
                 <a href="#features">Features</a>
                 <a href="#contact">Contact</a>
             </div>
-            <a href="#tools" class="nav-cta">Start Converting</a>
+            <a href="#tools" class="nav-cta"><i class="fa-solid fa-play"></i> Start Now</a>
         </div>
     </nav>
 
@@ -1162,30 +1419,30 @@
             <div class="hero-grid">
                 <div>
                     <div class="hero-badge">
-                        <span></span>
-                        Fast • Clean • Professional Media Tools
+                        <span class="dot"></span>
+                        <i class="fa-solid fa-rocket"></i> Fast • Clean • Professional Media & Financial Tools
                     </div>
-                    <h1>Convert videos, upscale images & generate QR codes with a cleaner workflow.</h1>
-                    <p>S-CONVERTER is a modern all-in-one media utility designed for fast video downloading, format conversion, AI-powered image enhancement, and premium QR code generation — built with a clean experience focused on simplicity and performance.</p>
+                    <h1>Convert videos, upscale images, generate QR codes & analyze Excel reports with a cleaner workflow.</h1>
+                    <p>S-CONVERTER is a modern all-in-one utility designed for fast video downloading, format conversion, AI-powered image enhancement, premium QR code generation, and intelligent financial Excel analytics — built with a clean experience focused on simplicity and performance.</p>
                     <div class="hero-actions">
-                        <a href="#tools" class="btn btn-primary">Start Using Tools</a>
-                        <a href="#about" class="btn btn-secondary">Learn More</a>
+                        <a href="#tools" class="btn btn-primary"><i class="fa-solid fa-play"></i> Start Using Tools</a>
+                        <a href="#about" class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i> Learn More</a>
                     </div>
                     <div class="feature-strip" id="features">
                         <div class="feature-mini">
-                            <div class="mini-icon">⚡</div>
+                            <div class="mini-icon"><i class="fa-solid fa-bolt"></i></div>
                             <h4>Fast Processing</h4>
                             <p>Quick video fetching and optimized downloads for a smoother experience.</p>
                         </div>
                         <div class="feature-mini">
-                            <div class="mini-icon">🎞️</div>
+                            <div class="mini-icon"><i class="fa-solid fa-film"></i></div>
                             <h4>Multi Platform</h4>
                             <p>Supports YouTube, TikTok, Facebook, MP4 video, and MP3 audio formats.</p>
                         </div>
                         <div class="feature-mini">
-                            <div class="mini-icon">🖼️</div>
-                            <h4>AI Upscaling + QR</h4>
-                            <p>Enhance low-resolution images and generate crystal-clear QR codes.</p>
+                            <div class="mini-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                            <h4>AI Upscaling + QR + Finance</h4>
+                            <p>Enhance low-resolution images, generate crystal-clear QR codes, and analyze Excel statements.</p>
                         </div>
                     </div>
                 </div>
@@ -1194,8 +1451,8 @@
                         <div class="hero-preview">
                             <img src="https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?q=80&w=1400&auto=format&fit=crop" alt="preview">
                             <div class="hero-floating">
-                                <small>Current Workflow</small>
-                                <strong>4K AI + QR Ready</strong>
+                                <small><i class="fa-solid fa-circle-check" style="color:var(--success);"></i> Current Workflow</small>
+                                <strong>4K AI + QR + Finance Ready</strong>
                             </div>
                         </div>
                     </div>
@@ -1208,49 +1465,42 @@
     <section class="tool-section" id="tools">
         <div class="container">
             <div class="section-heading">
-                <h2>Professional Media Toolkit</h2>
-                <p>Download videos, convert audio, enhance images, and generate premium QR codes using a streamlined modern interface built for daily use.</p>
+                <h2><i class="fa-solid fa-screwdriver-wrench"></i> Professional Media & Financial Toolkit</h2>
+                <p>Download videos, convert audio, enhance images, generate premium QR codes, and perform intelligent Excel financial analysis — all from one modern interface.</p>
             </div>
             <div class="tool-card">
-
-                <!-- TOOL TOGGLE -->
+                <!-- TOOL TOGGLE with Font Awesome icons -->
                 <div class="tool-toggle-wrap">
                     <button class="tool-toggle-btn active" id="toggleMedia" onclick="switchTool('media')">
-                        <span class="tool-toggle-icon">🎞️</span> Media Converter
+                        <i class="fa-solid fa-video tool-toggle-icon"></i> Media Converter
                     </button>
                     <button class="tool-toggle-btn" id="toggleQR" onclick="switchTool('qr')">
-                        <span class="tool-toggle-icon">📱</span> QR Generator
+                        <i class="fa-solid fa-qrcode tool-toggle-icon"></i> QR Generator
+                    </button>
+                    <button class="tool-toggle-btn" id="toggleFinance" onclick="switchTool('finance')">
+                        <i class="fa-solid fa-chart-pie tool-toggle-icon"></i> Financial Reports
                     </button>
                 </div>
 
                 <!-- MEDIA CONVERTER CONTENT -->
-                <div class="media-content-wrap" id="mediaContent">
-                    <!-- PLATFORM -->
+                <div id="mediaContent">
                     <div class="platform-selector">
                         <button class="platform-btn active" id="btnYt" data-platform="youtube">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8ZM9.6 15.5v-7L16 12l-6.4 3.5Z"/></svg>
-                            YouTube
-                            <span class="badge">MP4 / MP3</span>
+                            <i class="fa-brands fa-youtube" style="font-size:1.3rem;"></i> YouTube <span class="badge">MP4 / MP3</span>
                         </button>
                         <button class="platform-btn" id="btnFb" data-platform="facebook">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9v-2.9h2.5V9.7c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.7-1.6 1.5v1.8h2.8l-.5 2.9h-2.3v7A10 10 0 0 0 22 12"/></svg>
-                            Facebook
-                            <span class="badge">MP4</span>
+                            <i class="fa-brands fa-facebook" style="font-size:1.3rem;"></i> Facebook <span class="badge">MP4</span>
                         </button>
                         <button class="platform-btn" id="btnTt" data-platform="tiktok">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 8.7a7.8 7.8 0 0 1-4.6-1.5v6.9a5.6 5.6 0 1 1-5.6-5.6c.3 0 .7 0 1 .1v2.8a2.7 2.7 0 1 0 1.8 2.6V2h2.8a4.9 4.9 0 0 0 4.6 4.6v2.1Z"/></svg>
-                            TikTok
-                            <span class="badge">MP4</span>
+                            <i class="fa-brands fa-tiktok" style="font-size:1.3rem;"></i> TikTok <span class="badge">MP4</span>
                         </button>
                     </div>
-
                     <div class="tool-grid">
-                        <!-- VIDEO PANEL -->
                         <div class="panel">
-                            <div class="panel-title" id="converterTitle">YouTube Video Converter</div>
+                            <div class="panel-title" id="converterTitle"><i class="fa-brands fa-youtube"></i> YouTube Video Converter</div>
                             <div class="input-group">
                                 <input type="text" id="videoUrl" placeholder="Paste your video link here...">
-                                <button class="btn fetch-btn" id="btnFetch"><span id="fetchText">Fetch Info</span></button>
+                                <button class="btn fetch-btn" id="btnFetch"><span id="fetchText"><i class="fa-solid fa-magnifying-glass"></i> Fetch Info</span></button>
                             </div>
                             <div class="format-selector" id="formatSelector">
                                 <button class="format-option selected" data-format="mp4">MP4</button>
@@ -1265,18 +1515,17 @@
                                         <h3 id="previewTitle">Video Title</h3>
                                         <div class="preview-meta" id="previewMeta">Duration: -- | Format: --</div>
                                         <div class="download-btns">
-                                            <button class="btn btn-download" id="btnDownload">Download</button>
-                                            <button class="btn btn-outline" id="btnClearResult">Clear</button>
+                                            <button class="btn btn-download" id="btnDownload"><i class="fa-solid fa-download"></i> Download</button>
+                                            <button class="btn btn-outline" id="btnClearResult"><i class="fa-solid fa-xmark"></i> Clear</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- UPSCALER -->
                         <div class="panel">
-                            <div class="panel-title">AI Image Upscaler</div>
+                            <div class="panel-title"><i class="fa-solid fa-image"></i> AI Image Upscaler</div>
                             <div class="drop-zone" id="dropZone">
-                                <div class="drop-icon">🖼️</div>
+                                <div class="drop-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
                                 <h3 style="margin-bottom:10px;">Upload an Image</h3>
                                 <p style="color:var(--text-light); line-height:1.8;">Drag & drop or select JPG, PNG, or WebP files to upscale your image into higher resolution quality.</p>
                                 <input type="file" id="imageInput" accept="image/*">
@@ -1295,9 +1544,9 @@
                                     </div>
                                 </div>
                                 <div class="upscale-actions">
-                                    <button class="btn btn-primary" id="btnUpscale">AI Upscale to 4K</button>
-                                    <button class="btn btn-download" id="btnDownloadUpscaled" style="display:none;">Download Image</button>
-                                    <button class="btn btn-outline" id="btnClearImage">Clear</button>
+                                    <button class="btn btn-primary" id="btnUpscale"><i class="fa-solid fa-arrow-up-wide-short"></i> AI Upscale to 4K</button>
+                                    <button class="btn btn-download" id="btnDownloadUpscaled" style="display:none;"><i class="fa-solid fa-download"></i> Download Image</button>
+                                    <button class="btn btn-outline" id="btnClearImage"><i class="fa-solid fa-xmark"></i> Clear</button>
                                 </div>
                             </div>
                         </div>
@@ -1305,93 +1554,85 @@
                 </div>
 
                 <!-- QR GENERATOR CONTENT -->
-                <div class="qr-content-wrap" id="qrContent">
+                <div id="qrContent" style="display:none;">
                     <div class="qr-main-grid">
-                        <!-- QR OPTIONS -->
                         <div class="qr-options-panel">
-                            <div class="panel-title">🔗 QR Code Settings</div>
+                            <div class="panel-title"><i class="fa-solid fa-qrcode"></i> QR Code Settings</div>
                             <div class="input-group" style="margin-bottom:0;">
                                 <input type="text" id="qrLinkInput" placeholder="https://example.com or any text" value="https://example.com">
-                                <button class="btn fetch-btn" id="qrGenerateBtn">Generate</button>
+                                <button class="btn fetch-btn" id="qrGenerateBtn"><i class="fa-solid fa-bolt"></i> Generate</button>
                             </div>
                             <div class="qr-opt-row">
-                                <div class="qr-opt-item">
-                                    <span>📐 Size</span>
-                                    <input type="number" id="qrSizeInput" min="120" max="600" value="400">
-                                </div>
-                                <div class="qr-opt-item">
-                                    <span>🔄 Round</span>
-                                    <input type="range" id="qrBorderRadiusSlider" min="0" max="30" value="18">
-                                    <span id="qrBorderRadiusVal" style="font-weight:700;">18%</span>
-                                </div>
-                                <div class="qr-opt-item">
-                                    <span>▣ Shape</span>
-                                    <select id="qrModuleShape">
-                                        <option value="square">Square</option>
-                                        <option value="circle">Dots</option>
-                                        <option value="rounded">Rounded</option>
-                                        <option value="diamond">Diamond</option>
-                                    </select>
-                                </div>
+                                <div class="qr-opt-item"><span><i class="fa-solid fa-expand"></i> Size</span><input type="number" id="qrSizeInput" min="120" max="600" value="400"></div>
+                                <div class="qr-opt-item"><span><i class="fa-solid fa-border-all"></i> Round</span><input type="range" id="qrBorderRadiusSlider" min="0" max="30" value="18"><span id="qrBorderRadiusVal" style="font-weight:700;">18%</span></div>
+                                <div class="qr-opt-item"><span><i class="fa-solid fa-shapes"></i> Shape</span><select id="qrModuleShape"><option value="square">Square</option><option value="circle">Dots</option><option value="rounded">Rounded</option><option value="diamond">Diamond</option></select></div>
                             </div>
                             <div class="qr-opt-row">
-                                <div class="qr-opt-item">
-                                    <span>💡 Light</span>
-                                    <input type="color" id="qrLightColor" value="#ffffff">
-                                </div>
-                                <div class="qr-opt-item" id="qrDarkColorSingle">
-                                    <span>⬤ Dark</span>
-                                    <input type="color" id="qrDarkColor" value="#000000">
-                                </div>
-                                <div class="qr-toggle-wrap" id="qrGradientToggle">
-                                    <div class="qr-toggle-switch" id="qrGradientSwitch"></div>
-                                    Gradient
-                                </div>
-                                <div id="qrGradientColors" style="display:none; gap:6px;" class="qr-opt-item">
-                                    <span>🌈 From</span>
-                                    <input type="color" id="qrGradColor1" value="#0891b2">
-                                    <span>to</span>
-                                    <input type="color" id="qrGradColor2" value="#06b6d4">
-                                </div>
+                                <div class="qr-opt-item"><span><i class="fa-solid fa-sun"></i> Light</span><input type="color" id="qrLightColor" value="#ffffff"></div>
+                                <div class="qr-opt-item" id="qrDarkColorSingle"><span><i class="fa-solid fa-moon"></i> Dark</span><input type="color" id="qrDarkColor" value="#000000"></div>
+                                <div class="qr-toggle-wrap" id="qrGradientToggle"><div class="qr-toggle-switch" id="qrGradientSwitch"></div>Gradient</div>
+                                <div id="qrGradientColors" style="display:none; gap:6px;" class="qr-opt-item"><span><i class="fa-solid fa-palette"></i> From</span><input type="color" id="qrGradColor1" value="#0891b2"><span>to</span><input type="color" id="qrGradColor2" value="#06b6d4"></div>
                             </div>
                             <div class="qr-logo-section" id="qrLogoSection">
-                                <label class="qr-logo-upload" for="qrLogoFileInput">🖼️ Add Logo</label>
+                                <label class="qr-logo-upload" for="qrLogoFileInput"><i class="fa-solid fa-image"></i> Add Logo</label>
                                 <input type="file" id="qrLogoFileInput" accept="image/png" style="display:none;">
                                 <span class="qr-logo-info" id="qrLogoInfo">Transparent PNG recommended</span>
-                                <button class="qr-logo-remove" id="qrLogoRemoveBtn">✕ Remove</button>
+                                <button class="qr-logo-remove" id="qrLogoRemoveBtn"><i class="fa-solid fa-xmark"></i> Remove</button>
                                 <div class="qr-logo-controls" id="qrLogoControls">
-                                    <div class="qr-opt-item" id="qrLogoSizeGroup">
-                                        <span>Size</span>
-                                        <input type="range" id="qrLogoSizeSlider" min="10" max="35" value="20" step="1">
-                                        <span id="qrLogoSizeVal" style="font-weight:700;">20%</span>
-                                    </div>
-                                    <div class="qr-opt-item" id="qrWhiteRingGroup">
-                                        <span>Ring</span>
-                                        <input type="range" id="qrWhiteRingSlider" min="0" max="15" value="4" step="1">
-                                        <span id="qrWhiteRingVal" style="font-weight:700;">4%</span>
-                                    </div>
-                                    <div class="qr-opt-item" id="qrLogoBgGroup">
-                                        <span>Bg</span>
-                                        <input type="color" id="qrLogoBgColor" value="#ffffff">
-                                    </div>
+                                    <div class="qr-opt-item" id="qrLogoSizeGroup"><span>Size</span><input type="range" id="qrLogoSizeSlider" min="10" max="35" value="20" step="1"><span id="qrLogoSizeVal" style="font-weight:700;">20%</span></div>
+                                    <div class="qr-opt-item" id="qrWhiteRingGroup"><span>Ring</span><input type="range" id="qrWhiteRingSlider" min="0" max="15" value="4" step="1"><span id="qrWhiteRingVal" style="font-weight:700;">4%</span></div>
+                                    <div class="qr-opt-item" id="qrLogoBgGroup"><span>Bg</span><input type="color" id="qrLogoBgColor" value="#ffffff"></div>
                                     <button class="btn btn-outline" id="qrMatchLogoColorBtn" style="padding:8px 12px; font-size:.75rem;">Match QR</button>
                                 </div>
                             </div>
                         </div>
-                        <!-- QR PREVIEW -->
                         <div class="qr-preview-panel">
-                            <div class="qr-preview-title">✦ LIVE QR CODE ✦</div>
+                            <div class="qr-preview-title"><i class="fa-solid fa-eye"></i> LIVE QR CODE</div>
                             <div id="qrcode"></div>
                             <div class="qr-link-badge" id="qrLinkPreview">example.com</div>
                             <div class="qr-action-buttons">
-                                <button class="btn btn-download" id="qrDownloadPNG">📥 PNG</button>
-                                <button class="btn btn-download" id="qrDownloadSVG">🎨 SVG</button>
-                                <button class="btn btn-primary" id="qrCopyLink">📋 Copy Link</button>
+                                <button class="btn btn-download" id="qrDownloadPNG"><i class="fa-solid fa-file-image"></i> PNG</button>
+                                <button class="btn btn-download" id="qrDownloadSVG"><i class="fa-solid fa-vector-square"></i> SVG</button>
+                                <button class="btn btn-primary" id="qrCopyLink"><i class="fa-solid fa-copy"></i> Copy Link</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- FINANCIAL REPORTS CONTENT -->
+                <div id="financeContent" style="display:none;">
+                    <div class="fin-hero-card">
+                        <h1 style="font-size:2rem;"><i class="fa-solid fa-file-excel"></i> Enterprise Financial Analytics & Excel Intelligence</h1>
+                        <p style="color:#6a8492;">Upload banking statements, transaction reports, and Excel financial data to instantly generate professional analytics, category insights, charts, and export-ready reports directly inside your browser.</p>
+                    </div>
+                    <div id="sheetTabsContainer" class="sheet-tabs" style="display:none;"></div>
+                    <div class="fin-app-container">
+                        <aside class="fin-sidebar">
+                            <div id="fileInfo" class="file-summary"><p><i class="fa-solid fa-folder-open"></i> <strong>No file loaded</strong></p></div>
+                            <div class="search-box"><input type="text" id="globalSearch" placeholder="&#x1F50D; Filter by description..." disabled></div>
+                            <div class="function-group" id="functionButtons">
+                                <button class="function-btn active" data-view="total"><i class="fa-solid fa-coins"></i> Total Money In (SUM)</button>
+                                <button class="function-btn" data-view="daily"><i class="fa-solid fa-calendar-day"></i> Daily Summary (expandable)</button>
+                                <button class="function-btn" data-view="monthly"><i class="fa-solid fa-calendar-alt"></i> Monthly Summary</button>
+                                <button class="function-btn" data-view="category"><i class="fa-solid fa-tags"></i> Category Breakdown</button>
+                                <button class="function-btn" data-view="transactions"><i class="fa-solid fa-list"></i> All Transactions</button>
+                            </div>
+                            <div style="font-size:0.7rem; color:#6b8f99;"><i class="fa-solid fa-shield-halved"></i> All calculations run offline</div>
+                            <div style="margin-top:1rem;">
+                                <label for="fileUpload" class="btn btn-primary" style="width:100%; justify-content:center;"><i class="fa-solid fa-upload"></i> Import Excel</label>
+                                <input type="file" id="fileUpload" accept=".xlsx,.xls,.csv" hidden>
+                                <button id="exportBtn" class="btn btn-outline" style="width:100%; margin-top:8px; display:none;"><i class="fa-solid fa-download"></i> Export View</button>
+                            </div>
+                        </aside>
+                        <main class="fin-content-panel" id="contentPanel">
+                            <div class="empty-content">
+                                <div style="font-size:3rem;"><i class="fa-solid fa-file-csv"></i></div>
+                                <h3>Import an Excel statement</h3>
+                                <p>All rows will be automatically detected and processed.</p>
+                            </div>
+                        </main>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1402,13 +1643,13 @@
             <div class="about-grid">
                 <div class="about-image"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1400&auto=format&fit=crop" alt=""></div>
                 <div class="about-content">
-                    <h2>Built for a cleaner and more professional media experience.</h2>
-                    <p>S-CONVERTER was designed to simplify media conversion without cluttered layouts or complicated workflows. Every section is structured for fast access, smooth interaction, and modern visual consistency.</p>
-                    <p>Whether you are downloading videos, extracting audio, enhancing image quality, or generating QR codes, the platform focuses on performance, usability, and a seamless user experience across desktop and mobile devices.</p>
+                    <h2><i class="fa-solid fa-building-columns"></i> Built for a cleaner and more professional media & financial experience.</h2>
+                    <p>S-CONVERTER was designed to simplify media conversion and financial analytics without cluttered layouts. Every section is structured for fast access and modern visual consistency.</p>
+                    <p>Whether you are downloading videos, extracting audio, enhancing image quality, generating QR codes, or analyzing Excel statements, the platform focuses on performance, usability, and a seamless user experience across devices.</p>
                     <div class="stats">
-                        <div class="stat"><strong>4K</strong><span>AI Upscaling Support</span></div>
+                        <div class="stat"><strong><i class="fa-solid fa-4"></i>K</strong><span>AI Upscaling Support</span></div>
                         <div class="stat"><strong>3+</strong><span>Supported Platforms</span></div>
-                        <div class="stat"><strong>QR</strong><span>Premium QR Generator</span></div>
+                        <div class="stat"><strong>QR+Excel</strong><span>Premium QR & Financial Analytics</span></div>
                     </div>
                 </div>
             </div>
@@ -1420,10 +1661,10 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <h3>S-CONVERTER</h3>
-                    <p>Modern media conversion, AI image enhancement, and QR generation tools built with a focus on simplicity, speed, and professional design.</p>
+                    <h3><i class="fa-solid fa-bolt"></i> S-CONVERTER</h3>
+                    <p>Modern media conversion, AI image enhancement, QR generation, and financial Excel analytics tools built with a focus on simplicity, speed, and professional design.</p>
                 </div>
-                <div class="footer-links"><h4>Platform</h4><a href="#">Converter</a><a href="#">AI Upscaler</a><a href="#">QR Generator</a></div>
+                <div class="footer-links"><h4>Platform</h4><a href="#">Converter</a><a href="#">AI Upscaler</a><a href="#">QR Generator</a><a href="#">Financial Reports</a></div>
                 <div class="footer-links"><h4>Resources</h4><a href="#">Help Center</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
                 <div class="footer-links"><h4>Contact</h4><a href="#">nopvisal57@gmail.com</a><a href="#">099 941 633</a><a href="#">Nop Visal</a></div>
             </div>
@@ -1449,7 +1690,6 @@
                 isProcessing: false,
             };
             const BACKEND = 'https://backend-eiwm.onrender.com';
-
             const $ = (s) => document.querySelector(s);
             const dom = {
                 btnYt: $('#btnYt'),
@@ -1570,8 +1810,7 @@
                         if (!resp.ok) throw new Error((await resp.json()).error);
                         data = await resp.json();
                     } else {
-                        const resp = await fetch(
-                            `${BACKEND}/api/info?url=${encodeURIComponent(url)}&format=${state.format}`);
+                        const resp = await fetch(`${BACKEND}/api/info?url=${encodeURIComponent(url)}&format=${state.format}`);
                         if (!resp.ok) throw new Error((await resp.json()).error);
                         data = await resp.json();
                     }
@@ -1605,8 +1844,7 @@
                     const a = document.createElement('a');
                     a.href = blobUrl;
                     const ext = state.format === 'mp3' ? 'mp3' : 'mp4';
-                    const name = (state.videoInfo?.title || 'download').replace(/[^a-zA-Z0-9\s]/g, '').substring(0, 60)
-                        .trim() || 'video';
+                    const name = (state.videoInfo?.title || 'download').replace(/[^a-zA-Z0-9\s]/g, '').substring(0, 60).trim() || 'video';
                     a.download = `${name}.${ext}`;
                     document.body.appendChild(a);
                     a.click();
@@ -1667,8 +1905,7 @@
                             file };
                         state.upscaledImageData = null;
                         dom.originalImage.src = e.target.result;
-                        dom.originalRes.textContent =
-                            `${img.width} × ${img.height} px (${(file.size/1024).toFixed(1)} KB)`;
+                        dom.originalRes.textContent = `${img.width} × ${img.height} px (${(file.size/1024).toFixed(1)} KB)`;
                         dom.upscaledImage.src = '';
                         dom.upscaledRes.textContent = 'Not yet upscaled';
                         dom.imagePreviewArea.classList.add('show');
@@ -1685,8 +1922,7 @@
             async function loadUpscaler() {
                 if (upscaler) return upscaler;
                 if (modelLoading) {
-                    await new Promise(resolve => { const check = setInterval(() => { if (upscaler || !
-                            modelLoading) { clearInterval(check);
+                    await new Promise(resolve => { const check = setInterval(() => { if (upscaler || !modelLoading) { clearInterval(check);
                             resolve(); } }, 200); });
                     return upscaler;
                 }
@@ -1865,8 +2101,7 @@
                 if (!state.upscaledImageData) return showToast('Upscale first.', 'error');
                 const a = document.createElement('a');
                 a.href = state.upscaledImageData.src;
-                a.download =
-                    `upscaled_4k_${state.upscaledImageData.width}x${state.upscaledImageData.height}.jpg`;
+                a.download = `upscaled_4k_${state.upscaledImageData.width}x${state.upscaledImageData.height}.jpg`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -2075,8 +2310,8 @@
                 document.body.appendChild(tempDiv);
                 let qr;
                 try {
-                    qr = new QRCode(tempDiv, { text, width: 256, height: 256, colorDark: '#000',
-                        colorLight: '#fff', correctLevel: QRCode.CorrectLevel.H });
+                    qr = new QRCode(tempDiv, { text, width: 256, height: 256, colorDark: '#000', colorLight: '#fff',
+                        correctLevel: QRCode.CorrectLevel.H });
                 } catch {
                     document.body.removeChild(tempDiv);
                     return null;
@@ -2098,8 +2333,7 @@
 
                 const matrixData = computeQRMatrix(raw);
                 if (!matrixData) {
-                    qrDom.qrcodeContainer.innerHTML =
-                        '<div style="padding:30px;color:#b91c1c;">⚠️ Invalid content</div>';
+                    qrDom.qrcodeContainer.innerHTML = '<div style="padding:30px;color:#b91c1c;">⚠️ Invalid content</div>';
                     qrState.mainCanvas = null;
                     return;
                 }
@@ -2159,8 +2393,8 @@
                                 path.lineTo(x + highResModSize - cr, y);
                                 path.arcTo(x + highResModSize, y, x + highResModSize, y + cr, cr);
                                 path.lineTo(x + highResModSize, y + highResModSize - cr);
-                                path.arcTo(x + highResModSize, y + highResModSize, x + highResModSize - cr, y +
-                                    highResModSize, cr);
+                                path.arcTo(x + highResModSize, y + highResModSize, x + highResModSize - cr, y + highResModSize,
+                                    cr);
                                 path.lineTo(x + cr, y + highResModSize);
                                 path.arcTo(x, y + highResModSize, x, y + highResModSize - cr, cr);
                                 path.lineTo(x, y + cr);
@@ -2230,8 +2464,7 @@
                 fctx.clip();
                 fctx.drawImage(canvas, 0, 0, displaySize, displaySize);
 
-                while (qrDom.qrcodeContainer.firstChild) qrDom.qrcodeContainer.removeChild(qrDom.qrcodeContainer
-                    .firstChild);
+                while (qrDom.qrcodeContainer.firstChild) qrDom.qrcodeContainer.removeChild(qrDom.qrcodeContainer.firstChild);
                 qrDom.qrcodeContainer.appendChild(finalCanvas);
                 qrState.mainCanvas = canvas;
             }
@@ -2267,8 +2500,7 @@
             }
 
             function downloadSVG() {
-                if (!qrState.currentModuleMatrix || !qrState.currentRawData) { showToast('Generate QR first',
-                    true); return; }
+                if (!qrState.currentModuleMatrix || !qrState.currentRawData) { showToast('Generate QR first', true); return; }
                 const displaySize = parseInt(qrDom.sizeInput.value) || 400;
                 const borderRadiusPercent = parseInt(qrDom.borderRadiusSlider.value) || 18;
                 const borderRadiusPx = (borderRadiusPercent / 100) * (displaySize / 2);
@@ -2306,8 +2538,7 @@
                                 const rad = modSize * 0.4;
                                 d += `M ${cx} ${cy - rad} A ${rad} ${rad} 0 1 1 ${cx - 0.01} ${cy - rad} Z `;
                             } else if (moduleShape === 'diamond') {
-                                d +=
-                                    `M ${cx} ${y} L ${x + modSize} ${cy} L ${cx} ${y + modSize} L ${x} ${cy} Z `;
+                                d += `M ${cx} ${y} L ${x + modSize} ${cy} L ${cx} ${y + modSize} L ${x} ${cy} Z `;
                             } else if (moduleShape === 'rounded') {
                                 const cr = modSize * 0.4;
                                 d +=
@@ -2363,11 +2594,10 @@
 
             function copyLink() {
                 if (!qrState.currentRawData) { showToast('No link', true); return; }
-                navigator.clipboard.writeText(qrState.currentRawData).then(() => showToast('🔗 Link copied!'))
-                    .catch(() => showToast('Copy failed', true));
+                navigator.clipboard.writeText(qrState.currentRawData).then(() => showToast('🔗 Link copied!')).catch(
+                    () => showToast('Copy failed', true));
             }
 
-            // Event listeners
             qrDom.generateBtn.addEventListener('click', renderQR);
             qrDom.linkInput.addEventListener('keypress', e => { if (e.key === 'Enter') renderQR(); });
             qrDom.sizeInput.addEventListener('change', () => { if (qrState.currentRawData) renderQR(); });
@@ -2397,7 +2627,6 @@
             qrDom.downloadSvgBtn.addEventListener('click', downloadSVG);
             qrDom.copyLinkBtn.addEventListener('click', copyLink);
 
-            // Initialize
             updateGradientUI();
             updateLogoUI();
             qrDom.borderRadiusVal.textContent = qrDom.borderRadiusSlider.value + '%';
@@ -2407,34 +2636,619 @@
         })();
     </script>
 
+    <!-- ==================== FINANCIAL ANALYTICS SCRIPT ==================== -->
+    <script>
+        (function() {
+            let workbook = null;
+            let sheetNames = [];
+            let currentSheetName = '';
+            let rawTransactions = [];
+            let filteredTransactions = [];
+            let allHeaders = [];
+            let currentView = 'total';
+            let chartInstance = null;
+            let selectedColumns = new Set();
+
+            const fileInput = document.getElementById('fileUpload');
+            const exportBtn = document.getElementById('exportBtn');
+            const fileInfoDiv = document.getElementById('fileInfo');
+            const globalSearch = document.getElementById('globalSearch');
+            const functionButtons = document.getElementById('functionButtons');
+            const contentPanel = document.getElementById('contentPanel');
+            const sheetTabsContainer = document.getElementById('sheetTabsContainer');
+
+            function parseAmount(val) {
+                if (val === undefined || val === null || val === '') return 0;
+                if (typeof val === 'number') return val;
+                let str = String(val).replace(/[^\d.-]/g, '');
+                let num = parseFloat(str);
+                return isNaN(num) ? 0 : num;
+            }
+
+            function parseDateFlexible(val) {
+                if (!val) return null;
+                if (val instanceof Date && !isNaN(val.getTime())) return val;
+                if (typeof val === 'number') {
+                    let d = XLSX.SSF.parse_date_code(val);
+                    if (d) return new Date(d.y, d.m - 1, d.d);
+                }
+                let str = String(val).trim().replace(/(\d+)(st|nd|rd|th)/gi, '$1');
+                let d = new Date(str);
+                if (!isNaN(d.getTime())) return d;
+                let parts = str.split(/[\s,-/]+/);
+                if (parts.length >= 3) {
+                    let months = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10,
+                        dec: 11 };
+                    for (let i = 0; i < parts.length; i++) {
+                        let m = months[parts[i].toLowerCase().substring(0, 3)];
+                        if (m !== undefined) {
+                            let day = parseInt(parts[i + 1]) || parseInt(parts[i - 1]) || parseInt(parts[(i + 2) % 3]);
+                            let year = parseInt(parts.find(p => p.length === 4)) || new Date().getFullYear();
+                            if (!isNaN(day) && !isNaN(year)) return new Date(year, m, day);
+                        }
+                    }
+                }
+                return null;
+            }
+
+            function extractCategory(desc) {
+                if (!desc) return "Other";
+                const upper = desc.toUpperCase();
+                if (upper.includes("PAYMENT FROM")) {
+                    let match = desc.match(/PAYMENT FROM\s+([A-Za-z0-9 ]+?)(?:\s|\(|$)/i);
+                    return match ? "📥 " + match[1].trim().substring(0, 30) : "Payment In";
+                }
+                if (upper.includes("FUNDS RECEIVED FROM")) {
+                    let match = desc.match(/FUNDS RECEIVED FROM\s+([A-Za-z0-9 ]+?)(?:\s|\(|$)/i);
+                    return match ? "💰 " + match[1].trim().substring(0, 30) : "Funds Received";
+                }
+                if (upper.includes("FUNDS TRANSFERRED TO")) {
+                    let match = desc.match(/FUNDS TRANSFERRED TO\s+([A-Za-z0-9 ]+?)(?:\s|\(|$)/i);
+                    return match ? "💸 Transfer To " + match[1].trim().substring(0, 25) : "Transfer Out";
+                }
+                if (upper.includes("PURCHASE AT")) return "🛒 Purchase";
+                if (upper.includes("INTEREST")) return "⭐ Interest";
+                if (upper.includes("WITHDRAWAL")) return "🏧 Withdrawal";
+                return "📄 " + desc.split(' ').slice(0, 3).join(' ').substring(0, 25);
+            }
+
+            function escapeHtml(text) {
+                return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            }
+
+            function detectColumns(rows, headerIdx) {
+                const headers = rows[headerIdx].map(c => String(c || '').trim());
+                const dataRows = rows.slice(headerIdx + 1).filter(r => r && r.some(cell => cell !== '' && cell !==
+                    undefined));
+                if (dataRows.length === 0) return { dateIdx: -1, descIdx: -1, moneyIdx: -1, headers };
+
+                let dateIdx = -1,
+                    descIdx = -1,
+                    moneyIdx = -1;
+                headers.forEach((h, i) => {
+                    const l = h.toLowerCase();
+                    if (dateIdx === -1 && (l.includes('date') || l.includes('day'))) dateIdx = i;
+                    if (descIdx === -1 && (l.includes('transaction') || l.includes('description') || l.includes(
+                            'details') || l.includes('narration'))) descIdx = i;
+                    if (moneyIdx === -1 && (l.includes('money in') || l === 'credit' || l === 'cr' || l.includes(
+                            'deposit') || l.includes('amount'))) moneyIdx = i;
+                });
+
+                if (moneyIdx === -1) {
+                    const sampleSize = Math.min(50, dataRows.length);
+                    const numericCounts = Array(headers.length).fill(0);
+                    for (let i = 0; i < sampleSize; i++) {
+                        const row = dataRows[i];
+                        for (let j = 0; j < headers.length; j++) {
+                            const val = parseAmount(row[j]);
+                            if (val > 0) numericCounts[j]++;
+                        }
+                    }
+                    let maxCount = 0;
+                    for (let j = 0; j < headers.length; j++) {
+                        if (j === dateIdx) continue;
+                        if (numericCounts[j] > maxCount) {
+                            maxCount = numericCounts[j];
+                            moneyIdx = j;
+                        }
+                    }
+                }
+
+                if (descIdx === -1) {
+                    let maxLen = 0;
+                    for (let j = 0; j < headers.length; j++) {
+                        if (j === dateIdx || j === moneyIdx) continue;
+                        const sample = dataRows.slice(0, 10).map(r => String(r[j] || '').length).reduce((a, b) => a + b,
+                        0);
+                        if (sample > maxLen) {
+                            maxLen = sample;
+                            descIdx = j;
+                        }
+                    }
+                }
+
+                return { dateIdx, descIdx, moneyIdx, headers };
+            }
+
+            function parseSheetToTransactions(sheet) {
+                const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
+                if (!rows || rows.length < 2) return { transactions: [], headers: [] };
+
+                let headerIdx = 0;
+                for (let i = 0; i < Math.min(100, rows.length); i++) {
+                    const row = rows[i];
+                    if (!row) continue;
+                    const rowStr = row.map(c => String(c || '').toLowerCase()).join(' ');
+                    if (rowStr.includes('date') || rowStr.includes('transaction') || rowStr.includes('description') ||
+                        rowStr.includes('money') || rowStr.includes('amount')) {
+                        headerIdx = i;
+                        break;
+                    }
+                }
+
+                const { dateIdx, descIdx, moneyIdx, headers } = detectColumns(rows, headerIdx);
+                if (dateIdx === -1 && moneyIdx === -1) return { transactions: [], headers };
+
+                const normalizedHeaders = headers.map((h, i) => h || `Column ${i+1}`);
+                const transactions = [];
+                for (let i = headerIdx + 1; i < rows.length; i++) {
+                    const row = rows[i];
+                    if (!row || row.length === 0) continue;
+                    const dateVal = dateIdx !== -1 ? row[dateIdx] : null;
+                    if (!dateVal) continue;
+                    const dateObj = parseDateFlexible(dateVal);
+                    if (!dateObj || isNaN(dateObj.getTime())) continue;
+                    const description = (descIdx !== -1 && row[descIdx]) ? String(row[descIdx]).trim() : '';
+                    const moneyIn = parseAmount(moneyIdx !== -1 ? row[moneyIdx] : 0);
+                    const rowData = {};
+                    for (let j = 0; j < normalizedHeaders.length; j++) {
+                        rowData[normalizedHeaders[j]] = row[j] !== undefined ? row[j] : '';
+                    }
+                    transactions.push({
+                        dateStr: dateObj.toISOString().slice(0, 10),
+                        description,
+                        moneyIn,
+                        category: extractCategory(description),
+                        rowData
+                    });
+                }
+                return { transactions, headers: normalizedHeaders };
+            }
+
+            function loadSheet(sheetName) {
+                const sheet = workbook.Sheets[sheetName];
+                const { transactions, headers } = parseSheetToTransactions(sheet);
+                rawTransactions = transactions;
+                allHeaders = headers;
+                filteredTransactions = [...rawTransactions];
+                selectedColumns = new Set(['Date', 'Description', 'Money In', 'Category']);
+                updateFileInfo();
+                renderSheetTabs();
+                if (rawTransactions.length) {
+                    setActiveView('total');
+                    exportBtn.style.display = 'inline-flex';
+                } else {
+                    contentPanel.innerHTML = '<div class="empty-content">⚠️ No valid transactions found in this sheet.</div>';
+                    exportBtn.style.display = 'none';
+                }
+            }
+
+            function renderSheetTabs() {
+                if (sheetNames.length <= 1) {
+                    sheetTabsContainer.style.display = 'none';
+                    return;
+                }
+                sheetTabsContainer.style.display = 'flex';
+                sheetTabsContainer.innerHTML = sheetNames.map(name =>
+                    `<div class="sheet-tab ${name === currentSheetName ? 'active' : ''}" data-sheet="${name}">${name}</div>`
+                ).join('');
+                document.querySelectorAll('.sheet-tab').forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        const name = this.dataset.sheet;
+                        if (name !== currentSheetName) {
+                            currentSheetName = name;
+                            loadSheet(name);
+                        }
+                    });
+                });
+            }
+
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (evt) => {
+                    try {
+                        const data = new Uint8Array(evt.target.result);
+                        workbook = XLSX.read(data, { type: 'array' });
+                        sheetNames = workbook.SheetNames;
+                        if (sheetNames.length === 0) throw new Error("No sheets");
+                        currentSheetName = sheetNames[0];
+                        loadSheet(currentSheetName);
+                    } catch (err) {
+                        alert('Error: ' + err.message);
+                        resetAll();
+                    }
+                };
+                reader.readAsArrayBuffer(file);
+            });
+
+            function resetAll() {
+                workbook = null;
+                sheetNames = [];
+                rawTransactions = [];
+                filteredTransactions = [];
+                allHeaders = [];
+                updateFileInfo();
+                contentPanel.innerHTML = '<div class="empty-content">❌ Unable to parse file.</div>';
+                sheetTabsContainer.style.display = 'none';
+                exportBtn.style.display = 'none';
+            }
+
+            function applyGlobalFilter() {
+                const kw = globalSearch.value.trim().toLowerCase();
+                filteredTransactions = kw ? rawTransactions.filter(t => t.description.toLowerCase().includes(kw) || t
+                    .category.toLowerCase().includes(kw)) : [...rawTransactions];
+                renderCurrentView();
+            }
+
+            function getDailyTotals(data) {
+                const map = new Map();
+                data.forEach(t => {
+                    const k = t.dateStr;
+                    if (!map.has(k)) map.set(k, { date: k, totalIn: 0, count: 0, transactions: [] });
+                    let e = map.get(k);
+                    e.totalIn += t.moneyIn;
+                    e.count++;
+                    e.transactions.push(t);
+                });
+                return Array.from(map.values()).sort((a, b) => a.date.localeCompare(b.date));
+            }
+
+            function getMonthlyTotals(data) {
+                const map = new Map();
+                data.forEach(t => {
+                    const [y, m] = t.dateStr.split('-');
+                    const key = `${y}-${m}`;
+                    if (!map.has(key)) map.set(key, { month: key, totalIn: 0, count: 0 });
+                    let e = map.get(key);
+                    e.totalIn += t.moneyIn;
+                    e.count++;
+                });
+                return Array.from(map.values()).sort((a, b) => a.month.localeCompare(b.month));
+            }
+
+            function getCategoryTotals(data) {
+                const map = new Map();
+                data.forEach(t => {
+                    const cat = t.category;
+                    if (!map.has(cat)) map.set(cat, { category: cat, totalIn: 0, count: 0, transactions: [] });
+                    let e = map.get(cat);
+                    e.totalIn += t.moneyIn;
+                    e.count++;
+                    e.transactions.push(t);
+                });
+                return Array.from(map.values()).sort((a, b) => b.totalIn - a.totalIn);
+            }
+
+            function getTotalStats(data) {
+                const sum = data.reduce((s, t) => s + t.moneyIn, 0);
+                const avg = data.length ? sum / data.length : 0;
+                const vals = data.map(t => t.moneyIn).filter(v => v > 0);
+                return { sum, avg, min: vals.length ? Math.min(...vals) : 0, max: vals.length ? Math.max(...vals) : 0,
+                    count: data.length };
+            }
+
+            function renderCurrentView() {
+                if (!rawTransactions.length) return;
+                let title = '',
+                    html = '',
+                    chartData = null;
+                const data = filteredTransactions;
+                const MAX_DISPLAY = 5000;
+
+                switch (currentView) {
+                    case 'total': {
+                        const s = getTotalStats(data);
+                        title = '💰 Total Money In (SUM)';
+                        html = `<div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem;">
+                            <div><strong>Total Sum:</strong> <span class="money-positive">${s.sum.toLocaleString(undefined,{minimumFractionDigits:2})}</span></div>
+                            <div><strong>Average:</strong> ${s.avg.toLocaleString(undefined,{minimumFractionDigits:2})}</div>
+                            <div><strong>Min:</strong> ${s.min.toLocaleString(undefined,{minimumFractionDigits:2})}</div>
+                            <div><strong>Max:</strong> ${s.max.toLocaleString(undefined,{minimumFractionDigits:2})}</div>
+                            <div><strong>Count:</strong> ${s.count}</div>
+                        </div>`;
+                        break;
+                    }
+                    case 'daily': {
+                        const daily = getDailyTotals(data);
+                        title = '📅 Daily Summary (click date to expand)';
+                        html = `<div class="expandable-list">${daily.slice(0, MAX_DISPLAY).map(d => `
+                        <div class="expandable-item">
+                            <div class="expandable-header">
+                                <div class="expandable-header-left">
+                                    <span class="toggle-icon">▶</span>
+                                    <strong>${d.date}</strong>
+                                    <span class="money-positive">${d.totalIn.toLocaleString(undefined,{minimumFractionDigits:2})}</span>
+                                    <span>(${d.count} txns)</span>
+                                </div>
+                                <button class="btn btn-outline btn-small export-detail-btn" data-date="${d.date}">📥 Export day</button>
+                            </div>
+                            <div class="expandable-details">
+                                <table class="detail-table">
+                                    <thead><tr><th>Description</th><th>Money In</th><th>Category</th></tr></thead>
+                                    <tbody>${d.transactions.slice(0, 200).map(t => `
+                                        <tr>
+                                            <td style="max-width:200px;">${escapeHtml(t.description.substring(0,60))}</td>
+                                            <td class="money-positive">${t.moneyIn.toLocaleString()}</td>
+                                            <td><span class="badge">${escapeHtml(t.category)}</span></td>
+                                        </tr>
+                                    `).join('')}</tbody>
+                                </table>
+                                ${d.transactions.length > 200 ? `<p>+ ${d.transactions.length-200} more transactions</p>` : ''}
+                            </div>
+                        </div>
+                        `).join('')}</div>`;
+                        chartData = { labels: daily.slice(0, 60).map(d => d.date), values: daily.slice(0, 60).map(d => d
+                                .totalIn), type: 'line' };
+                        break;
+                    }
+                    case 'monthly': {
+                        const monthly = getMonthlyTotals(data);
+                        title = '📆 Monthly Summary';
+                        html = `<div class="table-wrapper"><table><thead><tr><th>Month</th><th>Total In</th><th>Count</th></tr></thead>
+                        <tbody>${monthly.map(m => `<tr><td>${m.month}</td><td class="money-positive">${m.totalIn.toLocaleString()}</td><td>${m.count}</td></tr>`).join('')}</tbody></table></div>`;
+                        chartData = { labels: monthly.map(m => m.month), values: monthly.map(m => m.totalIn),
+                        type: 'bar' };
+                        break;
+                    }
+                    case 'category': {
+                        const cats = getCategoryTotals(data);
+                        title = '🏷️ Category Breakdown (click to expand)';
+                        html = `<div class="expandable-list">${cats.map(cat => `
+                        <div class="expandable-item">
+                            <div class="expandable-header">
+                                <div class="expandable-header-left">
+                                    <span class="toggle-icon">▶</span>
+                                    <span class="category-name">${escapeHtml(cat.category)}</span>
+                                </div>
+                                <div class="category-summary">
+                                    <span class="money-positive">${cat.totalIn.toLocaleString(undefined,{minimumFractionDigits:2})}</span>
+                                    <span>${cat.count} txn</span>
+                                </div>
+                            </div>
+                            <div class="expandable-details">
+                                <table class="detail-table">
+                                    <thead><tr><th>Date</th><th>Description</th><th>Money In</th></tr></thead>
+                                    <tbody>${cat.transactions.slice(0, MAX_DISPLAY).map(t => `
+                                        <tr><td>${t.dateStr}</td><td style="max-width:250px;">${escapeHtml(t.description.substring(0,80))}</td>
+                                        <td class="money-positive">${t.moneyIn.toLocaleString(undefined,{minimumFractionDigits:2})}</td></tr>
+                                    `).join('')}</tbody>
+                                </table>
+                                <button class="btn btn-outline btn-small export-detail-btn" data-cat="${escapeHtml(cat.category)}">📥 Export details</button>
+                            </div>
+                        </div>
+                        `).join('')}</div>`;
+                        break;
+                    }
+                    case 'transactions': {
+                        title = '📋 All Transactions';
+                        let columnSelectorHtml = '<div class="column-selector">';
+                        columnSelectorHtml +=
+                            '<button class="column-selector-toggle" id="toggleColumnSelector">📌 Choose columns</button>';
+                        columnSelectorHtml +=
+                            '<div id="columnCheckboxes" style="display:none; flex-wrap:wrap; gap:6px; margin-top:5px;">';
+                        allHeaders.forEach(header => {
+                            const checked = selectedColumns.has(header) ? 'checked' : '';
+                            columnSelectorHtml +=
+                                `<label><input type="checkbox" class="col-checkbox" value="${escapeHtml(header)}" ${checked}> ${escapeHtml(header)}</label>`;
+                        });
+                        columnSelectorHtml += '</div></div>';
+
+                        const cols = Array.from(selectedColumns);
+                        const display = data.slice(0, MAX_DISPLAY);
+                        html = columnSelectorHtml + `<div class="table-wrapper"><table><thead><tr>${cols.map(c => `<th>${escapeHtml(c)}</th>`).join('')}</tr></thead>
+                        <tbody>${display.map(t => {
+                            return `<tr>${cols.map(c => {
+                                const val = t.rowData[c] !== undefined ? t.rowData[c] : '';
+                                if (c.toLowerCase().includes('money') || c.toLowerCase().includes('amount') || c === 'Money In') {
+                                    const num = parseAmount(val);
+                                    return `<td class="money-positive">${num.toLocaleString(undefined,{minimumFractionDigits:2})}</td>`;
+                                }
+                                if (c === 'Category') return `<td><span class="badge">${escapeHtml(t.category)}</span></td>`;
+                                return `<td>${escapeHtml(String(val).substring(0,80))}</td>`;
+                            }).join('')}</tr>`;
+                        }).join('')}</tbody></table></div>`;
+                        if (data.length > MAX_DISPLAY) html +=
+                            `<p style="margin-top:8px;">Showing first ${MAX_DISPLAY} of ${data.length} rows.</p>`;
+                        break;
+                    }
+                }
+
+                contentPanel.innerHTML = `
+                <div class="content-title">${title} <span class="badge">${data.length} rows</span></div>
+                ${html}
+                ${chartData ? '<div class="chart-container"><canvas id="viewChart"></canvas></div>' : ''}
+            `;
+
+                document.querySelectorAll('.expandable-header').forEach(h => {
+                    h.addEventListener('click', function(e) {
+                        if (e.target.classList.contains('export-detail-btn')) return;
+                        this.parentElement.classList.toggle('expanded');
+                    });
+                });
+
+                document.querySelectorAll('.export-detail-btn[data-date]').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const date = this.dataset.date;
+                        const dayData = filteredTransactions.filter(t => t.dateStr === date);
+                        exportSubset(dayData, `Daily_${date}`);
+                    });
+                });
+
+                document.querySelectorAll('.export-detail-btn[data-cat]').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const catName = this.dataset.cat;
+                        const cat = getCategoryTotals(filteredTransactions).find(c => c.category === catName);
+                        if (cat) exportSubset(cat.transactions, `Category_${catName.replace(/[^a-z0-9]/gi,'_')}`);
+                    });
+                });
+
+                const toggleBtn = document.getElementById('toggleColumnSelector');
+                const checkboxesDiv = document.getElementById('columnCheckboxes');
+                if (toggleBtn && checkboxesDiv) {
+                    toggleBtn.addEventListener('click', () => {
+                        checkboxesDiv.style.display = checkboxesDiv.style.display === 'none' ? 'flex' : 'none';
+                    });
+                    document.querySelectorAll('.col-checkbox').forEach(cb => {
+                        cb.addEventListener('change', function() {
+                            if (this.checked) selectedColumns.add(this.value);
+                            else selectedColumns.delete(this.value);
+                            renderCurrentView();
+                        });
+                    });
+                }
+
+                if (chartData) {
+                    const ctx = document.getElementById('viewChart')?.getContext('2d');
+                    if (ctx) {
+                        if (chartInstance) chartInstance.destroy();
+                        chartInstance = new Chart(ctx, {
+                            type: chartData.type,
+                            data: {
+                                labels: chartData.labels,
+                                datasets: [{
+                                    label: 'Money In',
+                                    data: chartData.values,
+                                    backgroundColor: chartData.type === 'bar' ? '#1a7e7c' :
+                                        'transparent',
+                                    borderColor: '#116b6b',
+                                    borderWidth: 2,
+                                    pointBackgroundColor: '#116b6b',
+                                    fill: false,
+                                    tension: 0.2
+                                }]
+                            },
+                            options: { responsive: true }
+                        });
+                    }
+                }
+                window._currentViewData = data;
+            }
+
+            function exportSubset(transactions, filename) {
+                const wb = XLSX.utils.book_new();
+                const cols = allHeaders.length ? allHeaders : ['Date', 'Description', 'Money In', 'Category'];
+                const wsData = transactions.map(t => {
+                    const obj = {};
+                    cols.forEach(col => {
+                        obj[col] = t.rowData[col] !== undefined ? t.rowData[col] : (col === 'Date' ? t.dateStr :
+                            col === 'Description' ? t.description : col === 'Money In' ? t.moneyIn : col ===
+                            'Category' ? t.category : '');
+                    });
+                    return obj;
+                });
+                XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(wsData), "Details");
+                XLSX.writeFile(wb, `${filename}.xlsx`);
+            }
+
+            function updateFileInfo() {
+                if (!rawTransactions.length) {
+                    fileInfoDiv.innerHTML = '<p>📂 <strong>No file loaded</strong></p>';
+                    globalSearch.disabled = true;
+                    globalSearch.value = '';
+                    return;
+                }
+                const dates = rawTransactions.map(t => t.dateStr).sort();
+                const range = dates.length ? `${dates[0]} – ${dates[dates.length-1]}` : 'N/A';
+                fileInfoDiv.innerHTML = `
+                <p>📄 <strong>${rawTransactions.length}</strong> transactions</p>
+                <p>📅 ${range}</p>
+                <p>💰 Total: ${rawTransactions.reduce((s,t)=>s+t.moneyIn,0).toLocaleString(undefined,{minimumFractionDigits:2})}</p>
+            `;
+                globalSearch.disabled = false;
+            }
+
+            functionButtons.addEventListener('click', (e) => {
+                const btn = e.target.closest('.function-btn');
+                if (!btn) return;
+                setActiveView(btn.dataset.view);
+            });
+
+            function setActiveView(view) {
+                currentView = view;
+                document.querySelectorAll('.function-btn').forEach(b => b.classList.remove('active'));
+                const active = document.querySelector(`.function-btn[data-view="${view}"]`);
+                if (active) active.classList.add('active');
+                if (rawTransactions.length) applyGlobalFilter();
+            }
+
+            globalSearch.addEventListener('input', () => {
+                if (rawTransactions.length) applyGlobalFilter();
+            });
+
+            exportBtn.addEventListener('click', () => {
+                const data = window._currentViewData || filteredTransactions;
+                if (!data.length) return;
+                let arr = [];
+                if (currentView === 'daily') {
+                    arr = getDailyTotals(data).map(d => ({ Date: d.date, TotalIn: d.totalIn, Count: d.count }));
+                } else if (currentView === 'monthly') {
+                    arr = getMonthlyTotals(data).map(m => ({ Month: m.month, TotalIn: m.totalIn, Count: m.count }));
+                } else if (currentView === 'category') {
+                    arr = getCategoryTotals(data).map(c => ({ Category: c.category, TotalIn: c.totalIn, Count: c.count }));
+                } else {
+                    const cols = currentView === 'transactions' ? Array.from(selectedColumns) : (allHeaders.length ?
+                        allHeaders : ['Date', 'Description', 'Money In', 'Category']);
+                    arr = data.map(t => {
+                        const obj = {};
+                        cols.forEach(col => {
+                            obj[col] = t.rowData[col] !== undefined ? t.rowData[col] : (col === 'Date' ? t
+                                .dateStr : col === 'Description' ? t.description : col === 'Money In' ? t
+                                .moneyIn : col === 'Category' ? t.category : '');
+                        });
+                        return obj;
+                    });
+                }
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(arr), "Report");
+                XLSX.writeFile(wb, `FinAutoX_${currentView}_${new Date().toISOString().slice(0,10)}.xlsx`);
+            });
+
+            updateFileInfo();
+        })();
+    </script>
+
     <!-- ==================== TOOL SWITCHER ==================== -->
     <script>
         function switchTool(tool) {
             const mediaContent = document.getElementById('mediaContent');
             const qrContent = document.getElementById('qrContent');
+            const financeContent = document.getElementById('financeContent');
             const toggleMedia = document.getElementById('toggleMedia');
             const toggleQR = document.getElementById('toggleQR');
+            const toggleFinance = document.getElementById('toggleFinance');
+
+            [toggleMedia, toggleQR, toggleFinance].forEach(b => b.classList.remove('active'));
+            [mediaContent, qrContent, financeContent].forEach(c => c.style.display = 'none');
 
             if (tool === 'media') {
-                mediaContent.classList.remove('hidden');
                 mediaContent.style.display = 'block';
-                qrContent.classList.remove('show');
-                qrContent.style.display = 'none';
                 toggleMedia.classList.add('active');
-                toggleQR.classList.remove('active');
-            } else {
-                mediaContent.classList.add('hidden');
-                mediaContent.style.display = 'none';
-                qrContent.classList.add('show');
+            } else if (tool === 'qr') {
                 qrContent.style.display = 'block';
                 toggleQR.classList.add('active');
-                toggleMedia.classList.remove('active');
+            } else if (tool === 'finance') {
+                financeContent.style.display = 'block';
+                toggleFinance.classList.add('active');
             }
         }
-        // Initialize: show media by default
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('qrContent').style.display = 'none';
             document.getElementById('mediaContent').style.display = 'block';
+            document.getElementById('qrContent').style.display = 'none';
+            document.getElementById('financeContent').style.display = 'none';
         });
     </script>
 </body>
