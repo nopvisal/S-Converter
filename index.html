@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-    <!-- Font Awesome 6 Free CDN for professional icons -->
+    <!-- Font Awesome 6 Free CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js">
@@ -16,6 +16,9 @@
     <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+    </script>
+    <!-- html2pdf for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
     </script>
 
     <style>
@@ -77,8 +80,6 @@
             width: min(1280px, calc(100% - 40px));
             margin: auto;
         }
-
-        /* Navbar */
         .navbar {
             position: sticky;
             top: 0;
@@ -137,7 +138,6 @@
             transform: translateY(-2px);
         }
 
-        /* Hero */
         .hero {
             padding: 90px 0 70px;
             position: relative;
@@ -267,7 +267,6 @@
             font-size: .95rem;
         }
 
-        /* Features */
         .feature-strip {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -303,7 +302,6 @@
             color: var(--accent);
         }
 
-        /* Tool Toggle */
         .tool-toggle-wrap {
             display: flex;
             gap: 8px;
@@ -344,7 +342,6 @@
             font-size: 1.15rem;
         }
 
-        /* Platform buttons */
         .platform-btn[data-platform="youtube"] {
             background: rgba(255, 0, 51, .06);
             color: #ff0033;
@@ -572,14 +569,8 @@
             display: block;
         }
         @keyframes fade {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .progress-bar-wrap {
             height: 8px;
@@ -632,10 +623,7 @@
             font-weight: 600;
             color: var(--text-soft);
         }
-        .qr-opt-item span {
-            white-space: nowrap;
-            font-weight: 700;
-        }
+        .qr-opt-item span { white-space: nowrap; font-weight: 700; }
         .qr-opt-item input[type="number"] {
             width: 60px;
             height: 34px;
@@ -746,9 +734,7 @@
             font-size: .75rem;
             display: none;
         }
-        .qr-logo-section.has-logo .qr-logo-remove {
-            display: inline-block;
-        }
+        .qr-logo-section.has-logo .qr-logo-remove { display: inline-block; }
         .qr-logo-controls {
             display: none;
             flex-wrap: wrap;
@@ -757,9 +743,7 @@
             width: 100%;
             margin-top: 6px;
         }
-        .qr-logo-section.has-logo .qr-logo-controls {
-            display: flex;
-        }
+        .qr-logo-section.has-logo .qr-logo-controls { display: flex; }
         .qr-preview-panel {
             background: white;
             border-radius: 24px;
@@ -831,16 +815,12 @@
             margin-bottom: 14px;
             color: var(--accent);
         }
-        .drop-zone input {
-            display: none;
-        }
+        .drop-zone input { display: none; }
         .image-preview-area {
             display: none;
             margin-top: 26px;
         }
-        .image-preview-area.show {
-            display: block;
-        }
+        .image-preview-area.show { display: block; }
         .image-compare {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -876,7 +856,6 @@
             flex-wrap: wrap;
         }
 
-        /* About */
         .about {
             padding: 90px 0;
         }
@@ -931,27 +910,7 @@
             font-size: .9rem;
         }
 
-        /* Financial */
-        .sheet-tabs {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            padding: 0.5rem 0;
-        }
-        .sheet-tab {
-            padding: 5px 16px;
-            border-radius: 20px;
-            background: var(--gray-100);
-            border: 1px solid #dceef3;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-        .sheet-tab.active {
-            background: var(--cyan-600);
-            color: white;
-            border-color: var(--cyan-600);
-        }
+        /* Finance - Professional Bank App Style */
         .fin-hero-card {
             background: linear-gradient(135deg, #ffffff, #f0ffff);
             padding: 2rem;
@@ -960,31 +919,109 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, .05);
             margin-bottom: 1.5rem;
         }
+
+        .fin-top-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border-radius: 20px;
+            padding: 18px 24px;
+            border: 1px solid #e2eef5;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .03);
+            margin-bottom: 1.5rem;
+            gap: 12px;
+        }
+        .fin-top-bar .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .fin-top-bar .brand-section .icon-circle {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #0891b2, #06b6d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        .fin-top-bar .brand-section h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0;
+        }
+        .fin-top-bar .brand-section .sub {
+            font-size: 0.75rem;
+            color: #64748b;
+            font-weight: 400;
+        }
+        .fin-top-bar .meta-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+        .fin-top-bar .meta-fields .field-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #f8fafc;
+            padding: 4px 14px 4px 12px;
+            border-radius: 12px;
+            border: 1px solid #e2eef5;
+        }
+        .fin-top-bar .meta-fields .field-group label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .fin-top-bar .meta-fields .field-group input {
+            border: none;
+            background: transparent;
+            padding: 8px 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #0f172a;
+            outline: none;
+            min-width: 120px;
+            font-family: inherit;
+        }
+        .fin-top-bar .meta-fields .field-group input:focus {
+            border-bottom: 2px solid #0891b2;
+        }
+
         .fin-app-container {
             display: flex;
             gap: 1.8rem;
             min-height: 60vh;
+            flex-wrap: wrap;
         }
         .fin-sidebar {
-            width: 290px;
-            flex-shrink: 0;
+            flex: 1 1 280px;
             background: var(--white);
             border-radius: var(--radius-md);
             border: 1px solid #e2eef5;
             padding: 1.5rem;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-md);
             height: fit-content;
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
         .fin-content-panel {
-            flex: 1;
+            flex: 2 1 500px;
             background: var(--white);
             border-radius: var(--radius-md);
             border: 1px solid #e2eef5;
             padding: 1.5rem;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-md);
             display: flex;
             flex-direction: column;
             gap: 1.2rem;
@@ -1070,13 +1107,9 @@
             border-bottom: 1px solid #edf4f8;
             white-space: nowrap;
         }
-        tr:last-child td {
-            border-bottom: none;
-        }
-        .money-positive {
-            color: #1b8a6f;
-            font-weight: 500;
-        }
+        tr:last-child td { border-bottom: none; }
+        .money-positive { color: #1b8a6f; font-weight: 500; }
+        .money-negative { color: #b91c1c; font-weight: 500; }
         .chart-container {
             width: 100%;
             max-height: 300px;
@@ -1117,18 +1150,14 @@
             transition: transform 0.2s;
             color: var(--cyan-700);
         }
-        .expanded .toggle-icon {
-            transform: rotate(90deg);
-        }
+        .expanded .toggle-icon { transform: rotate(90deg); }
         .expandable-details {
             display: none;
             border-top: 1px solid #e2eef5;
             padding: 10px 16px;
             background: #fafeff;
         }
-        .expanded .expandable-details {
-            display: block;
-        }
+        .expanded .expandable-details { display: block; }
         .detail-table {
             width: 100%;
             font-size: 0.8rem;
@@ -1163,7 +1192,40 @@
             border-radius: 20px;
         }
 
-        /* Footer */
+        .multi-upload-area {
+            border: 2px dashed #cbd5e1;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            background: #fafcff;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .multi-upload-area:hover {
+            border-color: #7dd3fc;
+            background: #f0fdff;
+        }
+        .uploaded-files {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .file-tag {
+            background: #e2e8f0;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .file-tag .remove-file {
+            cursor: pointer;
+            color: #b91c1c;
+            font-weight: 700;
+        }
+
         .footer {
             background: #0f172a;
             color: #cbd5e1;
@@ -1196,9 +1258,7 @@
             color: #94a3b8;
             transition: var(--transition);
         }
-        .footer-links a:hover {
-            color: white;
-        }
+        .footer-links a:hover { color: white; }
         .footer-bottom {
             border-top: 1px solid rgba(255, 255, 255, .08);
             padding-top: 24px;
@@ -1207,7 +1267,6 @@
             font-size: .9rem;
         }
 
-        /* Toast */
         .toast-container {
             position: fixed;
             top: 20px;
@@ -1225,174 +1284,71 @@
             animation: slide .3s ease;
             box-shadow: var(--shadow-lg);
         }
-        .toast.success {
-            background: #10b981;
-        }
-        .toast.error {
-            background: #ef4444;
-        }
-        .toast.info {
-            background: #0891b2;
-        }
+        .toast.success { background: #10b981; }
+        .toast.error { background: #ef4444; }
+        .toast.info { background: #0891b2; }
         @keyframes slide {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
         }
         .spinner {
             width: 18px;
             height: 18px;
-            border: 2px solid rgba(255, 255, 255, .4);
+            border: 2px solid rgba(255,255,255,.4);
             border-top-color: white;
             border-radius: 50%;
             animation: spin .7s linear infinite;
             display: inline-block;
         }
         @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
+            to { transform: rotate(360deg); }
         }
 
-        /* Responsive */
         @media (max-width: 980px) {
-            .hero-grid,
-            .tool-grid,
-            .about-grid,
-            .footer-grid,
-            .qr-main-grid,
-            .fin-app-container {
+            .hero-grid, .tool-grid, .about-grid, .footer-grid, .qr-main-grid, .fin-app-container {
                 grid-template-columns: 1fr;
             }
-            .feature-strip {
-                grid-template-columns: 1fr;
-            }
-            .stats {
-                grid-template-columns: 1fr;
-            }
-            .image-compare {
-                grid-template-columns: 1fr;
-            }
-            .fin-app-container {
-                flex-direction: column;
-            }
-            .fin-sidebar {
-                width: 100%;
-            }
+            .feature-strip { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: 1fr; }
+            .image-compare { grid-template-columns: 1fr; }
+            .fin-app-container { flex-direction: column; }
+            .fin-sidebar { width: 100%; }
+            .fin-top-bar { flex-direction: column; align-items: stretch; }
+            .fin-top-bar .meta-fields { flex-direction: column; }
+            .fin-top-bar .meta-fields .field-group { width: 100%; }
         }
         @media (max-width: 720px) {
-            .nav-links {
-                display: none;
-            }
-            .hero {
-                padding-top: 60px;
-            }
-            .tool-card {
-                padding: 20px;
-            }
-            .input-group {
-                flex-direction: column;
-            }
-            .fetch-btn {
-                height: 54px;
-            }
-            .platform-selector {
-                overflow: auto;
-                flex-wrap: nowrap;
-                padding-bottom: 5px;
-            }
-            .platform-btn {
-                min-width: max-content;
-            }
-            .hero h1 {
-                font-size: 2.6rem;
-            }
-            .qr-opt-row {
-                gap: 6px;
-            }
-            .qr-opt-item {
-                padding: 8px 10px;
-                font-size: .75rem;
-            }
-            .qr-opt-item input[type="range"] {
-                width: 60px;
-            }
-            /* Tool toggle stacks vertically on mobile */
-            .tool-toggle-wrap {
-                flex-direction: column;
-                gap: 6px;
-                padding: 8px;
-                border-radius: 18px;
-            }
-            .tool-toggle-btn {
-                width: 100%;
-                justify-content: center;
-                padding: 14px 16px;
-                border-radius: 14px;
-                font-size: .85rem;
-            }
-            .tool-toggle-btn .tool-toggle-icon {
-                font-size: 1.1rem;
-            }
+            .nav-links { display: none; }
+            .hero { padding-top: 60px; }
+            .tool-card { padding: 20px; }
+            .input-group { flex-direction: column; }
+            .fetch-btn { height: 54px; }
+            .platform-selector { overflow: auto; flex-wrap: nowrap; padding-bottom: 5px; }
+            .platform-btn { min-width: max-content; }
+            .hero h1 { font-size: 2.6rem; }
+            .qr-opt-row { gap: 6px; }
+            .qr-opt-item { padding: 8px 10px; font-size: .75rem; }
+            .qr-opt-item input[type="range"] { width: 60px; }
+            .tool-toggle-wrap { flex-direction: column; gap: 6px; padding: 8px; border-radius: 18px; }
+            .tool-toggle-btn { width: 100%; justify-content: center; padding: 14px 16px; border-radius: 14px; font-size: .85rem; }
+            .tool-toggle-btn .tool-toggle-icon { font-size: 1.1rem; }
+            .fin-top-bar .meta-fields .field-group input { min-width: 80px; }
         }
         @media (max-width: 640px) {
-            .tool-card {
-                overflow: hidden;
-            }
-            .preview-card {
-                overflow: hidden;
-            }
-            .preview-content {
-                padding: 16px;
-            }
-            .download-btns {
-                flex-direction: column;
-            }
-            .download-btns .btn {
-                width: 100%;
-                justify-content: center;
-            }
-            .qr-action-buttons {
-                flex-direction: column;
-            }
-            .qr-action-buttons .btn {
-                width: 100%;
-                justify-content: center;
-            }
+            .tool-card { overflow: hidden; }
+            .preview-card { overflow: hidden; }
+            .preview-content { padding: 16px; }
+            .download-btns { flex-direction: column; }
+            .download-btns .btn { width: 100%; justify-content: center; }
+            .qr-action-buttons { flex-direction: column; }
+            .qr-action-buttons .btn { width: 100%; justify-content: center; }
         }
-        html,
-        body {
-            overflow-x: hidden;
-        }
-        .container,
-        .tool-card,
-        .panel,
-        .preview-card,
-        .preview-content,
-        .preview-meta,
-        .preview-content h3 {
-            min-width: 0;
-        }
-        .preview-thumb {
-            width: 100%;
-            max-width: 100%;
-        }
-        .result-area {
-            width: 100%;
-            overflow: hidden;
-        }
-        .download-btns {
-            width: 100%;
-        }
-        .download-btns .btn {
-            flex: 1;
-            justify-content: center;
-        }
+        html, body { overflow-x: hidden; }
+        .container, .tool-card, .panel, .preview-card, .preview-content, .preview-meta, .preview-content h3 { min-width: 0; }
+        .preview-thumb { width: 100%; max-width: 100%; }
+        .result-area { width: 100%; overflow: hidden; }
+        .download-btns { width: 100%; }
+        .download-btns .btn { flex: 1; justify-content: center; }
     </style>
 </head>
 <body>
@@ -1469,7 +1425,7 @@
                 <p>Download videos, convert audio, enhance images, generate premium QR codes, and perform intelligent Excel financial analysis — all from one modern interface.</p>
             </div>
             <div class="tool-card">
-                <!-- TOOL TOGGLE with Font Awesome icons -->
+                <!-- TOOL TOGGLE -->
                 <div class="tool-toggle-wrap">
                     <button class="tool-toggle-btn active" id="toggleMedia" onclick="switchTool('media')">
                         <i class="fa-solid fa-video tool-toggle-icon"></i> Media Converter
@@ -1599,39 +1555,96 @@
                     </div>
                 </div>
 
-                <!-- FINANCIAL REPORTS CONTENT -->
+                <!-- FINANCIAL REPORTS — Company info moved to top, PDF fixed -->
                 <div id="financeContent" style="display:none;">
                     <div class="fin-hero-card">
-                        <h1 style="font-size:2rem;"><i class="fa-solid fa-file-excel"></i> Enterprise Financial Analytics & Excel Intelligence</h1>
-                        <p style="color:#6a8492;">Upload banking statements, transaction reports, and Excel financial data to instantly generate professional analytics, category insights, charts, and export-ready reports directly inside your browser.</p>
+                        <h1 style="font-size:2rem;"><i class="fa-solid fa-file-excel"></i> Multi-Bank Financial Reconciliation</h1>
+                        <p style="color:#6a8492;">Import multiple bank statements (USD & KHR), assign bank names, manually add transactions, compare with C01 and លុយសល់ c01, and generate final reports with per‑bank breakdown.</p>
                     </div>
+
+                    <!-- TOP BAR: Company Info -->
+                    <div class="fin-top-bar" id="finTopBar">
+                        <div class="brand-section">
+                            <div class="icon-circle"><i class="fa-solid fa-building-columns"></i></div>
+                            <div>
+                                <h2>Financial Dashboard</h2>
+                                <div class="sub">Reconciliation & Reporting</div>
+                            </div>
+                        </div>
+                        <div class="meta-fields">
+                            <div class="field-group">
+                                <label><i class="fa-solid fa-building"></i> Company</label>
+                                <input type="text" id="companyName" value="Your Company" placeholder="Company Name">
+                            </div>
+                            <div class="field-group">
+                                <label><i class="fa-solid fa-calendar"></i> Month</label>
+                                <input type="text" id="reportMonth" value="June 2026" placeholder="Report Month">
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="sheetTabsContainer" class="sheet-tabs" style="display:none;"></div>
                     <div class="fin-app-container">
                         <aside class="fin-sidebar">
-                            <div id="fileInfo" class="file-summary"><p><i class="fa-solid fa-folder-open"></i> <strong>No file loaded</strong></p></div>
-                            <div class="search-box"><input type="text" id="globalSearch" placeholder="&#x1F50D; Filter by description..." disabled></div>
+                            <div id="fileInfo" class="file-summary">
+                                <p><i class="fa-solid fa-folder-open"></i> <strong>No files loaded</strong></p>
+                            </div>
+                            <div class="search-box">
+                                <input type="text" id="globalSearch" placeholder="&#x1F50D; Filter transactions..." disabled>
+                            </div>
                             <div class="function-group" id="functionButtons">
-                                <button class="function-btn active" data-view="total"><i class="fa-solid fa-coins"></i> Total Money In (SUM)</button>
-                                <button class="function-btn" data-view="daily"><i class="fa-solid fa-calendar-day"></i> Daily Summary (expandable)</button>
-                                <button class="function-btn" data-view="monthly"><i class="fa-solid fa-calendar-alt"></i> Monthly Summary</button>
+                                <button class="function-btn active" data-view="total"><i class="fa-solid fa-coins"></i> Totals by Bank</button>
+                                <button class="function-btn" data-view="daily"><i class="fa-solid fa-calendar-day"></i> Daily Summary</button>
                                 <button class="function-btn" data-view="category"><i class="fa-solid fa-tags"></i> Category Breakdown</button>
                                 <button class="function-btn" data-view="transactions"><i class="fa-solid fa-list"></i> All Transactions</button>
                             </div>
-                            <div style="font-size:0.7rem; color:#6b8f99;"><i class="fa-solid fa-shield-halved"></i> All calculations run offline</div>
-                            <div style="margin-top:1rem;">
-                                <label for="fileUpload" class="btn btn-primary" style="width:100%; justify-content:center;"><i class="fa-solid fa-upload"></i> Import Excel</label>
-                                <input type="file" id="fileUpload" accept=".xlsx,.xls,.csv" hidden>
-                                <button id="exportBtn" class="btn btn-outline" style="width:100%; margin-top:8px; display:none;"><i class="fa-solid fa-download"></i> Export View</button>
+                            <div style="margin-top:1rem; border-top:1px solid #deecf2; padding-top:1rem;">
+                                <div><strong>Exchange Rate</strong></div>
+                                <div class="input-group" style="margin-top:4px;">
+                                    <input type="number" id="khrToUsdRate" value="4000" step="1" style="width:100px;"> <span style="font-size:0.8rem;">KHR / USD</span>
+                                    <button class="btn btn-primary" id="btnApplyRate" style="padding:6px 14px; font-size:0.8rem;"><i class="fa-solid fa-check"></i> Apply Rate</button>
+                                </div>
+                            </div>
+                            <div style="margin-top:1rem; border-top:1px solid #deecf2; padding-top:1rem;">
+                                <div><strong>Bank Name (for import)</strong></div>
+                                <div class="input-group" style="margin-top:4px;">
+                                    <input type="text" id="bankNameInput" placeholder="e.g. ACLEDA" style="flex:1; min-width:80px;">
+                                </div>
+                                <label for="fileUploadBank" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:4px;"><i class="fa-solid fa-upload"></i> Import Bank Files</label>
+                                <input type="file" id="fileUploadBank" accept=".xlsx,.xls,.csv" multiple hidden>
+                                <div id="uploadedFilesContainer" style="margin-top:8px; display:flex; flex-wrap:wrap; gap:4px;"></div>
+                            </div>
+                            <div style="margin-top:0.5rem;">
+                                <button class="btn btn-outline" id="btnAddManualRow" style="width:100%;"><i class="fa-solid fa-plus"></i> Add Manual Transaction</button>
+                            </div>
+                            <div style="margin-top:1rem; border-top:1px solid #deecf2; padding-top:1rem;">
+                                <div><strong>C01 (System Total in USD)</strong></div>
+                                <div class="input-group" style="margin-top:4px;">
+                                    <input type="number" id="c01Usd" placeholder="C01 USD" step="0.01" style="flex:1; min-width:80px;">
+                                    <button class="btn btn-primary" id="btnApplyC01" style="padding:6px 12px; font-size:0.8rem;">Apply C01</button>
+                                </div>
+                                <div style="margin-top:6px;">
+                                    <div style="font-size:0.85rem; font-weight:600;">លុយសល់ c01 (Remaining)</div>
+                                    <div class="input-group" style="margin-top:4px;">
+                                        <input type="number" id="c01Remaining" placeholder="លុយសល់ c01" step="0.01" style="flex:1; min-width:80px;">
+                                        <button class="btn btn-primary" id="btnApplyRemaining" style="padding:6px 12px; font-size:0.8rem;">Apply</button>
+                                    </div>
+                                </div>
+                                <div style="margin-top:8px; background:#f0f9ff; padding:10px; border-radius:8px; font-size:0.9rem;">
+                                    <span id="c01ResultDisplay">C01: 0.00 | លុយសល់: 0.00 | Diff: 0.00</span>
+                                </div>
+                                <button class="btn btn-primary" id="btnGenerateReport" style="width:100%; margin-top:8px;"><i class="fa-solid fa-file-pen"></i> Generate Final Report (PDF)</button>
                             </div>
                         </aside>
                         <main class="fin-content-panel" id="contentPanel">
                             <div class="empty-content">
                                 <div style="font-size:3rem;"><i class="fa-solid fa-file-csv"></i></div>
-                                <h3>Import an Excel statement</h3>
-                                <p>All rows will be automatically detected and processed.</p>
+                                <h3>Import bank statements or add manual transactions</h3>
+                                <p>Assign a bank name to each import batch. All rows from all files will be combined and analyzed by bank and currency.</p>
                             </div>
                         </main>
                     </div>
+                    <div id="reportContainer" style="margin-top:1.5rem; display:none;"></div>
                 </div>
             </div>
         </div>
@@ -2636,27 +2649,43 @@
         })();
     </script>
 
-    <!-- ==================== FINANCIAL ANALYTICS SCRIPT ==================== -->
+    <!-- ==================== FINANCIAL ANALYTICS SCRIPT — PDF FIXED ==================== -->
     <script>
         (function() {
-            let workbook = null;
-            let sheetNames = [];
-            let currentSheetName = '';
-            let rawTransactions = [];
+            // --- State ---
+            let allTransactions = [];
             let filteredTransactions = [];
-            let allHeaders = [];
             let currentView = 'total';
             let chartInstance = null;
-            let selectedColumns = new Set();
+            let selectedColumns = new Set(['Date', 'Bank', 'Description', 'Money In', 'Converted USD', 'Currency']);
 
-            const fileInput = document.getElementById('fileUpload');
-            const exportBtn = document.getElementById('exportBtn');
-            const fileInfoDiv = document.getElementById('fileInfo');
+            // DOM refs
+            const contentPanel = document.getElementById('contentPanel');
+            const fileInfo = document.getElementById('fileInfo');
             const globalSearch = document.getElementById('globalSearch');
             const functionButtons = document.getElementById('functionButtons');
-            const contentPanel = document.getElementById('contentPanel');
-            const sheetTabsContainer = document.getElementById('sheetTabsContainer');
+            const fileUploadBank = document.getElementById('fileUploadBank');
+            const uploadedFilesContainer = document.getElementById('uploadedFilesContainer');
+            const btnAddManualRow = document.getElementById('btnAddManualRow');
+            const btnGenerateReport = document.getElementById('btnGenerateReport');
+            const btnApplyRate = document.getElementById('btnApplyRate');
+            const btnApplyC01 = document.getElementById('btnApplyC01');
+            const btnApplyRemaining = document.getElementById('btnApplyRemaining');
+            const c01UsdInput = document.getElementById('c01Usd');
+            const c01RemainingInput = document.getElementById('c01Remaining');
+            const c01ResultDisplay = document.getElementById('c01ResultDisplay');
+            const khrRateInput = document.getElementById('khrToUsdRate');
+            const bankNameInput = document.getElementById('bankNameInput');
+            const reportContainer = document.getElementById('reportContainer');
 
+            const companyNameInput = document.getElementById('companyName');
+            const reportMonthInput = document.getElementById('reportMonth');
+
+            let uploadedFileNames = [];
+            let c01Applied = 0;
+            let remainingApplied = 0;
+
+            // --- Utility ---
             function parseAmount(val) {
                 if (val === undefined || val === null || val === '') return 0;
                 if (typeof val === 'number') return val;
@@ -2677,8 +2706,7 @@
                 if (!isNaN(d.getTime())) return d;
                 let parts = str.split(/[\s,-/]+/);
                 if (parts.length >= 3) {
-                    let months = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10,
-                        dec: 11 };
+                    let months = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
                     for (let i = 0; i < parts.length; i++) {
                         let m = months[parts[i].toLowerCase().substring(0, 3)];
                         if (m !== undefined) {
@@ -2695,16 +2723,25 @@
                 if (!desc) return "Other";
                 const upper = desc.toUpperCase();
                 if (upper.includes("PAYMENT FROM")) {
-                    let match = desc.match(/PAYMENT FROM\s+([A-Za-z0-9 ]+?)(?:\s|\(|$)/i);
-                    return match ? "📥 " + match[1].trim().substring(0, 30) : "Payment In";
+                    const match = desc.match(/PAYMENT FROM\s+([A-Za-z0-9\s]+?)(?=\s+\d|\(|\s+BANK|$)/i);
+                    if (match) return "📥 " + match[1].trim();
+                    const parts = desc.split("PAYMENT FROM ");
+                    if (parts.length > 1) {
+                        const raw = parts[1].trim();
+                        const cleaned = raw.replace(/\s+\d.*$/, '').replace(/\s+BANK.*$/i, '').trim();
+                        if (cleaned) return "📥 " + cleaned;
+                    }
+                    return "Payment In";
                 }
                 if (upper.includes("FUNDS RECEIVED FROM")) {
-                    let match = desc.match(/FUNDS RECEIVED FROM\s+([A-Za-z0-9 ]+?)(?:\s|\(|$)/i);
-                    return match ? "💰 " + match[1].trim().substring(0, 30) : "Funds Received";
+                    const match = desc.match(/FUNDS RECEIVED FROM\s+([A-Za-z0-9\s]+?)(?=\s+\d|\(|\s+BANK|$)/i);
+                    if (match) return "💰 " + match[1].trim();
+                    return "Funds Received";
                 }
                 if (upper.includes("FUNDS TRANSFERRED TO")) {
-                    let match = desc.match(/FUNDS TRANSFERRED TO\s+([A-Za-z0-9 ]+?)(?:\s|\(|$)/i);
-                    return match ? "💸 Transfer To " + match[1].trim().substring(0, 25) : "Transfer Out";
+                    const match = desc.match(/FUNDS TRANSFERRED TO\s+([A-Za-z0-9\s]+?)(?=\s+\d|\(|\s+BANK|$)/i);
+                    if (match) return "💸 Transfer To " + match[1].trim();
+                    return "💸 Transfer Out";
                 }
                 if (upper.includes("PURCHASE AT")) return "🛒 Purchase";
                 if (upper.includes("INTEREST")) return "⭐ Interest";
@@ -2716,391 +2753,556 @@
                 return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
             }
 
-            function detectColumns(rows, headerIdx) {
-                const headers = rows[headerIdx].map(c => String(c || '').trim());
-                const dataRows = rows.slice(headerIdx + 1).filter(r => r && r.some(cell => cell !== '' && cell !==
-                    undefined));
-                if (dataRows.length === 0) return { dateIdx: -1, descIdx: -1, moneyIdx: -1, headers };
+            function detectCurrency(row) {
+                if (row.Ccy) {
+                    const cur = String(row.Ccy).trim().toUpperCase();
+                    if (cur === 'USD' || cur === 'KHR') return cur;
+                }
+                const moneyIn = parseAmount(row['Money In'] || row['money in'] || 0);
+                const moneyOut = parseAmount(row['Money Out'] || row['money out'] || 0);
+                const maxVal = Math.max(moneyIn, moneyOut);
+                if (maxVal > 500) return 'KHR';
+                return 'USD';
+            }
 
+            // --- Parse a sheet from a file ---
+            function parseSheetToTransactions(sheet, bankName) {
+                const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
+                if (!rows || rows.length < 2) return [];
+                let headerIdx = 0;
+                for (let i = 0; i < rows.length; i++) {
+                    const row = rows[i];
+                    if (!row) continue;
+                    const rowStr = row.map(c => String(c || '').toLowerCase()).join(' ');
+                    if (rowStr.includes('date') || rowStr.includes('transaction') || rowStr.includes('description') ||
+                        rowStr.includes('money') || rowStr.includes('amount') || rowStr.includes('particulars') ||
+                        rowStr.includes('narration') || rowStr.includes('credit') || rowStr.includes('debit') ||
+                        rowStr.includes('details')) {
+                        headerIdx = i;
+                        break;
+                    }
+                }
+                const headers = rows[headerIdx].map(c => String(c || '').trim());
                 let dateIdx = -1,
                     descIdx = -1,
-                    moneyIdx = -1;
+                    moneyIdx = -1,
+                    moneyOutIdx = -1,
+                    ccyIdx = -1;
                 headers.forEach((h, i) => {
-                    const l = h.toLowerCase();
-                    if (dateIdx === -1 && (l.includes('date') || l.includes('day'))) dateIdx = i;
+                    const l = h.toLowerCase().trim();
+                    if (dateIdx === -1 && (l.includes('date') || l.includes('day') || l.includes('time'))) dateIdx = i;
                     if (descIdx === -1 && (l.includes('transaction') || l.includes('description') || l.includes(
-                            'details') || l.includes('narration'))) descIdx = i;
+                            'details') || l.includes('narration') || l.includes('particulars') || l.includes(
+                            'remark'))) descIdx = i;
                     if (moneyIdx === -1 && (l.includes('money in') || l === 'credit' || l === 'cr' || l.includes(
-                            'deposit') || l.includes('amount'))) moneyIdx = i;
+                            'deposit') || l.includes('amount') || l.includes('value'))) moneyIdx = i;
+                    if (moneyOutIdx === -1 && (l.includes('money out') || l === 'debit' || l === 'dr' || l.includes(
+                            'withdrawal') || l.includes('payment out'))) moneyOutIdx = i;
+                    if (ccyIdx === -1 && (l === 'ccy' || l === 'currency' || l === 'cur')) ccyIdx = i;
                 });
-
-                if (moneyIdx === -1) {
-                    const sampleSize = Math.min(50, dataRows.length);
+                const dataRows = rows.slice(headerIdx + 1).filter(r => r && r.some(c => c !== '' && c !== undefined && c !== null));
+                if (moneyIdx === -1 || moneyOutIdx === -1) {
                     const numericCounts = Array(headers.length).fill(0);
-                    for (let i = 0; i < sampleSize; i++) {
+                    for (let i = 0; i < dataRows.length; i++) {
                         const row = dataRows[i];
                         for (let j = 0; j < headers.length; j++) {
                             const val = parseAmount(row[j]);
                             if (val > 0) numericCounts[j]++;
                         }
                     }
-                    let maxCount = 0;
+                    let maxCount = 0,
+                        secondMax = 0,
+                        maxIdx = -1,
+                        secondIdx = -1;
                     for (let j = 0; j < headers.length; j++) {
-                        if (j === dateIdx) continue;
+                        if (j === dateIdx || j === descIdx) continue;
                         if (numericCounts[j] > maxCount) {
+                            secondMax = maxCount;
+                            secondIdx = maxIdx;
                             maxCount = numericCounts[j];
-                            moneyIdx = j;
+                            maxIdx = j;
+                        } else if (numericCounts[j] > secondMax) {
+                            secondMax = numericCounts[j];
+                            secondIdx = j;
                         }
                     }
+                    if (moneyIdx === -1 && maxIdx >= 0) moneyIdx = maxIdx;
+                    if (moneyOutIdx === -1 && secondIdx >= 0 && secondIdx !== moneyIdx) moneyOutIdx = secondIdx;
                 }
 
-                if (descIdx === -1) {
-                    let maxLen = 0;
-                    for (let j = 0; j < headers.length; j++) {
-                        if (j === dateIdx || j === moneyIdx) continue;
-                        const sample = dataRows.slice(0, 10).map(r => String(r[j] || '').length).reduce((a, b) => a + b,
-                        0);
-                        if (sample > maxLen) {
-                            maxLen = sample;
-                            descIdx = j;
-                        }
-                    }
-                }
-
-                return { dateIdx, descIdx, moneyIdx, headers };
-            }
-
-            function parseSheetToTransactions(sheet) {
-                const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
-                if (!rows || rows.length < 2) return { transactions: [], headers: [] };
-
-                let headerIdx = 0;
-                for (let i = 0; i < Math.min(100, rows.length); i++) {
-                    const row = rows[i];
-                    if (!row) continue;
-                    const rowStr = row.map(c => String(c || '').toLowerCase()).join(' ');
-                    if (rowStr.includes('date') || rowStr.includes('transaction') || rowStr.includes('description') ||
-                        rowStr.includes('money') || rowStr.includes('amount')) {
-                        headerIdx = i;
-                        break;
-                    }
-                }
-
-                const { dateIdx, descIdx, moneyIdx, headers } = detectColumns(rows, headerIdx);
-                if (dateIdx === -1 && moneyIdx === -1) return { transactions: [], headers };
-
-                const normalizedHeaders = headers.map((h, i) => h || `Column ${i+1}`);
                 const transactions = [];
+                let lastValidDate = null;
                 for (let i = headerIdx + 1; i < rows.length; i++) {
                     const row = rows[i];
                     if (!row || row.length === 0) continue;
+                    const hasAnyValue = row.some(cell => cell !== '' && cell !== undefined && cell !== null);
+                    if (!hasAnyValue) continue;
+
                     const dateVal = dateIdx !== -1 ? row[dateIdx] : null;
-                    if (!dateVal) continue;
-                    const dateObj = parseDateFlexible(dateVal);
-                    if (!dateObj || isNaN(dateObj.getTime())) continue;
-                    const description = (descIdx !== -1 && row[descIdx]) ? String(row[descIdx]).trim() : '';
                     const moneyIn = parseAmount(moneyIdx !== -1 ? row[moneyIdx] : 0);
-                    const rowData = {};
-                    for (let j = 0; j < normalizedHeaders.length; j++) {
-                        rowData[normalizedHeaders[j]] = row[j] !== undefined ? row[j] : '';
+                    const moneyOut = parseAmount(moneyOutIdx !== -1 ? row[moneyOutIdx] : 0);
+                    const description = (descIdx !== -1 && row[descIdx]) ? String(row[descIdx]).trim() : '';
+                    let currency = 'USD';
+                    if (ccyIdx !== -1 && row[ccyIdx]) {
+                        const cur = String(row[ccyIdx]).trim().toUpperCase();
+                        if (cur === 'USD' || cur === 'KHR') currency = cur;
+                    } else {
+                        if (moneyIn > 500 || moneyOut > 500) currency = 'KHR';
                     }
-                    transactions.push({
-                        dateStr: dateObj.toISOString().slice(0, 10),
-                        description,
-                        moneyIn,
-                        category: extractCategory(description),
-                        rowData
-                    });
-                }
-                return { transactions, headers: normalizedHeaders };
-            }
 
-            function loadSheet(sheetName) {
-                const sheet = workbook.Sheets[sheetName];
-                const { transactions, headers } = parseSheetToTransactions(sheet);
-                rawTransactions = transactions;
-                allHeaders = headers;
-                filteredTransactions = [...rawTransactions];
-                selectedColumns = new Set(['Date', 'Description', 'Money In', 'Category']);
-                updateFileInfo();
-                renderSheetTabs();
-                if (rawTransactions.length) {
-                    setActiveView('total');
-                    exportBtn.style.display = 'inline-flex';
-                } else {
-                    contentPanel.innerHTML = '<div class="empty-content">⚠️ No valid transactions found in this sheet.</div>';
-                    exportBtn.style.display = 'none';
-                }
-            }
+                    let finalDesc = description;
+                    if (!finalDesc && (moneyIn > 0 || moneyOut > 0)) {
+                        finalDesc = 'Transaction ' + (i + 1);
+                    }
 
-            function renderSheetTabs() {
-                if (sheetNames.length <= 1) {
-                    sheetTabsContainer.style.display = 'none';
-                    return;
-                }
-                sheetTabsContainer.style.display = 'flex';
-                sheetTabsContainer.innerHTML = sheetNames.map(name =>
-                    `<div class="sheet-tab ${name === currentSheetName ? 'active' : ''}" data-sheet="${name}">${name}</div>`
-                ).join('');
-                document.querySelectorAll('.sheet-tab').forEach(tab => {
-                    tab.addEventListener('click', function() {
-                        const name = this.dataset.sheet;
-                        if (name !== currentSheetName) {
-                            currentSheetName = name;
-                            loadSheet(name);
+                    let dateObj = null;
+                    if (dateVal !== null && dateVal !== undefined && dateVal !== '') {
+                        dateObj = parseDateFlexible(dateVal);
+                    }
+                    if (!dateObj || isNaN(dateObj.getTime())) {
+                        if (lastValidDate && (moneyIn > 0 || moneyOut > 0)) {
+                            dateObj = lastValidDate;
+                        } else if (moneyIn > 0 || moneyOut > 0) {
+                            dateObj = new Date();
+                        } else {
+                            continue;
                         }
+                    }
+                    if (dateObj && !isNaN(dateObj.getTime())) {
+                        lastValidDate = new Date(dateObj);
+                    }
+                    if (moneyIn === 0 && moneyOut === 0 && !finalDesc) continue;
+
+                    const dateStr = dateObj.toISOString().slice(0, 10);
+                    const rowData = {};
+                    for (let j = 0; j < headers.length; j++) {
+                        rowData[headers[j]] = row[j] !== undefined ? row[j] : '';
+                    }
+                    const netAmount = moneyIn > 0 ? moneyIn : (moneyOut > 0 ? -moneyOut : 0);
+
+                    transactions.push({
+                        dateStr,
+                        description: finalDesc,
+                        bank: bankName || 'Unknown',
+                        moneyIn: netAmount > 0 ? netAmount : 0,
+                        moneyOut: netAmount < 0 ? Math.abs(netAmount) : 0,
+                        netAmount: netAmount,
+                        currency: currency,
+                        category: extractCategory(finalDesc),
+                        rowData,
+                        rawDate: dateVal,
+                        rawDesc: description,
+                        rawMoneyIn: moneyIn,
+                        rawMoneyOut: moneyOut,
                     });
+                }
+                return transactions;
+            }
+
+            // --- Process uploaded files ---
+            function processFiles(files) {
+                const bankName = bankNameInput.value.trim() || 'Unknown';
+                let allNewTxns = [];
+                const readerPromises = [];
+                for (let file of files) {
+                    const reader = new FileReader();
+                    const promise = new Promise((resolve, reject) => {
+                        reader.onload = (e) => {
+                            try {
+                                const data = new Uint8Array(e.target.result);
+                                const workbook = XLSX.read(data, { type: 'array' });
+                                let sheet = workbook.Sheets[workbook.SheetNames[0]];
+                                const txns = parseSheetToTransactions(sheet, bankName);
+                                allNewTxns = allNewTxns.concat(txns);
+                                resolve(file.name);
+                            } catch (err) {
+                                reject(err);
+                            }
+                        };
+                        reader.onerror = reject;
+                    });
+                    reader.readAsArrayBuffer(file);
+                    readerPromises.push(promise);
+                }
+                Promise.all(readerPromises).then((names) => {
+                    uploadedFileNames = uploadedFileNames.concat(names);
+                    allTransactions = allTransactions.concat(allNewTxns);
+                    updateFileInfo();
+                    renderUploadedFiles();
+                    applyFilterAndRender();
+                    showToast(`Loaded ${allNewTxns.length} transactions from ${names.length} file(s) with bank "${bankName}"`, 'success');
+                }).catch(err => {
+                    showToast('Error reading file: ' + err.message, 'error');
                 });
             }
 
-            fileInput.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (!file) return;
-                const reader = new FileReader();
-                reader.onload = (evt) => {
-                    try {
-                        const data = new Uint8Array(evt.target.result);
-                        workbook = XLSX.read(data, { type: 'array' });
-                        sheetNames = workbook.SheetNames;
-                        if (sheetNames.length === 0) throw new Error("No sheets");
-                        currentSheetName = sheetNames[0];
-                        loadSheet(currentSheetName);
-                    } catch (err) {
-                        alert('Error: ' + err.message);
-                        resetAll();
-                    }
-                };
-                reader.readAsArrayBuffer(file);
+            fileUploadBank.addEventListener('change', (e) => {
+                const files = e.target.files;
+                if (files.length > 0) {
+                    processFiles(files);
+                }
+                fileUploadBank.value = '';
             });
 
-            function resetAll() {
-                workbook = null;
-                sheetNames = [];
-                rawTransactions = [];
-                filteredTransactions = [];
-                allHeaders = [];
-                updateFileInfo();
-                contentPanel.innerHTML = '<div class="empty-content">❌ Unable to parse file.</div>';
-                sheetTabsContainer.style.display = 'none';
-                exportBtn.style.display = 'none';
+            // Manual transaction entry — no description field
+            btnAddManualRow.addEventListener('click', () => {
+                const formHtml = `
+                    <div style="background:#f8fafc; padding:16px; border-radius:12px; border:1px solid #deecf2; margin-bottom:12px;">
+                        <div style="display:grid; grid-template-columns: 1fr 1fr 1fr 1fr auto; gap:8px; align-items:end;">
+                            <input type="date" id="manualDate" value="${new Date().toISOString().slice(0,10)}" style="padding:6px; border-radius:8px; border:1px solid #deecf2;">
+                            <input type="text" id="manualBank" placeholder="Bank" style="padding:6px; border-radius:8px; border:1px solid #deecf2;">
+                            <input type="number" id="manualAmount" placeholder="Amount" step="0.01" style="padding:6px; border-radius:8px; border:1px solid #deecf2;">
+                            <select id="manualCurrency" style="padding:6px; border-radius:8px; border:1px solid #deecf2;"><option value="USD">USD</option><option value="KHR">KHR</option></select>
+                            <button class="btn btn-primary" id="saveManualBtn" style="padding:6px 16px;">Add</button>
+                        </div>
+                        <div style="margin-top:6px; display:flex; gap:8px;">
+                            <label><input type="radio" name="manualType" value="in" checked> Money In</label>
+                            <label><input type="radio" name="manualType" value="out"> Money Out</label>
+                        </div>
+                    </div>
+                `;
+                contentPanel.insertAdjacentHTML('afterbegin', formHtml);
+                const saveBtn = document.getElementById('saveManualBtn');
+                saveBtn.addEventListener('click', () => {
+                    const date = document.getElementById('manualDate').value;
+                    const bank = document.getElementById('manualBank').value.trim() || 'Manual';
+                    const amount = parseFloat(document.getElementById('manualAmount').value);
+                    const currency = document.getElementById('manualCurrency').value;
+                    const type = document.querySelector('input[name="manualType"]:checked').value;
+                    if (isNaN(amount) || amount <= 0) {
+                        showToast('Enter a valid amount', 'error');
+                        return;
+                    }
+                    const moneyIn = type === 'in' ? amount : 0;
+                    const moneyOut = type === 'out' ? amount : 0;
+                    const netAmount = type === 'in' ? amount : -amount;
+                    const desc = `Manual (${bank})`;
+                    const txn = {
+                        dateStr: date,
+                        description: desc,
+                        bank: bank,
+                        moneyIn: moneyIn,
+                        moneyOut: moneyOut,
+                        netAmount: netAmount,
+                        currency: currency,
+                        category: '📝 Manual',
+                        rowData: { Date: date, Bank: bank, 'Money In': moneyIn, 'Money Out': moneyOut,
+                            Currency: currency },
+                        rawDate: date,
+                        rawDesc: desc,
+                        rawMoneyIn: moneyIn,
+                        rawMoneyOut: moneyOut,
+                    };
+                    allTransactions.push(txn);
+                    applyFilterAndRender();
+                    updateFileInfo();
+                    const formDiv = saveBtn.closest('div[style*="background:#f8fafc"]');
+                    if (formDiv) formDiv.remove();
+                    showToast('Manual transaction added', 'success');
+                });
+            });
+
+            // Apply Rate button
+            btnApplyRate.addEventListener('click', () => {
+                const rate = parseFloat(khrRateInput.value);
+                if (isNaN(rate) || rate <= 0) {
+                    showToast('Enter a valid exchange rate', 'error');
+                    return;
+                }
+                applyFilterAndRender();
+                showToast(`Rate applied: 1 USD = ${rate} KHR`, 'info');
+            });
+
+            // Apply C01 button
+            btnApplyC01.addEventListener('click', () => {
+                const val = parseFloat(c01UsdInput.value);
+                if (isNaN(val) || val < 0) {
+                    showToast('Enter a valid C01 amount', 'error');
+                    return;
+                }
+                c01Applied = val;
+                updateC01Display();
+                showToast(`C01 applied: ${val.toFixed(2)} USD`, 'success');
+            });
+
+            // Apply Remaining button
+            btnApplyRemaining.addEventListener('click', () => {
+                const val = parseFloat(c01RemainingInput.value);
+                if (isNaN(val) || val < 0) {
+                    showToast('Enter a valid លុយសល់ c01 amount', 'error');
+                    return;
+                }
+                remainingApplied = val;
+                updateC01Display();
+                showToast(`លុយសល់ c01 applied: ${val.toFixed(2)} USD`, 'success');
+            });
+
+            function updateC01Display() {
+                const totalBankUsd = getTotalCombinedUsd();
+                const diff = totalBankUsd - c01Applied;
+                const finalDiff = diff - remainingApplied;
+                c01ResultDisplay.innerHTML =
+                    `C01: <strong>${c01Applied.toFixed(2)}</strong> | លុយសល់: <strong>${remainingApplied.toFixed(2)}</strong> | Diff: <strong class="${finalDiff >= 0 ? 'money-positive' : 'money-negative'}">${finalDiff.toFixed(2)}</strong>`;
             }
 
-            function applyGlobalFilter() {
+            function getTotalCombinedUsd() {
+                const rate = parseFloat(khrRateInput.value) || 4000;
+                const totalUsd = allTransactions.filter(t => t.currency === 'USD').reduce((s, t) => s + t.moneyIn, 0);
+                const totalKhr = allTransactions.filter(t => t.currency === 'KHR').reduce((s, t) => s + t.moneyIn, 0);
+                return totalUsd + (totalKhr / rate);
+            }
+
+            // --- Filtering and Rendering ---
+            function applyFilterAndRender() {
                 const kw = globalSearch.value.trim().toLowerCase();
-                filteredTransactions = kw ? rawTransactions.filter(t => t.description.toLowerCase().includes(kw) || t
-                    .category.toLowerCase().includes(kw)) : [...rawTransactions];
+                filteredTransactions = kw ? allTransactions.filter(t =>
+                    t.description.toLowerCase().includes(kw) || t.category.toLowerCase().includes(kw) ||
+                    (t.bank && t.bank.toLowerCase().includes(kw))
+                ) : [...allTransactions];
                 renderCurrentView();
+                updateC01Display();
             }
 
-            function getDailyTotals(data) {
-                const map = new Map();
-                data.forEach(t => {
-                    const k = t.dateStr;
-                    if (!map.has(k)) map.set(k, { date: k, totalIn: 0, count: 0, transactions: [] });
-                    let e = map.get(k);
-                    e.totalIn += t.moneyIn;
-                    e.count++;
-                    e.transactions.push(t);
-                });
-                return Array.from(map.values()).sort((a, b) => a.date.localeCompare(b.date));
-            }
-
-            function getMonthlyTotals(data) {
-                const map = new Map();
-                data.forEach(t => {
-                    const [y, m] = t.dateStr.split('-');
-                    const key = `${y}-${m}`;
-                    if (!map.has(key)) map.set(key, { month: key, totalIn: 0, count: 0 });
-                    let e = map.get(key);
-                    e.totalIn += t.moneyIn;
-                    e.count++;
-                });
-                return Array.from(map.values()).sort((a, b) => a.month.localeCompare(b.month));
-            }
-
-            function getCategoryTotals(data) {
-                const map = new Map();
-                data.forEach(t => {
-                    const cat = t.category;
-                    if (!map.has(cat)) map.set(cat, { category: cat, totalIn: 0, count: 0, transactions: [] });
-                    let e = map.get(cat);
-                    e.totalIn += t.moneyIn;
-                    e.count++;
-                    e.transactions.push(t);
-                });
-                return Array.from(map.values()).sort((a, b) => b.totalIn - a.totalIn);
-            }
-
-            function getTotalStats(data) {
-                const sum = data.reduce((s, t) => s + t.moneyIn, 0);
-                const avg = data.length ? sum / data.length : 0;
-                const vals = data.map(t => t.moneyIn).filter(v => v > 0);
-                return { sum, avg, min: vals.length ? Math.min(...vals) : 0, max: vals.length ? Math.max(...vals) : 0,
-                    count: data.length };
+            function getConvertedUsd(t) {
+                const rate = parseFloat(khrRateInput.value) || 4000;
+                if (t.currency === 'USD') return t.moneyIn;
+                return t.moneyIn / rate;
             }
 
             function renderCurrentView() {
-                if (!rawTransactions.length) return;
+                if (!allTransactions.length) {
+                    contentPanel.innerHTML =
+                        `<div class="empty-content"><div style="font-size:3rem;"><i class="fa-solid fa-file-csv"></i></div><h3>No transactions yet</h3><p>Import bank files or add manual entries.</p></div>`;
+                    return;
+                }
                 let title = '',
                     html = '',
                     chartData = null;
-                const data = filteredTransactions;
-                const MAX_DISPLAY = 5000;
+                const data = filteredTransactions.length ? filteredTransactions : allTransactions;
+
+                const rate = parseFloat(khrRateInput.value) || 4000;
+
+                const bankCurrencyMap = new Map();
+                data.forEach(t => {
+                    const key = t.bank + '|' + t.currency;
+                    if (!bankCurrencyMap.has(key)) {
+                        bankCurrencyMap.set(key, { bank: t.bank, currency: t.currency, total: 0, transactions: [] });
+                    }
+                    const entry = bankCurrencyMap.get(key);
+                    entry.total += t.moneyIn;
+                    entry.transactions.push(t);
+                });
+                const bankCurrencyEntries = Array.from(bankCurrencyMap.values()).sort((a, b) => {
+                    if (a.bank !== b.bank) return a.bank.localeCompare(b.bank);
+                    return a.currency.localeCompare(b.currency);
+                });
+
+                const bankCombinedMap = new Map();
+                data.forEach(t => {
+                    const bank = t.bank;
+                    const converted = getConvertedUsd(t);
+                    if (!bankCombinedMap.has(bank)) bankCombinedMap.set(bank, 0);
+                    bankCombinedMap.set(bank, bankCombinedMap.get(bank) + converted);
+                });
+                const totalCombined = Array.from(bankCombinedMap.values()).reduce((s, v) => s + v, 0);
 
                 switch (currentView) {
                     case 'total': {
-                        const s = getTotalStats(data);
-                        title = '💰 Total Money In (SUM)';
-                        html = `<div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem;">
-                            <div><strong>Total Sum:</strong> <span class="money-positive">${s.sum.toLocaleString(undefined,{minimumFractionDigits:2})}</span></div>
-                            <div><strong>Average:</strong> ${s.avg.toLocaleString(undefined,{minimumFractionDigits:2})}</div>
-                            <div><strong>Min:</strong> ${s.min.toLocaleString(undefined,{minimumFractionDigits:2})}</div>
-                            <div><strong>Max:</strong> ${s.max.toLocaleString(undefined,{minimumFractionDigits:2})}</div>
-                            <div><strong>Count:</strong> ${s.count}</div>
-                        </div>`;
+                        title = '🏦 Totals by Bank (Money In) with Converted USD';
+                        let tableRows = bankCurrencyEntries.map(e => {
+                            const conv = e.currency === 'USD' ? e.total : (e.total / rate);
+                            return `<tr>
+                                <td><strong>${escapeHtml(e.bank)}</strong></td>
+                                <td>${e.currency}</td>
+                                <td class="money-positive">${e.currency === 'USD' ? e.total.toFixed(2) : e.total.toFixed(0)}</td>
+                                <td class="money-positive">${conv.toFixed(2)}</td>
+                                <td>${e.transactions.length}</td>
+                            </tr>`;
+                        }).join('');
+
+                        tableRows += `<tr style="font-weight:700; border-top:2px solid #deecf2;">
+                            <td><strong>TOTAL</strong></td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td class="money-positive">${totalCombined.toFixed(2)}</td>
+                            <td>${data.length}</td>
+                        </tr>`;
+
+                        html = `
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead><tr><th>Bank</th><th>Currency</th><th>Original Amount</th><th>Converted USD</th><th>Transactions</th></tr></thead>
+                                    <tbody>${tableRows}</tbody>
+                                </table>
+                            </div>
+                            <div style="margin-top:12px; display:flex; gap:12px; flex-wrap:wrap;">
+                                <button class="btn btn-primary" id="exportBankPdfBtn" style="padding:8px 18px; font-size:0.85rem;">
+                                    <i class="fa-solid fa-file-pdf"></i> Export Bank Summary as PDF
+                                </button>
+                            </div>
+                            <div style="margin-top:12px; font-size:0.85rem; color:#64748b;">
+                                <strong>Total Combined USD:</strong> ${totalCombined.toFixed(2)} (USD + KHR converted at rate ${rate})
+                            </div>
+                        `;
                         break;
                     }
                     case 'daily': {
-                        const daily = getDailyTotals(data);
-                        title = '📅 Daily Summary (click date to expand)';
-                        html = `<div class="expandable-list">${daily.slice(0, MAX_DISPLAY).map(d => `
-                        <div class="expandable-item">
-                            <div class="expandable-header">
-                                <div class="expandable-header-left">
-                                    <span class="toggle-icon">▶</span>
-                                    <strong>${d.date}</strong>
-                                    <span class="money-positive">${d.totalIn.toLocaleString(undefined,{minimumFractionDigits:2})}</span>
-                                    <span>(${d.count} txns)</span>
+                        const dailyMap = new Map();
+                        data.forEach(t => {
+                            const k = t.dateStr;
+                            if (!dailyMap.has(k)) dailyMap.set(k, { date: k, usd: 0, khr: 0, count: 0,
+                                transactions: [] });
+                            let e = dailyMap.get(k);
+                            if (t.currency === 'USD') e.usd += t.moneyIn;
+                            else e.khr += t.moneyIn;
+                            e.count++;
+                            e.transactions.push(t);
+                        });
+                        const daily = Array.from(dailyMap.values()).sort((a, b) => a.date.localeCompare(b.date));
+                        title = `📅 Daily Summary (Money In) — ${daily.length} days`;
+                        html = `<div class="expandable-list">${daily.map(d => `
+                            <div class="expandable-item">
+                                <div class="expandable-header">
+                                    <div class="expandable-header-left">
+                                        <span class="toggle-icon">▶</span>
+                                        <strong>${d.date}</strong>
+                                        <span class="money-positive">USD: ${d.usd.toFixed(2)}</span>
+                                        <span style="color:#b91c1c;">KHR: ${d.khr.toFixed(0)}</span>
+                                        <span>(${d.count} txns)</span>
+                                    </div>
+                                    <button class="btn btn-outline btn-small export-detail-btn" data-date="${d.date}">📥 Export</button>
                                 </div>
-                                <button class="btn btn-outline btn-small export-detail-btn" data-date="${d.date}">📥 Export day</button>
+                                <div class="expandable-details">
+                                    <table class="detail-table">
+                                        <thead><tr><th>Bank</th><th>Description</th><th>Currency</th><th>Money In</th><th>Converted USD</th></tr></thead>
+                                        <tbody>${d.transactions.map(t => {
+                                            const conv = getConvertedUsd(t);
+                                            return `<tr>
+                                                <td>${escapeHtml(t.bank || '')}</td>
+                                                <td style="max-width:200px;">${escapeHtml(t.description.substring(0,60))}</td>
+                                                <td>${t.currency}</td>
+                                                <td class="money-positive">${t.moneyIn.toFixed(2)}</td>
+                                                <td class="money-positive">${conv.toFixed(2)}</td>
+                                            </tr>`;
+                                        }).join('')}</tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <div class="expandable-details">
-                                <table class="detail-table">
-                                    <thead><tr><th>Description</th><th>Money In</th><th>Category</th></tr></thead>
-                                    <tbody>${d.transactions.slice(0, 200).map(t => `
-                                        <tr>
-                                            <td style="max-width:200px;">${escapeHtml(t.description.substring(0,60))}</td>
-                                            <td class="money-positive">${t.moneyIn.toLocaleString()}</td>
-                                            <td><span class="badge">${escapeHtml(t.category)}</span></td>
-                                        </tr>
-                                    `).join('')}</tbody>
-                                </table>
-                                ${d.transactions.length > 200 ? `<p>+ ${d.transactions.length-200} more transactions</p>` : ''}
-                            </div>
-                        </div>
                         `).join('')}</div>`;
-                        chartData = { labels: daily.slice(0, 60).map(d => d.date), values: daily.slice(0, 60).map(d => d
-                                .totalIn), type: 'line' };
-                        break;
-                    }
-                    case 'monthly': {
-                        const monthly = getMonthlyTotals(data);
-                        title = '📆 Monthly Summary';
-                        html = `<div class="table-wrapper"><table><thead><tr><th>Month</th><th>Total In</th><th>Count</th></tr></thead>
-                        <tbody>${monthly.map(m => `<tr><td>${m.month}</td><td class="money-positive">${m.totalIn.toLocaleString()}</td><td>${m.count}</td></tr>`).join('')}</tbody></table></div>`;
-                        chartData = { labels: monthly.map(m => m.month), values: monthly.map(m => m.totalIn),
-                        type: 'bar' };
+                        chartData = { labels: daily.map(d => d.date), values: daily.map(d => d.usd), type: 'line' };
                         break;
                     }
                     case 'category': {
-                        const cats = getCategoryTotals(data);
-                        title = '🏷️ Category Breakdown (click to expand)';
+                        const catMap = new Map();
+                        data.forEach(t => {
+                            const cat = t.category;
+                            if (!catMap.has(cat)) catMap.set(cat, { category: cat, usd: 0, khr: 0, count: 0,
+                                transactions: [] });
+                            let e = catMap.get(cat);
+                            if (t.currency === 'USD') e.usd += t.moneyIn;
+                            else e.khr += t.moneyIn;
+                            e.count++;
+                            e.transactions.push(t);
+                        });
+                        const cats = Array.from(catMap.values()).sort((a, b) => (b.usd + b.khr) - (a.usd + a.khr));
+                        title = `🏷️ Category Breakdown (Money In) — ${cats.length} categories`;
                         html = `<div class="expandable-list">${cats.map(cat => `
-                        <div class="expandable-item">
-                            <div class="expandable-header">
-                                <div class="expandable-header-left">
-                                    <span class="toggle-icon">▶</span>
-                                    <span class="category-name">${escapeHtml(cat.category)}</span>
+                            <div class="expandable-item">
+                                <div class="expandable-header">
+                                    <div class="expandable-header-left">
+                                        <span class="toggle-icon">▶</span>
+                                        <span style="font-weight:600;">${escapeHtml(cat.category)}</span>
+                                    </div>
+                                    <div style="display:flex; gap:12px; font-size:0.9rem;">
+                                        <span class="money-positive">USD: ${cat.usd.toFixed(2)}</span>
+                                        <span style="color:#b91c1c;">KHR: ${cat.khr.toFixed(0)}</span>
+                                        <span>${cat.count} txns</span>
+                                    </div>
                                 </div>
-                                <div class="category-summary">
-                                    <span class="money-positive">${cat.totalIn.toLocaleString(undefined,{minimumFractionDigits:2})}</span>
-                                    <span>${cat.count} txn</span>
+                                <div class="expandable-details">
+                                    <table class="detail-table">
+                                        <thead><tr><th>Bank</th><th>Date</th><th>Description</th><th>Currency</th><th>Money In</th><th>Converted USD</th></tr></thead>
+                                        <tbody>${cat.transactions.map(t => {
+                                            const conv = getConvertedUsd(t);
+                                            return `<tr><td>${escapeHtml(t.bank || '')}</td><td>${t.dateStr}</td><td style="max-width:200px;">${escapeHtml(t.description.substring(0,60))}</td>
+                                            <td>${t.currency}</td><td class="money-positive">${t.moneyIn.toFixed(2)}</td><td class="money-positive">${conv.toFixed(2)}</td></tr>`;
+                                        }).join('')}</tbody>
+                                    </table>
+                                    <button class="btn btn-outline btn-small export-detail-btn" data-cat="${escapeHtml(cat.category)}">📥 Export</button>
                                 </div>
                             </div>
-                            <div class="expandable-details">
-                                <table class="detail-table">
-                                    <thead><tr><th>Date</th><th>Description</th><th>Money In</th></tr></thead>
-                                    <tbody>${cat.transactions.slice(0, MAX_DISPLAY).map(t => `
-                                        <tr><td>${t.dateStr}</td><td style="max-width:250px;">${escapeHtml(t.description.substring(0,80))}</td>
-                                        <td class="money-positive">${t.moneyIn.toLocaleString(undefined,{minimumFractionDigits:2})}</td></tr>
-                                    `).join('')}</tbody>
-                                </table>
-                                <button class="btn btn-outline btn-small export-detail-btn" data-cat="${escapeHtml(cat.category)}">📥 Export details</button>
-                            </div>
-                        </div>
                         `).join('')}</div>`;
                         break;
                     }
                     case 'transactions': {
-                        title = '📋 All Transactions';
+                        title = `📋 All Transactions (Money In) — ${data.length} rows`;
                         let columnSelectorHtml = '<div class="column-selector">';
                         columnSelectorHtml +=
                             '<button class="column-selector-toggle" id="toggleColumnSelector">📌 Choose columns</button>';
                         columnSelectorHtml +=
                             '<div id="columnCheckboxes" style="display:none; flex-wrap:wrap; gap:6px; margin-top:5px;">';
-                        allHeaders.forEach(header => {
-                            const checked = selectedColumns.has(header) ? 'checked' : '';
+                        const allCols = ['Date', 'Bank', 'Description', 'Money In', 'Converted USD', 'Currency', 'Category'];
+                        allCols.forEach(col => {
+                            const checked = selectedColumns.has(col) ? 'checked' : '';
                             columnSelectorHtml +=
-                                `<label><input type="checkbox" class="col-checkbox" value="${escapeHtml(header)}" ${checked}> ${escapeHtml(header)}</label>`;
+                                `<label><input type="checkbox" class="col-checkbox" value="${col}" ${checked}> ${col}</label>`;
                         });
                         columnSelectorHtml += '</div></div>';
-
                         const cols = Array.from(selectedColumns);
-                        const display = data.slice(0, MAX_DISPLAY);
-                        html = columnSelectorHtml + `<div class="table-wrapper"><table><thead><tr>${cols.map(c => `<th>${escapeHtml(c)}</th>`).join('')}</tr></thead>
-                        <tbody>${display.map(t => {
+                        html = columnSelectorHtml +
+                            `<div class="table-wrapper"><table><thead><tr>${cols.map(c => `<th>${c}</th>`).join('')}</tr></thead>
+                        <tbody>${data.map(t => {
+                            const conv = getConvertedUsd(t);
                             return `<tr>${cols.map(c => {
-                                const val = t.rowData[c] !== undefined ? t.rowData[c] : '';
-                                if (c.toLowerCase().includes('money') || c.toLowerCase().includes('amount') || c === 'Money In') {
-                                    const num = parseAmount(val);
-                                    return `<td class="money-positive">${num.toLocaleString(undefined,{minimumFractionDigits:2})}</td>`;
-                                }
+                                if (c === 'Date') return `<td>${t.dateStr}</td>`;
+                                if (c === 'Bank') return `<td>${escapeHtml(t.bank || '')}</td>`;
+                                if (c === 'Description') return `<td style="max-width:200px;">${escapeHtml(t.description.substring(0,80))}</td>`;
+                                if (c === 'Money In') return `<td class="money-positive">${t.moneyIn.toFixed(2)}</td>`;
+                                if (c === 'Converted USD') return `<td class="money-positive">${conv.toFixed(2)}</td>`;
+                                if (c === 'Currency') return `<td>${t.currency}</td>`;
                                 if (c === 'Category') return `<td><span class="badge">${escapeHtml(t.category)}</span></td>`;
-                                return `<td>${escapeHtml(String(val).substring(0,80))}</td>`;
+                                return `<td>${escapeHtml(String(t.rowData[c] || '').substring(0,60))}</td>`;
                             }).join('')}</tr>`;
                         }).join('')}</tbody></table></div>`;
-                        if (data.length > MAX_DISPLAY) html +=
-                            `<p style="margin-top:8px;">Showing first ${MAX_DISPLAY} of ${data.length} rows.</p>`;
                         break;
                     }
                 }
 
                 contentPanel.innerHTML = `
-                <div class="content-title">${title} <span class="badge">${data.length} rows</span></div>
-                ${html}
-                ${chartData ? '<div class="chart-container"><canvas id="viewChart"></canvas></div>' : ''}
-            `;
+                    <div class="content-title">${title} <span class="badge">${data.length} rows</span></div>
+                    ${html}
+                    ${chartData ? '<div class="chart-container"><canvas id="viewChart"></canvas></div>' : ''}
+                `;
 
+                // Expandable listeners
                 document.querySelectorAll('.expandable-header').forEach(h => {
                     h.addEventListener('click', function(e) {
                         if (e.target.classList.contains('export-detail-btn')) return;
                         this.parentElement.classList.toggle('expanded');
                     });
                 });
-
                 document.querySelectorAll('.export-detail-btn[data-date]').forEach(btn => {
                     btn.addEventListener('click', function(e) {
                         e.stopPropagation();
                         const date = this.dataset.date;
-                        const dayData = filteredTransactions.filter(t => t.dateStr === date);
-                        exportSubset(dayData, `Daily_${date}`);
+                        const subset = data.filter(t => t.dateStr === date);
+                        exportSubset(subset, `Daily_${date}`);
                     });
                 });
-
                 document.querySelectorAll('.export-detail-btn[data-cat]').forEach(btn => {
                     btn.addEventListener('click', function(e) {
                         e.stopPropagation();
                         const catName = this.dataset.cat;
-                        const cat = getCategoryTotals(filteredTransactions).find(c => c.category === catName);
-                        if (cat) exportSubset(cat.transactions, `Category_${catName.replace(/[^a-z0-9]/gi,'_')}`);
+                        const subset = data.filter(t => t.category === catName);
+                        exportSubset(subset, `Category_${catName.replace(/[^a-z0-9]/gi,'_')}`);
                     });
                 });
-
                 const toggleBtn = document.getElementById('toggleColumnSelector');
                 const checkboxesDiv = document.getElementById('columnCheckboxes');
                 if (toggleBtn && checkboxesDiv) {
                     toggleBtn.addEventListener('click', () => {
-                        checkboxesDiv.style.display = checkboxesDiv.style.display === 'none' ? 'flex' : 'none';
+                        checkboxesDiv.style.display = checkboxesDiv.style.display === 'none' ? 'flex' :
+                            'none';
                     });
                     document.querySelectorAll('.col-checkbox').forEach(cb => {
                         cb.addEventListener('change', function() {
@@ -3120,7 +3322,7 @@
                             data: {
                                 labels: chartData.labels,
                                 datasets: [{
-                                    label: 'Money In',
+                                    label: 'USD Money In',
                                     data: chartData.values,
                                     backgroundColor: chartData.type === 'bar' ? '#1a7e7c' :
                                         'transparent',
@@ -3135,93 +3337,319 @@
                         });
                     }
                 }
+
+                const exportPdfBtn = document.getElementById('exportBankPdfBtn');
+                if (exportPdfBtn) {
+                    exportPdfBtn.addEventListener('click', function() {
+                        exportBankSummaryPdf();
+                    });
+                }
+
                 window._currentViewData = data;
             }
 
             function exportSubset(transactions, filename) {
                 const wb = XLSX.utils.book_new();
-                const cols = allHeaders.length ? allHeaders : ['Date', 'Description', 'Money In', 'Category'];
+                const cols = ['Date', 'Bank', 'Description', 'Currency', 'Money In', 'Converted USD', 'Category'];
                 const wsData = transactions.map(t => {
+                    const conv = getConvertedUsd(t);
                     const obj = {};
                     cols.forEach(col => {
-                        obj[col] = t.rowData[col] !== undefined ? t.rowData[col] : (col === 'Date' ? t.dateStr :
-                            col === 'Description' ? t.description : col === 'Money In' ? t.moneyIn : col ===
-                            'Category' ? t.category : '');
+                        if (col === 'Date') obj[col] = t.dateStr;
+                        else if (col === 'Bank') obj[col] = t.bank || '';
+                        else if (col === 'Description') obj[col] = t.description;
+                        else if (col === 'Currency') obj[col] = t.currency;
+                        else if (col === 'Money In') obj[col] = t.moneyIn;
+                        else if (col === 'Converted USD') obj[col] = conv;
+                        else if (col === 'Category') obj[col] = t.category;
                     });
                     return obj;
                 });
-                XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(wsData), "Details");
+                XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(wsData), "Transactions");
                 XLSX.writeFile(wb, `${filename}.xlsx`);
             }
 
-            function updateFileInfo() {
-                if (!rawTransactions.length) {
-                    fileInfoDiv.innerHTML = '<p>📂 <strong>No file loaded</strong></p>';
-                    globalSearch.disabled = true;
-                    globalSearch.value = '';
+            // --- PDF Export: Bank Summary (FIXED — using proper rendering) ---
+            function exportBankSummaryPdf() {
+                const data = filteredTransactions.length ? filteredTransactions : allTransactions;
+                if (!data.length) {
+                    showToast('No data to export', 'error');
                     return;
                 }
-                const dates = rawTransactions.map(t => t.dateStr).sort();
-                const range = dates.length ? `${dates[0]} – ${dates[dates.length-1]}` : 'N/A';
-                fileInfoDiv.innerHTML = `
-                <p>📄 <strong>${rawTransactions.length}</strong> transactions</p>
-                <p>📅 ${range}</p>
-                <p>💰 Total: ${rawTransactions.reduce((s,t)=>s+t.moneyIn,0).toLocaleString(undefined,{minimumFractionDigits:2})}</p>
-            `;
+                const rate = parseFloat(khrRateInput.value) || 4000;
+                const bankCurrencyMap = new Map();
+                data.forEach(t => {
+                    const key = t.bank + '|' + t.currency;
+                    if (!bankCurrencyMap.has(key)) {
+                        bankCurrencyMap.set(key, { bank: t.bank, currency: t.currency, total: 0, transactions: [] });
+                    }
+                    const entry = bankCurrencyMap.get(key);
+                    entry.total += t.moneyIn;
+                    entry.transactions.push(t);
+                });
+                const entries = Array.from(bankCurrencyMap.values()).sort((a, b) => {
+                    if (a.bank !== b.bank) return a.bank.localeCompare(b.bank);
+                    return a.currency.localeCompare(b.currency);
+                });
+                const totalCombined = entries.reduce((sum, e) => {
+                    return sum + (e.currency === 'USD' ? e.total : (e.total / rate));
+                }, 0);
+
+                let tableRows = entries.map(e => {
+                    const conv = e.currency === 'USD' ? e.total : (e.total / rate);
+                    return `<tr>
+                        <td style="padding:8px 12px; border-bottom:1px solid #e2e8f0; font-weight:600;">${escapeHtml(e.bank)}</td>
+                        <td style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">${e.currency}</td>
+                        <td style="padding:8px 12px; border-bottom:1px solid #e2e8f0; color:#1b8a6f;">${e.currency === 'USD' ? e.total.toFixed(2) : e.total.toFixed(0)}</td>
+                        <td style="padding:8px 12px; border-bottom:1px solid #e2e8f0; color:#1b8a6f;">${conv.toFixed(2)}</td>
+                        <td style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">${e.transactions.length}</td>
+                    </tr>`;
+                }).join('');
+                tableRows += `<tr style="font-weight:700; border-top:2px solid #116b6b;">
+                    <td style="padding:8px 12px;"><strong>TOTAL</strong></td>
+                    <td style="padding:8px 12px;">—</td>
+                    <td style="padding:8px 12px;">—</td>
+                    <td style="padding:8px 12px; color:#1b8a6f;">${totalCombined.toFixed(2)}</td>
+                    <td style="padding:8px 12px;">${data.length}</td>
+                </tr>`;
+
+                const title = 'Bank Summary Report';
+                const dateStr = new Date().toISOString().slice(0, 10);
+                const company = companyNameInput?.value || 'Your Company';
+                const month = reportMonthInput?.value || new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
+
+                const pdfHtml = `
+                    <div style="font-family: 'Inter', sans-serif; max-width: 900px; margin: 0 auto; padding: 30px; background: white; border-radius: 16px; border: 1px solid #e2eef5; box-shadow: 0 8px 20px rgba(0,0,0,0.05);">
+                        <div style="text-align: center; margin-bottom: 24px; border-bottom: 2px solid #0891b2; padding-bottom: 16px;">
+                            <h1 style="font-size: 24px; font-weight: 800; color: #0f172a; margin: 0;">${title}</h1>
+                            <p style="color: #64748b; margin-top: 4px; font-size: 14px;">
+                                ${escapeHtml(company)} — ${escapeHtml(month)} | Generated: ${dateStr} | Rate: 1 USD = ${rate} KHR
+                            </p>
+                        </div>
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                                <thead>
+                                    <tr style="background: #f5fafc; border-bottom: 2px solid #d4e5ee;">
+                                        <th style="padding: 10px 12px; text-align: left; font-weight: 600; color: #116b6b;">Bank</th>
+                                        <th style="padding: 10px 12px; text-align: left; font-weight: 600; color: #116b6b;">Currency</th>
+                                        <th style="padding: 10px 12px; text-align: right; font-weight: 600; color: #116b6b;">Original Amount</th>
+                                        <th style="padding: 10px 12px; text-align: right; font-weight: 600; color: #116b6b;">Converted USD</th>
+                                        <th style="padding: 10px 12px; text-align: center; font-weight: 600; color: #116b6b;">Transactions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${tableRows}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid #e2eef5; text-align: center; color: #94a3b8; font-size: 12px;">
+                            <p>Report generated by S-CONVERTER Financial Analytics</p>
+                        </div>
+                    </div>
+                `;
+
+                // Use html2pdf with proper settings
+                const opt = {
+                    margin: 10,
+                    filename: `Bank_Summary_${dateStr}.pdf`,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+                };
+
+                // Create a clean container with the PDF content
+                const tempDiv = document.createElement('div');
+                tempDiv.style.cssText = 'position:fixed; left:-9999px; top:0; width:1000px; background:white; z-index:99999; padding:20px;';
+                tempDiv.innerHTML = pdfHtml;
+                document.body.appendChild(tempDiv);
+
+                // Wait a moment for rendering, then generate PDF
+                setTimeout(() => {
+                    html2pdf().set(opt).from(tempDiv).save().then(() => {
+                        document.body.removeChild(tempDiv);
+                        showToast('Bank summary PDF exported!', 'success');
+                    }).catch(err => {
+                        document.body.removeChild(tempDiv);
+                        console.error('PDF error:', err);
+                        showToast('Error exporting PDF: ' + err.message, 'error');
+                    });
+                }, 300);
+            }
+
+            // --- Generate Final Report with PDF export (FIXED) ---
+            btnGenerateReport.addEventListener('click', () => {
+                const c01Usd = c01Applied;
+                const c01Remaining = remainingApplied;
+                const rate = parseFloat(khrRateInput.value) || 4000;
+
+                const bankSummary = {};
+                allTransactions.forEach(t => {
+                    const bank = t.bank || 'Unknown';
+                    const amountInUsd = t.currency === 'USD' ? t.moneyIn : (t.moneyIn / rate);
+                    if (!bankSummary[bank]) bankSummary[bank] = 0;
+                    bankSummary[bank] += amountInUsd;
+                });
+                const bankRows = Object.entries(bankSummary).sort((a, b) => b[1] - a[1]);
+                const totalBankUsd = bankRows.reduce((sum, row) => sum + row[1], 0);
+                const diff = totalBankUsd - c01Usd;
+                const finalDiff = diff - c01Remaining;
+
+                let bankTableRows = bankRows.map(([bank, amount]) =>
+                    `<tr><td style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">${escapeHtml(bank)}</td><td style="padding:8px 12px; border-bottom:1px solid #e2e8f0; color:#1b8a6f;">${amount.toFixed(2)}</td></tr>`
+                ).join('');
+
+                const dateStr = new Date().toISOString().slice(0, 10);
+                const company = companyNameInput?.value || 'Your Company';
+                const month = reportMonthInput?.value || new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
+
+                const reportHtml = `
+                    <div style="background:white; border-radius:16px; border:1px solid #deecf2; padding:24px; margin-top:20px; box-shadow:0 8px 20px rgba(0,0,0,0.05); font-family: 'Inter', sans-serif;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:2px solid #0891b2; padding-bottom:12px; flex-wrap:wrap; gap:8px;">
+                            <div>
+                                <h2 style="margin:0; font-size:1.4rem; color:#0f172a;">Final Reconciliation Report</h2>
+                                <p style="margin:2px 0 0; color:#64748b; font-size:0.85rem;">${escapeHtml(company)} — ${escapeHtml(month)}</p>
+                            </div>
+                            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                                <button class="btn btn-primary" id="exportFinalPdfBtn" style="padding:8px 18px; font-size:0.85rem;">
+                                    <i class="fa-solid fa-file-pdf"></i> Export PDF
+                                </button>
+                                <button class="btn btn-outline" id="closeFinalReportBtn" style="padding:8px 18px; font-size:0.85rem;">Close</button>
+                            </div>
+                        </div>
+                        <div style="margin-bottom:16px;">
+                            <strong>Per‑Bank Totals (converted to USD)</strong>
+                            <div class="table-wrapper" style="max-height:300px; border:1px solid #e9f0f4; border-radius:12px; overflow:auto;">
+                                <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+                                    <thead>
+                                        <tr style="background:#f5fafc; border-bottom:2px solid #d4e5ee;">
+                                            <th style="padding:10px 12px; text-align:left; font-weight:600; color:#116b6b;">Bank</th>
+                                            <th style="padding:10px 12px; text-align:right; font-weight:600; color:#116b6b;">Total (USD)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>${bankTableRows}</tbody>
+                                    <tfoot>
+                                        <tr style="font-weight:700; border-top:2px solid #116b6b;">
+                                            <td style="padding:10px 12px;">Combined Bank Total</td>
+                                            <td style="padding:10px 12px; text-align:right; color:#1b8a6f;">${totalBankUsd.toFixed(2)}</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:12px; background:#f8fafc; padding:16px; border-radius:12px; border:1px solid #e2eef5;">
+                            <div><span style="color:#64748b; font-size:0.8rem;">C01 (USD)</span><br><strong>${c01Usd.toFixed(2)}</strong></div>
+                            <div><span style="color:#64748b; font-size:0.8rem;">លុយសល់ c01 (USD)</span><br><strong>${c01Remaining.toFixed(2)}</strong></div>
+                            <div><span style="color:#64748b; font-size:0.8rem;">(Combined - C01) - លុយសល់</span><br><strong class="${finalDiff >= 0 ? 'money-positive' : 'money-negative'}">${finalDiff.toFixed(2)}</strong></div>
+                        </div>
+                        <div style="margin-top:12px; font-size:0.75rem; color:#94a3b8; text-align:center; border-top:1px solid #e2eef5; padding-top:12px;">
+                            Report generated: ${new Date().toLocaleString()} | S-CONVERTER Financial Analytics
+                        </div>
+                    </div>
+                `;
+
+                reportContainer.innerHTML = reportHtml;
+                reportContainer.style.display = 'block';
+
+                document.getElementById('closeFinalReportBtn').addEventListener('click', () => {
+                    reportContainer.style.display = 'none';
+                });
+
+                document.getElementById('exportFinalPdfBtn').addEventListener('click', function() {
+                    const pdfContent = document.querySelector('#reportContainer > div');
+                    if (!pdfContent) {
+                        showToast('No content to export', 'error');
+                        return;
+                    }
+                    const opt = {
+                        margin: 10,
+                        filename: `Final_Report_${dateStr}.pdf`,
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+                        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                    };
+                    const clone = pdfContent.cloneNode(true);
+                    const btns = clone.querySelectorAll('.btn');
+                    btns.forEach(b => b.remove());
+                    const wrapper = document.createElement('div');
+                    wrapper.style.cssText =
+                        'font-family: Inter, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: white;';
+                    wrapper.innerHTML = clone.innerHTML;
+                    const tempDiv = document.createElement('div');
+                    tempDiv.style.cssText = 'position:fixed; left:-9999px; top:0; width:900px; background:white; z-index:99999; padding:20px;';
+                    tempDiv.appendChild(wrapper);
+                    document.body.appendChild(tempDiv);
+                    setTimeout(() => {
+                        html2pdf().set(opt).from(tempDiv).save().then(() => {
+                            document.body.removeChild(tempDiv);
+                            showToast('Final report PDF exported!', 'success');
+                        }).catch(err => {
+                            document.body.removeChild(tempDiv);
+                            showToast('Error exporting PDF: ' + err.message, 'error');
+                        });
+                    }, 300);
+                });
+            });
+
+            // --- Update UI ---
+            function updateFileInfo() {
+                const usdCount = allTransactions.filter(t => t.currency === 'USD').length;
+                const khrCount = allTransactions.filter(t => t.currency === 'KHR').length;
+                const total = allTransactions.length;
+                const usdSum = allTransactions.filter(t => t.currency === 'USD').reduce((s, t) => s + t.moneyIn, 0);
+                const khrSum = allTransactions.filter(t => t.currency === 'KHR').reduce((s, t) => s + t.moneyIn, 0);
+                fileInfo.innerHTML = `
+                    <p><i class="fa-solid fa-folder-open"></i> <strong>${total}</strong> transactions</p>
+                    <p>USD Money In: ${usdCount} (${usdSum.toFixed(2)})</p>
+                    <p>KHR Money In: ${khrCount} (${khrSum.toFixed(0)})</p>
+                    <p>Files: ${uploadedFileNames.length}</p>
+                `;
                 globalSearch.disabled = false;
             }
 
+            function renderUploadedFiles() {
+                uploadedFilesContainer.innerHTML = uploadedFileNames.map(name =>
+                    `<span class="file-tag">${escapeHtml(name)} <span class="remove-file" data-name="${escapeHtml(name)}">×</span></span>`
+                ).join('');
+            }
+
+            // --- Event Listeners ---
             functionButtons.addEventListener('click', (e) => {
                 const btn = e.target.closest('.function-btn');
                 if (!btn) return;
-                setActiveView(btn.dataset.view);
-            });
-
-            function setActiveView(view) {
-                currentView = view;
+                currentView = btn.dataset.view;
                 document.querySelectorAll('.function-btn').forEach(b => b.classList.remove('active'));
-                const active = document.querySelector(`.function-btn[data-view="${view}"]`);
-                if (active) active.classList.add('active');
-                if (rawTransactions.length) applyGlobalFilter();
-            }
+                btn.classList.add('active');
+                if (allTransactions.length) applyFilterAndRender();
+            });
 
             globalSearch.addEventListener('input', () => {
-                if (rawTransactions.length) applyGlobalFilter();
+                if (allTransactions.length) applyFilterAndRender();
             });
 
-            exportBtn.addEventListener('click', () => {
-                const data = window._currentViewData || filteredTransactions;
-                if (!data.length) return;
-                let arr = [];
-                if (currentView === 'daily') {
-                    arr = getDailyTotals(data).map(d => ({ Date: d.date, TotalIn: d.totalIn, Count: d.count }));
-                } else if (currentView === 'monthly') {
-                    arr = getMonthlyTotals(data).map(m => ({ Month: m.month, TotalIn: m.totalIn, Count: m.count }));
-                } else if (currentView === 'category') {
-                    arr = getCategoryTotals(data).map(c => ({ Category: c.category, TotalIn: c.totalIn, Count: c.count }));
-                } else {
-                    const cols = currentView === 'transactions' ? Array.from(selectedColumns) : (allHeaders.length ?
-                        allHeaders : ['Date', 'Description', 'Money In', 'Category']);
-                    arr = data.map(t => {
-                        const obj = {};
-                        cols.forEach(col => {
-                            obj[col] = t.rowData[col] !== undefined ? t.rowData[col] : (col === 'Date' ? t
-                                .dateStr : col === 'Description' ? t.description : col === 'Money In' ? t
-                                .moneyIn : col === 'Category' ? t.category : '');
-                        });
-                        return obj;
-                    });
-                }
-                const wb = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(arr), "Report");
-                XLSX.writeFile(wb, `FinAutoX_${currentView}_${new Date().toISOString().slice(0,10)}.xlsx`);
-            });
-
+            // --- Initial state ---
             updateFileInfo();
+            renderUploadedFiles();
+            updateC01Display();
+
+            uploadedFilesContainer.addEventListener('click', (e) => {
+                if (e.target.classList.contains('remove-file')) {
+                    const name = e.target.dataset.name;
+                    if (confirm(`Remove file "${name}"? All its transactions will be removed.`)) {
+                        allTransactions = [];
+                        uploadedFileNames = [];
+                        updateFileInfo();
+                        renderUploadedFiles();
+                        applyFilterAndRender();
+                        showToast('All data cleared. Re-upload files.', 'info');
+                    }
+                }
+            });
+
+            console.log('✅ Financial analytics loaded with PDF fix and top-bar company info.');
         })();
     </script>
 
-    <!-- ==================== TOOL SWITCHER ==================== -->
+    <!-- Tool Switcher -->
     <script>
         function switchTool(tool) {
             const mediaContent = document.getElementById('mediaContent');
