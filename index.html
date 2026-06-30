@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-    <!-- Font Awesome 6 Free CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js">
@@ -17,8 +16,10 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
     </script>
-    <!-- html2pdf for PDF export -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
+    <!-- html2canvas + jsPDF for reliable PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
     </script>
 
     <style>
@@ -80,6 +81,7 @@
             width: min(1280px, calc(100% - 40px));
             margin: auto;
         }
+
         .navbar {
             position: sticky;
             top: 0;
@@ -569,8 +571,14 @@
             display: block;
         }
         @keyframes fade {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .progress-bar-wrap {
             height: 8px;
@@ -590,7 +598,6 @@
             transition: .5s ease;
         }
 
-        /* QR */
         .qr-main-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -623,7 +630,10 @@
             font-weight: 600;
             color: var(--text-soft);
         }
-        .qr-opt-item span { white-space: nowrap; font-weight: 700; }
+        .qr-opt-item span {
+            white-space: nowrap;
+            font-weight: 700;
+        }
         .qr-opt-item input[type="number"] {
             width: 60px;
             height: 34px;
@@ -734,7 +744,9 @@
             font-size: .75rem;
             display: none;
         }
-        .qr-logo-section.has-logo .qr-logo-remove { display: inline-block; }
+        .qr-logo-section.has-logo .qr-logo-remove {
+            display: inline-block;
+        }
         .qr-logo-controls {
             display: none;
             flex-wrap: wrap;
@@ -743,7 +755,9 @@
             width: 100%;
             margin-top: 6px;
         }
-        .qr-logo-section.has-logo .qr-logo-controls { display: flex; }
+        .qr-logo-section.has-logo .qr-logo-controls {
+            display: flex;
+        }
         .qr-preview-panel {
             background: white;
             border-radius: 24px;
@@ -796,7 +810,6 @@
             margin-top: 20px;
         }
 
-        /* Upscaler */
         .drop-zone {
             border: 2px dashed #cbd5e1;
             background: white;
@@ -815,12 +828,16 @@
             margin-bottom: 14px;
             color: var(--accent);
         }
-        .drop-zone input { display: none; }
+        .drop-zone input {
+            display: none;
+        }
         .image-preview-area {
             display: none;
             margin-top: 26px;
         }
-        .image-preview-area.show { display: block; }
+        .image-preview-area.show {
+            display: block;
+        }
         .image-compare {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -910,7 +927,7 @@
             font-size: .9rem;
         }
 
-        /* Finance - Professional Bank App Style */
+        /* FINANCE - Professional Bank App Style */
         .fin-hero-card {
             background: linear-gradient(135deg, #ffffff, #f0ffff);
             padding: 2rem;
@@ -919,7 +936,6 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, .05);
             margin-bottom: 1.5rem;
         }
-
         .fin-top-bar {
             display: flex;
             flex-wrap: wrap;
@@ -1033,6 +1049,33 @@
             border-radius: 12px;
             font-size: 0.85rem;
         }
+        .file-selector-wrap {
+            margin-top: 0.5rem;
+        }
+        .file-selector-wrap select {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 12px;
+            border: 1px solid #deecf2;
+            font-size: 0.85rem;
+            background: white;
+            font-family: inherit;
+            font-weight: 500;
+            color: var(--gray-700);
+            cursor: pointer;
+            outline: none;
+        }
+        .file-selector-wrap select:focus {
+            border-color: var(--cyan-500);
+            box-shadow: 0 0 0 3px var(--cyan-100);
+        }
+        .file-selector-wrap label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #64748b;
+            display: block;
+            margin-bottom: 4px;
+        }
         .function-group {
             display: flex;
             flex-direction: column;
@@ -1084,7 +1127,7 @@
         }
         .table-wrapper {
             overflow-x: auto;
-            max-height: 450px;
+            max-height: 550px;
             overflow-y: auto;
             border-radius: 12px;
             border: 1px solid #e9f0f4;
@@ -1101,15 +1144,39 @@
             color: var(--cyan-700);
             border-bottom: 1px solid #d4e5ee;
             white-space: nowrap;
+            position: sticky;
+            top: 0;
+            z-index: 2;
         }
         td {
             padding: 8px 12px;
             border-bottom: 1px solid #edf4f8;
-            white-space: nowrap;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 300px;
         }
-        tr:last-child td { border-bottom: none; }
-        .money-positive { color: #1b8a6f; font-weight: 500; }
-        .money-negative { color: #b91c1c; font-weight: 500; }
+        td.description-cell {
+            max-width: 250px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
+            line-height: 1.4;
+        }
+        td.date-cell {
+            white-space: nowrap;
+            min-width: 100px;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .money-positive {
+            color: #1b8a6f;
+            font-weight: 500;
+        }
+        .money-negative {
+            color: #b91c1c;
+            font-weight: 500;
+        }
         .chart-container {
             width: 100%;
             max-height: 300px;
@@ -1138,29 +1205,49 @@
             background: #f9fdfe;
             cursor: pointer;
             user-select: none;
+            flex-wrap: wrap;
+            gap: 8px;
         }
         .expandable-header-left {
             display: flex;
             align-items: center;
             gap: 10px;
             flex: 1;
+            flex-wrap: wrap;
         }
         .toggle-icon {
             font-size: 0.9rem;
             transition: transform 0.2s;
             color: var(--cyan-700);
         }
-        .expanded .toggle-icon { transform: rotate(90deg); }
+        .expanded .toggle-icon {
+            transform: rotate(90deg);
+        }
         .expandable-details {
             display: none;
             border-top: 1px solid #e2eef5;
             padding: 10px 16px;
             background: #fafeff;
+            overflow-x: auto;
         }
-        .expanded .expandable-details { display: block; }
+        .expanded .expandable-details {
+            display: block;
+        }
         .detail-table {
             width: 100%;
             font-size: 0.8rem;
+            border-collapse: collapse;
+        }
+        .detail-table td {
+            padding: 6px 10px;
+            max-width: 200px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
+        }
+        .detail-table th {
+            padding: 6px 10px;
+            white-space: nowrap;
         }
         .export-detail-btn {
             margin-top: 6px;
@@ -1258,7 +1345,9 @@
             color: #94a3b8;
             transition: var(--transition);
         }
-        .footer-links a:hover { color: white; }
+        .footer-links a:hover {
+            color: white;
+        }
         .footer-bottom {
             border-top: 1px solid rgba(255, 255, 255, .08);
             padding-top: 24px;
@@ -1284,71 +1373,321 @@
             animation: slide .3s ease;
             box-shadow: var(--shadow-lg);
         }
-        .toast.success { background: #10b981; }
-        .toast.error { background: #ef4444; }
-        .toast.info { background: #0891b2; }
+        .toast.success {
+            background: #10b981;
+        }
+        .toast.error {
+            background: #ef4444;
+        }
+        .toast.info {
+            background: #0891b2;
+        }
         @keyframes slide {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
         .spinner {
             width: 18px;
             height: 18px;
-            border: 2px solid rgba(255,255,255,.4);
+            border: 2px solid rgba(255, 255, 255, .4);
             border-top-color: white;
             border-radius: 50%;
             animation: spin .7s linear infinite;
             display: inline-block;
         }
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== REPORT PDF STYLES ===== */
+        .report-pdf-container {
+            position: fixed;
+            left: -9999px;
+            top: 0;
+            width: 900px;
+            background: white;
+            z-index: 99999;
+            padding: 40px 50px;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+        }
+        .report-pdf-container .report-header {
+            text-align: center;
+            margin-bottom: 28px;
+            border-bottom: 2px solid #0891b2;
+            padding-bottom: 16px;
+        }
+        .report-pdf-container .report-header h1 {
+            font-size: 26px;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 4px 0;
+            letter-spacing: -0.5px;
+        }
+        .report-pdf-container .report-header .subtitle {
+            color: #64748b;
+            font-size: 15px;
+            margin: 0;
+            font-weight: 500;
+        }
+        .report-pdf-container .report-header .source {
+            color: #64748b;
+            font-size: 13px;
+            margin: 2px 0 0 0;
+            font-weight: 400;
+        }
+        .report-pdf-container .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 20px 0 12px 0;
+        }
+        .report-pdf-container table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        .report-pdf-container table th {
+            background: #f5fafc;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+            color: #116b6b;
+            border-bottom: 2px solid #d4e5ee;
+        }
+        .report-pdf-container table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #e2eef5;
+        }
+        .report-pdf-container table tr:last-child td {
+            border-bottom: none;
+        }
+        .report-pdf-container .total-row {
+            font-weight: 700;
+            border-top: 2px solid #116b6b !important;
+        }
+        .report-pdf-container .total-row td {
+            padding-top: 12px;
+        }
+        .report-pdf-container .total-amount {
+            color: #1b8a6f;
+            font-weight: 700;
+            font-size: 16px;
+        }
+        .report-pdf-container .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            background: #f8fafc;
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 1px solid #e2eef5;
+            margin-top: 16px;
+        }
+        .report-pdf-container .summary-grid .item {
+            display: flex;
+            flex-direction: column;
+        }
+        .report-pdf-container .summary-grid .item .label {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 500;
+        }
+        .report-pdf-container .summary-grid .item .value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .report-pdf-container .summary-grid .item .value.positive {
+            color: #1b8a6f;
+        }
+        .report-pdf-container .summary-grid .item .value.negative {
+            color: #b91c1c;
+        }
+        .report-pdf-container .report-footer {
+            margin-top: 20px;
+            padding-top: 14px;
+            border-top: 1px solid #e2eef5;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 11px;
         }
 
         @media (max-width: 980px) {
-            .hero-grid, .tool-grid, .about-grid, .footer-grid, .qr-main-grid, .fin-app-container {
+            .hero-grid,
+            .tool-grid,
+            .about-grid,
+            .footer-grid,
+            .qr-main-grid,
+            .fin-app-container {
                 grid-template-columns: 1fr;
             }
-            .feature-strip { grid-template-columns: 1fr; }
-            .stats { grid-template-columns: 1fr; }
-            .image-compare { grid-template-columns: 1fr; }
-            .fin-app-container { flex-direction: column; }
-            .fin-sidebar { width: 100%; }
-            .fin-top-bar { flex-direction: column; align-items: stretch; }
-            .fin-top-bar .meta-fields { flex-direction: column; }
-            .fin-top-bar .meta-fields .field-group { width: 100%; }
+            .feature-strip {
+                grid-template-columns: 1fr;
+            }
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            .image-compare {
+                grid-template-columns: 1fr;
+            }
+            .fin-app-container {
+                flex-direction: column;
+            }
+            .fin-sidebar {
+                width: 100%;
+            }
+            .fin-top-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .fin-top-bar .meta-fields {
+                flex-direction: column;
+            }
+            .fin-top-bar .meta-fields .field-group {
+                width: 100%;
+            }
         }
         @media (max-width: 720px) {
-            .nav-links { display: none; }
-            .hero { padding-top: 60px; }
-            .tool-card { padding: 20px; }
-            .input-group { flex-direction: column; }
-            .fetch-btn { height: 54px; }
-            .platform-selector { overflow: auto; flex-wrap: nowrap; padding-bottom: 5px; }
-            .platform-btn { min-width: max-content; }
-            .hero h1 { font-size: 2.6rem; }
-            .qr-opt-row { gap: 6px; }
-            .qr-opt-item { padding: 8px 10px; font-size: .75rem; }
-            .qr-opt-item input[type="range"] { width: 60px; }
-            .tool-toggle-wrap { flex-direction: column; gap: 6px; padding: 8px; border-radius: 18px; }
-            .tool-toggle-btn { width: 100%; justify-content: center; padding: 14px 16px; border-radius: 14px; font-size: .85rem; }
-            .tool-toggle-btn .tool-toggle-icon { font-size: 1.1rem; }
-            .fin-top-bar .meta-fields .field-group input { min-width: 80px; }
+            .nav-links {
+                display: none;
+            }
+            .hero {
+                padding-top: 60px;
+            }
+            .tool-card {
+                padding: 20px;
+            }
+            .input-group {
+                flex-direction: column;
+            }
+            .fetch-btn {
+                height: 54px;
+            }
+            .platform-selector {
+                overflow: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 5px;
+            }
+            .platform-btn {
+                min-width: max-content;
+            }
+            .hero h1 {
+                font-size: 2.6rem;
+            }
+            .qr-opt-row {
+                gap: 6px;
+            }
+            .qr-opt-item {
+                padding: 8px 10px;
+                font-size: .75rem;
+            }
+            .qr-opt-item input[type="range"] {
+                width: 60px;
+            }
+            .tool-toggle-wrap {
+                flex-direction: column;
+                gap: 6px;
+                padding: 8px;
+                border-radius: 18px;
+            }
+            .tool-toggle-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 14px 16px;
+                border-radius: 14px;
+                font-size: .85rem;
+            }
+            .tool-toggle-btn .tool-toggle-icon {
+                font-size: 1.1rem;
+            }
+            .fin-top-bar .meta-fields .field-group input {
+                min-width: 80px;
+            }
+            td.description-cell {
+                max-width: 120px;
+            }
+            .detail-table td {
+                max-width: 120px;
+            }
+            .report-pdf-container {
+                width: 100%;
+                padding: 20px;
+            }
         }
         @media (max-width: 640px) {
-            .tool-card { overflow: hidden; }
-            .preview-card { overflow: hidden; }
-            .preview-content { padding: 16px; }
-            .download-btns { flex-direction: column; }
-            .download-btns .btn { width: 100%; justify-content: center; }
-            .qr-action-buttons { flex-direction: column; }
-            .qr-action-buttons .btn { width: 100%; justify-content: center; }
+            .tool-card {
+                overflow: hidden;
+            }
+            .preview-card {
+                overflow: hidden;
+            }
+            .preview-content {
+                padding: 16px;
+            }
+            .download-btns {
+                flex-direction: column;
+            }
+            .download-btns .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .qr-action-buttons {
+                flex-direction: column;
+            }
+            .qr-action-buttons .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            td.description-cell {
+                max-width: 80px;
+            }
+            .detail-table td {
+                max-width: 80px;
+            }
+            .report-pdf-container {
+                padding: 12px;
+            }
+            .report-pdf-container .summary-grid {
+                grid-template-columns: 1fr;
+            }
         }
-        html, body { overflow-x: hidden; }
-        .container, .tool-card, .panel, .preview-card, .preview-content, .preview-meta, .preview-content h3 { min-width: 0; }
-        .preview-thumb { width: 100%; max-width: 100%; }
-        .result-area { width: 100%; overflow: hidden; }
-        .download-btns { width: 100%; }
-        .download-btns .btn { flex: 1; justify-content: center; }
+        html,
+        body {
+            overflow-x: hidden;
+        }
+        .container,
+        .tool-card,
+        .panel,
+        .preview-card,
+        .preview-content,
+        .preview-meta,
+        .preview-content h3 {
+            min-width: 0;
+        }
+        .preview-thumb {
+            width: 100%;
+            max-width: 100%;
+        }
+        .result-area {
+            width: 100%;
+            overflow: hidden;
+        }
+        .download-btns {
+            width: 100%;
+        }
+        .download-btns .btn {
+            flex: 1;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -1555,14 +1894,13 @@
                     </div>
                 </div>
 
-                <!-- FINANCIAL REPORTS — Company info moved to top, PDF fixed -->
+                <!-- FINANCIAL REPORTS -->
                 <div id="financeContent" style="display:none;">
                     <div class="fin-hero-card">
                         <h1 style="font-size:2rem;"><i class="fa-solid fa-file-excel"></i> Multi-Bank Financial Reconciliation</h1>
                         <p style="color:#6a8492;">Import multiple bank statements (USD & KHR), assign bank names, manually add transactions, compare with C01 and លុយសល់ c01, and generate final reports with per‑bank breakdown.</p>
                     </div>
 
-                    <!-- TOP BAR: Company Info -->
                     <div class="fin-top-bar" id="finTopBar">
                         <div class="brand-section">
                             <div class="icon-circle"><i class="fa-solid fa-building-columns"></i></div>
@@ -1588,6 +1926,12 @@
                         <aside class="fin-sidebar">
                             <div id="fileInfo" class="file-summary">
                                 <p><i class="fa-solid fa-folder-open"></i> <strong>No files loaded</strong></p>
+                            </div>
+                            <div class="file-selector-wrap" id="fileSelectorWrap" style="display:none;">
+                                <label for="fileSelector"><i class="fa-solid fa-file-lines"></i> Select File</label>
+                                <select id="fileSelector">
+                                    <option value="__all__">📂 All Files (Combined)</option>
+                                </select>
                             </div>
                             <div class="search-box">
                                 <input type="text" id="globalSearch" placeholder="&#x1F50D; Filter transactions..." disabled>
@@ -1633,7 +1977,7 @@
                                 <div style="margin-top:8px; background:#f0f9ff; padding:10px; border-radius:8px; font-size:0.9rem;">
                                     <span id="c01ResultDisplay">C01: 0.00 | លុយសល់: 0.00 | Diff: 0.00</span>
                                 </div>
-                                <button class="btn btn-primary" id="btnGenerateReport" style="width:100%; margin-top:8px;"><i class="fa-solid fa-file-pen"></i> Generate Final Report (PDF)</button>
+                                <button class="btn btn-primary" id="btnGenerateReport" style="width:100%; margin-top:8px;"><i class="fa-solid fa-file-pen"></i> Generate Final Report</button>
                             </div>
                         </aside>
                         <main class="fin-content-panel" id="contentPanel">
@@ -2649,7 +2993,7 @@
         })();
     </script>
 
-    <!-- ==================== FINANCIAL ANALYTICS SCRIPT — PDF FIXED ==================== -->
+    <!-- ==================== FINANCIAL ANALYTICS SCRIPT — with File Selector & PDF Export ==================== -->
     <script>
         (function() {
             // --- State ---
@@ -2658,6 +3002,8 @@
             let currentView = 'total';
             let chartInstance = null;
             let selectedColumns = new Set(['Date', 'Bank', 'Description', 'Money In', 'Converted USD', 'Currency']);
+            let selectedFile = '__all__';
+            let uploadedFileNames = [];
 
             // DOM refs
             const contentPanel = document.getElementById('contentPanel');
@@ -2677,11 +3023,12 @@
             const khrRateInput = document.getElementById('khrToUsdRate');
             const bankNameInput = document.getElementById('bankNameInput');
             const reportContainer = document.getElementById('reportContainer');
+            const fileSelector = document.getElementById('fileSelector');
+            const fileSelectorWrap = document.getElementById('fileSelectorWrap');
 
             const companyNameInput = document.getElementById('companyName');
             const reportMonthInput = document.getElementById('reportMonth');
 
-            let uploadedFileNames = [];
             let c01Applied = 0;
             let remainingApplied = 0;
 
@@ -2717,6 +3064,14 @@
                     }
                 }
                 return null;
+            }
+
+            function formatLocalDate(dateObj) {
+                if (!dateObj || isNaN(dateObj.getTime())) return '';
+                const year = dateObj.getFullYear();
+                const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+                const day = String(dateObj.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
             }
 
             function extractCategory(desc) {
@@ -2766,7 +3121,7 @@
             }
 
             // --- Parse a sheet from a file ---
-            function parseSheetToTransactions(sheet, bankName) {
+            function parseSheetToTransactions(sheet, bankName, sourceFile) {
                 const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
                 if (!rows || rows.length < 2) return [];
                 let headerIdx = 0;
@@ -2873,7 +3228,7 @@
                     }
                     if (moneyIn === 0 && moneyOut === 0 && !finalDesc) continue;
 
-                    const dateStr = dateObj.toISOString().slice(0, 10);
+                    const dateStr = formatLocalDate(dateObj);
                     const rowData = {};
                     for (let j = 0; j < headers.length; j++) {
                         rowData[headers[j]] = row[j] !== undefined ? row[j] : '';
@@ -2881,9 +3236,11 @@
                     const netAmount = moneyIn > 0 ? moneyIn : (moneyOut > 0 ? -moneyOut : 0);
 
                     transactions.push({
-                        dateStr,
+                        dateStr: dateStr,
+                        dateObj: dateObj,
                         description: finalDesc,
                         bank: bankName || 'Unknown',
+                        sourceFile: sourceFile || 'Imported',
                         moneyIn: netAmount > 0 ? netAmount : 0,
                         moneyOut: netAmount < 0 ? Math.abs(netAmount) : 0,
                         netAmount: netAmount,
@@ -2912,7 +3269,7 @@
                                 const data = new Uint8Array(e.target.result);
                                 const workbook = XLSX.read(data, { type: 'array' });
                                 let sheet = workbook.Sheets[workbook.SheetNames[0]];
-                                const txns = parseSheetToTransactions(sheet, bankName);
+                                const txns = parseSheetToTransactions(sheet, bankName, file.name);
                                 allNewTxns = allNewTxns.concat(txns);
                                 resolve(file.name);
                             } catch (err) {
@@ -2927,6 +3284,7 @@
                 Promise.all(readerPromises).then((names) => {
                     uploadedFileNames = uploadedFileNames.concat(names);
                     allTransactions = allTransactions.concat(allNewTxns);
+                    updateFileSelector();
                     updateFileInfo();
                     renderUploadedFiles();
                     applyFilterAndRender();
@@ -2944,7 +3302,34 @@
                 fileUploadBank.value = '';
             });
 
-            // Manual transaction entry — no description field
+            // --- File Selector ---
+            function updateFileSelector() {
+                const current = fileSelector.value;
+                fileSelector.innerHTML = '<option value="__all__">📂 All Files (Combined)</option>';
+                const uniqueFiles = [...new Set(allTransactions.map(t => t.sourceFile).filter(f => f))];
+                uniqueFiles.forEach(f => {
+                    const selected = f === current ? 'selected' : '';
+                    fileSelector.innerHTML += `<option value="${escapeHtml(f)}" ${selected}>📄 ${escapeHtml(f)}</option>`;
+                });
+                if (uniqueFiles.length > 0) {
+                    fileSelectorWrap.style.display = 'block';
+                    if (current !== '__all__' && uniqueFiles.includes(current)) {
+                        fileSelector.value = current;
+                    } else {
+                        fileSelector.value = '__all__';
+                        selectedFile = '__all__';
+                    }
+                } else {
+                    fileSelectorWrap.style.display = 'none';
+                }
+            }
+
+            fileSelector.addEventListener('change', function() {
+                selectedFile = this.value;
+                applyFilterAndRender();
+            });
+
+            // Manual transaction entry
             btnAddManualRow.addEventListener('click', () => {
                 const formHtml = `
                     <div style="background:#f8fafc; padding:16px; border-radius:12px; border:1px solid #deecf2; margin-bottom:12px;">
@@ -2977,10 +3362,14 @@
                     const moneyOut = type === 'out' ? amount : 0;
                     const netAmount = type === 'in' ? amount : -amount;
                     const desc = `Manual (${bank})`;
+                    const dateObj = new Date(date + 'T00:00:00');
+                    const dateStr = formatLocalDate(dateObj);
                     const txn = {
-                        dateStr: date,
+                        dateStr: dateStr,
+                        dateObj: dateObj,
                         description: desc,
                         bank: bank,
+                        sourceFile: '📝 Manual Entry',
                         moneyIn: moneyIn,
                         moneyOut: moneyOut,
                         netAmount: netAmount,
@@ -2994,6 +3383,7 @@
                         rawMoneyOut: moneyOut,
                     };
                     allTransactions.push(txn);
+                    updateFileSelector();
                     applyFilterAndRender();
                     updateFileInfo();
                     const formDiv = saveBtn.closest('div[style*="background:#f8fafc"]');
@@ -3047,18 +3437,34 @@
 
             function getTotalCombinedUsd() {
                 const rate = parseFloat(khrRateInput.value) || 4000;
-                const totalUsd = allTransactions.filter(t => t.currency === 'USD').reduce((s, t) => s + t.moneyIn, 0);
-                const totalKhr = allTransactions.filter(t => t.currency === 'KHR').reduce((s, t) => s + t.moneyIn, 0);
+                let data = allTransactions;
+                if (selectedFile !== '__all__') {
+                    data = allTransactions.filter(t => t.sourceFile === selectedFile);
+                }
+                const totalUsd = data.filter(t => t.currency === 'USD').reduce((s, t) => s + t.moneyIn, 0);
+                const totalKhr = data.filter(t => t.currency === 'KHR').reduce((s, t) => s + t.moneyIn, 0);
                 return totalUsd + (totalKhr / rate);
             }
 
             // --- Filtering and Rendering ---
-            function applyFilterAndRender() {
+            function getFilteredData() {
+                let data = allTransactions;
+                if (selectedFile !== '__all__') {
+                    data = allTransactions.filter(t => t.sourceFile === selectedFile);
+                }
                 const kw = globalSearch.value.trim().toLowerCase();
-                filteredTransactions = kw ? allTransactions.filter(t =>
-                    t.description.toLowerCase().includes(kw) || t.category.toLowerCase().includes(kw) ||
-                    (t.bank && t.bank.toLowerCase().includes(kw))
-                ) : [...allTransactions];
+                if (kw) {
+                    data = data.filter(t =>
+                        t.description.toLowerCase().includes(kw) ||
+                        t.category.toLowerCase().includes(kw) ||
+                        (t.bank && t.bank.toLowerCase().includes(kw))
+                    );
+                }
+                return data;
+            }
+
+            function applyFilterAndRender() {
+                filteredTransactions = getFilteredData();
                 renderCurrentView();
                 updateC01Display();
             }
@@ -3069,17 +3475,20 @@
                 return t.moneyIn / rate;
             }
 
+            // ---- RENDER CURRENT VIEW ----
             function renderCurrentView() {
-                if (!allTransactions.length) {
+                const data = filteredTransactions;
+                if (!data.length) {
+                    const totalAll = allTransactions.length;
+                    const msg = totalAll > 0 ? `No transactions match the current filter. (${totalAll} total available)` :
+                        'No transactions yet. Import bank files or add manual entries.';
                     contentPanel.innerHTML =
-                        `<div class="empty-content"><div style="font-size:3rem;"><i class="fa-solid fa-file-csv"></i></div><h3>No transactions yet</h3><p>Import bank files or add manual entries.</p></div>`;
+                        `<div class="empty-content"><div style="font-size:3rem;"><i class="fa-solid fa-file-csv"></i></div><h3>${msg}</h3></div>`;
                     return;
                 }
                 let title = '',
                     html = '',
                     chartData = null;
-                const data = filteredTransactions.length ? filteredTransactions : allTransactions;
-
                 const rate = parseFloat(khrRateInput.value) || 4000;
 
                 const bankCurrencyMap = new Map();
@@ -3106,9 +3515,11 @@
                 });
                 const totalCombined = Array.from(bankCombinedMap.values()).reduce((s, v) => s + v, 0);
 
+                const fileLabel = selectedFile === '__all__' ? 'All Files' : selectedFile;
+
                 switch (currentView) {
                     case 'total': {
-                        title = '🏦 Totals by Bank (Money In) with Converted USD';
+                        title = `🏦 Totals by Bank (Money In) — ${fileLabel}`;
                         let tableRows = bankCurrencyEntries.map(e => {
                             const conv = e.currency === 'USD' ? e.total : (e.total / rate);
                             return `<tr>
@@ -3136,12 +3547,13 @@
                                 </table>
                             </div>
                             <div style="margin-top:12px; display:flex; gap:12px; flex-wrap:wrap;">
-                                <button class="btn btn-primary" id="exportBankPdfBtn" style="padding:8px 18px; font-size:0.85rem;">
-                                    <i class="fa-solid fa-file-pdf"></i> Export Bank Summary as PDF
+                                <button class="btn btn-primary" id="exportBankExcelBtn" style="padding:8px 18px; font-size:0.85rem;">
+                                    <i class="fa-solid fa-file-excel"></i> Export Bank Summary (Excel)
                                 </button>
                             </div>
                             <div style="margin-top:12px; font-size:0.85rem; color:#64748b;">
                                 <strong>Total Combined USD:</strong> ${totalCombined.toFixed(2)} (USD + KHR converted at rate ${rate})
+                                ${selectedFile !== '__all__' ? `<br><strong>Source:</strong> ${escapeHtml(selectedFile)}` : ''}
                             </div>
                         `;
                         break;
@@ -3150,8 +3562,16 @@
                         const dailyMap = new Map();
                         data.forEach(t => {
                             const k = t.dateStr;
-                            if (!dailyMap.has(k)) dailyMap.set(k, { date: k, usd: 0, khr: 0, count: 0,
-                                transactions: [] });
+                            if (!dailyMap.has(k)) {
+                                dailyMap.set(k, {
+                                    date: k,
+                                    dateObj: t.dateObj || new Date(k + 'T00:00:00'),
+                                    usd: 0,
+                                    khr: 0,
+                                    count: 0,
+                                    transactions: []
+                                });
+                            }
                             let e = dailyMap.get(k);
                             if (t.currency === 'USD') e.usd += t.moneyIn;
                             else e.khr += t.moneyIn;
@@ -3159,13 +3579,14 @@
                             e.transactions.push(t);
                         });
                         const daily = Array.from(dailyMap.values()).sort((a, b) => a.date.localeCompare(b.date));
-                        title = `📅 Daily Summary (Money In) — ${daily.length} days`;
+
+                        title = `📅 Daily Summary (Money In) — ${daily.length} days — ${fileLabel}`;
                         html = `<div class="expandable-list">${daily.map(d => `
                             <div class="expandable-item">
                                 <div class="expandable-header">
                                     <div class="expandable-header-left">
                                         <span class="toggle-icon">▶</span>
-                                        <strong>${d.date}</strong>
+                                        <strong class="date-cell">${d.date}</strong>
                                         <span class="money-positive">USD: ${d.usd.toFixed(2)}</span>
                                         <span style="color:#b91c1c;">KHR: ${d.khr.toFixed(0)}</span>
                                         <span>(${d.count} txns)</span>
@@ -3179,7 +3600,7 @@
                                             const conv = getConvertedUsd(t);
                                             return `<tr>
                                                 <td>${escapeHtml(t.bank || '')}</td>
-                                                <td style="max-width:200px;">${escapeHtml(t.description.substring(0,60))}</td>
+                                                <td class="description-cell">${escapeHtml(t.description.substring(0,100))}</td>
                                                 <td>${t.currency}</td>
                                                 <td class="money-positive">${t.moneyIn.toFixed(2)}</td>
                                                 <td class="money-positive">${conv.toFixed(2)}</td>
@@ -3205,7 +3626,7 @@
                             e.transactions.push(t);
                         });
                         const cats = Array.from(catMap.values()).sort((a, b) => (b.usd + b.khr) - (a.usd + a.khr));
-                        title = `🏷️ Category Breakdown (Money In) — ${cats.length} categories`;
+                        title = `🏷️ Category Breakdown (Money In) — ${cats.length} categories — ${fileLabel}`;
                         html = `<div class="expandable-list">${cats.map(cat => `
                             <div class="expandable-item">
                                 <div class="expandable-header">
@@ -3213,7 +3634,7 @@
                                         <span class="toggle-icon">▶</span>
                                         <span style="font-weight:600;">${escapeHtml(cat.category)}</span>
                                     </div>
-                                    <div style="display:flex; gap:12px; font-size:0.9rem;">
+                                    <div style="display:flex; gap:12px; font-size:0.9rem; flex-wrap:wrap;">
                                         <span class="money-positive">USD: ${cat.usd.toFixed(2)}</span>
                                         <span style="color:#b91c1c;">KHR: ${cat.khr.toFixed(0)}</span>
                                         <span>${cat.count} txns</span>
@@ -3224,7 +3645,7 @@
                                         <thead><tr><th>Bank</th><th>Date</th><th>Description</th><th>Currency</th><th>Money In</th><th>Converted USD</th></tr></thead>
                                         <tbody>${cat.transactions.map(t => {
                                             const conv = getConvertedUsd(t);
-                                            return `<tr><td>${escapeHtml(t.bank || '')}</td><td>${t.dateStr}</td><td style="max-width:200px;">${escapeHtml(t.description.substring(0,60))}</td>
+                                            return `<tr><td>${escapeHtml(t.bank || '')}</td><td>${t.dateStr}</td><td class="description-cell">${escapeHtml(t.description.substring(0,80))}</td>
                                             <td>${t.currency}</td><td class="money-positive">${t.moneyIn.toFixed(2)}</td><td class="money-positive">${conv.toFixed(2)}</td></tr>`;
                                         }).join('')}</tbody>
                                     </table>
@@ -3235,13 +3656,15 @@
                         break;
                     }
                     case 'transactions': {
-                        title = `📋 All Transactions (Money In) — ${data.length} rows`;
+                        title = `📋 All Transactions (Money In) — ${data.length} rows — ${fileLabel}`;
                         let columnSelectorHtml = '<div class="column-selector">';
                         columnSelectorHtml +=
                             '<button class="column-selector-toggle" id="toggleColumnSelector">📌 Choose columns</button>';
                         columnSelectorHtml +=
                             '<div id="columnCheckboxes" style="display:none; flex-wrap:wrap; gap:6px; margin-top:5px;">';
-                        const allCols = ['Date', 'Bank', 'Description', 'Money In', 'Converted USD', 'Currency', 'Category'];
+                        const allCols = ['Date', 'Bank', 'Description', 'Money In', 'Converted USD', 'Currency', 'Category',
+                            'Source'
+                        ];
                         allCols.forEach(col => {
                             const checked = selectedColumns.has(col) ? 'checked' : '';
                             columnSelectorHtml +=
@@ -3254,9 +3677,10 @@
                         <tbody>${data.map(t => {
                             const conv = getConvertedUsd(t);
                             return `<tr>${cols.map(c => {
-                                if (c === 'Date') return `<td>${t.dateStr}</td>`;
+                                if (c === 'Date') return `<td class="date-cell">${t.dateStr}</td>`;
                                 if (c === 'Bank') return `<td>${escapeHtml(t.bank || '')}</td>`;
-                                if (c === 'Description') return `<td style="max-width:200px;">${escapeHtml(t.description.substring(0,80))}</td>`;
+                                if (c === 'Description') return `<td class="description-cell">${escapeHtml(t.description.substring(0,120))}</td>`;
+                                if (c === 'Source') return `<td>${escapeHtml(t.sourceFile || '')}</td>`;
                                 if (c === 'Money In') return `<td class="money-positive">${t.moneyIn.toFixed(2)}</td>`;
                                 if (c === 'Converted USD') return `<td class="money-positive">${conv.toFixed(2)}</td>`;
                                 if (c === 'Currency') return `<td>${t.currency}</td>`;
@@ -3338,10 +3762,10 @@
                     }
                 }
 
-                const exportPdfBtn = document.getElementById('exportBankPdfBtn');
-                if (exportPdfBtn) {
-                    exportPdfBtn.addEventListener('click', function() {
-                        exportBankSummaryPdf();
+                const exportExcelBtn = document.getElementById('exportBankExcelBtn');
+                if (exportExcelBtn) {
+                    exportExcelBtn.addEventListener('click', function() {
+                        exportBankSummaryExcel();
                     });
                 }
 
@@ -3350,7 +3774,7 @@
 
             function exportSubset(transactions, filename) {
                 const wb = XLSX.utils.book_new();
-                const cols = ['Date', 'Bank', 'Description', 'Currency', 'Money In', 'Converted USD', 'Category'];
+                const cols = ['Date', 'Bank', 'Description', 'Currency', 'Money In', 'Converted USD', 'Category', 'Source'];
                 const wsData = transactions.map(t => {
                     const conv = getConvertedUsd(t);
                     const obj = {};
@@ -3362,6 +3786,7 @@
                         else if (col === 'Money In') obj[col] = t.moneyIn;
                         else if (col === 'Converted USD') obj[col] = conv;
                         else if (col === 'Category') obj[col] = t.category;
+                        else if (col === 'Source') obj[col] = t.sourceFile || '';
                     });
                     return obj;
                 });
@@ -3369,9 +3794,9 @@
                 XLSX.writeFile(wb, `${filename}.xlsx`);
             }
 
-            // --- PDF Export: Bank Summary (FIXED — using proper rendering) ---
-            function exportBankSummaryPdf() {
-                const data = filteredTransactions.length ? filteredTransactions : allTransactions;
+            // --- Excel Export: Bank Summary ---
+            function exportBankSummaryExcel() {
+                const data = filteredTransactions;
                 if (!data.length) {
                     showToast('No data to export', 'error');
                     return;
@@ -3391,99 +3816,52 @@
                     if (a.bank !== b.bank) return a.bank.localeCompare(b.bank);
                     return a.currency.localeCompare(b.currency);
                 });
+
+                const wsData = entries.map(e => {
+                    const conv = e.currency === 'USD' ? e.total : (e.total / rate);
+                    return {
+                        'Bank': e.bank,
+                        'Currency': e.currency,
+                        'Original Amount': e.currency === 'USD' ? e.total : e.total,
+                        'Converted USD': conv,
+                        'Transactions': e.transactions.length
+                    };
+                });
                 const totalCombined = entries.reduce((sum, e) => {
                     return sum + (e.currency === 'USD' ? e.total : (e.total / rate));
                 }, 0);
+                wsData.push({
+                    'Bank': 'TOTAL',
+                    'Currency': '—',
+                    'Original Amount': '—',
+                    'Converted USD': totalCombined,
+                    'Transactions': data.length
+                });
 
-                let tableRows = entries.map(e => {
-                    const conv = e.currency === 'USD' ? e.total : (e.total / rate);
-                    return `<tr>
-                        <td style="padding:8px 12px; border-bottom:1px solid #e2e8f0; font-weight:600;">${escapeHtml(e.bank)}</td>
-                        <td style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">${e.currency}</td>
-                        <td style="padding:8px 12px; border-bottom:1px solid #e2e8f0; color:#1b8a6f;">${e.currency === 'USD' ? e.total.toFixed(2) : e.total.toFixed(0)}</td>
-                        <td style="padding:8px 12px; border-bottom:1px solid #e2e8f0; color:#1b8a6f;">${conv.toFixed(2)}</td>
-                        <td style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">${e.transactions.length}</td>
-                    </tr>`;
-                }).join('');
-                tableRows += `<tr style="font-weight:700; border-top:2px solid #116b6b;">
-                    <td style="padding:8px 12px;"><strong>TOTAL</strong></td>
-                    <td style="padding:8px 12px;">—</td>
-                    <td style="padding:8px 12px;">—</td>
-                    <td style="padding:8px 12px; color:#1b8a6f;">${totalCombined.toFixed(2)}</td>
-                    <td style="padding:8px 12px;">${data.length}</td>
-                </tr>`;
-
-                const title = 'Bank Summary Report';
+                const wb = XLSX.utils.book_new();
+                const ws = XLSX.utils.json_to_sheet(wsData);
+                XLSX.utils.book_append_sheet(wb, ws, 'Bank Summary');
                 const dateStr = new Date().toISOString().slice(0, 10);
-                const company = companyNameInput?.value || 'Your Company';
-                const month = reportMonthInput?.value || new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
-
-                const pdfHtml = `
-                    <div style="font-family: 'Inter', sans-serif; max-width: 900px; margin: 0 auto; padding: 30px; background: white; border-radius: 16px; border: 1px solid #e2eef5; box-shadow: 0 8px 20px rgba(0,0,0,0.05);">
-                        <div style="text-align: center; margin-bottom: 24px; border-bottom: 2px solid #0891b2; padding-bottom: 16px;">
-                            <h1 style="font-size: 24px; font-weight: 800; color: #0f172a; margin: 0;">${title}</h1>
-                            <p style="color: #64748b; margin-top: 4px; font-size: 14px;">
-                                ${escapeHtml(company)} — ${escapeHtml(month)} | Generated: ${dateStr} | Rate: 1 USD = ${rate} KHR
-                            </p>
-                        </div>
-                        <div style="overflow-x: auto;">
-                            <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
-                                <thead>
-                                    <tr style="background: #f5fafc; border-bottom: 2px solid #d4e5ee;">
-                                        <th style="padding: 10px 12px; text-align: left; font-weight: 600; color: #116b6b;">Bank</th>
-                                        <th style="padding: 10px 12px; text-align: left; font-weight: 600; color: #116b6b;">Currency</th>
-                                        <th style="padding: 10px 12px; text-align: right; font-weight: 600; color: #116b6b;">Original Amount</th>
-                                        <th style="padding: 10px 12px; text-align: right; font-weight: 600; color: #116b6b;">Converted USD</th>
-                                        <th style="padding: 10px 12px; text-align: center; font-weight: 600; color: #116b6b;">Transactions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${tableRows}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid #e2eef5; text-align: center; color: #94a3b8; font-size: 12px;">
-                            <p>Report generated by S-CONVERTER Financial Analytics</p>
-                        </div>
-                    </div>
-                `;
-
-                // Use html2pdf with proper settings
-                const opt = {
-                    margin: 10,
-                    filename: `Bank_Summary_${dateStr}.pdf`,
-                    image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
-                };
-
-                // Create a clean container with the PDF content
-                const tempDiv = document.createElement('div');
-                tempDiv.style.cssText = 'position:fixed; left:-9999px; top:0; width:1000px; background:white; z-index:99999; padding:20px;';
-                tempDiv.innerHTML = pdfHtml;
-                document.body.appendChild(tempDiv);
-
-                // Wait a moment for rendering, then generate PDF
-                setTimeout(() => {
-                    html2pdf().set(opt).from(tempDiv).save().then(() => {
-                        document.body.removeChild(tempDiv);
-                        showToast('Bank summary PDF exported!', 'success');
-                    }).catch(err => {
-                        document.body.removeChild(tempDiv);
-                        console.error('PDF error:', err);
-                        showToast('Error exporting PDF: ' + err.message, 'error');
-                    });
-                }, 300);
+                XLSX.writeFile(wb, `Bank_Summary_${dateStr}.xlsx`);
+                showToast('Bank summary exported to Excel!', 'success');
             }
 
-            // --- Generate Final Report with PDF export (FIXED) ---
-            btnGenerateReport.addEventListener('click', () => {
+            // ============================================================
+            //  GENERATE FINAL REPORT (on screen) + PDF EXPORT (reliable)
+            // ============================================================
+            btnGenerateReport.addEventListener('click', function() {
                 const c01Usd = c01Applied;
                 const c01Remaining = remainingApplied;
                 const rate = parseFloat(khrRateInput.value) || 4000;
 
+                const data = filteredTransactions;
+                if (!data.length) {
+                    showToast('No data to generate report. Please import transactions.', 'error');
+                    return;
+                }
+
                 const bankSummary = {};
-                allTransactions.forEach(t => {
+                data.forEach(t => {
                     const bank = t.bank || 'Unknown';
                     const amountInUsd = t.currency === 'USD' ? t.moneyIn : (t.moneyIn / rate);
                     if (!bankSummary[bank]) bankSummary[bank] = 0;
@@ -3501,48 +3879,67 @@
                 const dateStr = new Date().toISOString().slice(0, 10);
                 const company = companyNameInput?.value || 'Your Company';
                 const month = reportMonthInput?.value || new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
+                const fileLabel = selectedFile === '__all__' ? 'All Files' : selectedFile;
+                const now = new Date().toLocaleString();
 
+                // Build the report HTML (matches the screenshot style)
                 const reportHtml = `
-                    <div style="background:white; border-radius:16px; border:1px solid #deecf2; padding:24px; margin-top:20px; box-shadow:0 8px 20px rgba(0,0,0,0.05); font-family: 'Inter', sans-serif;">
+                    <div style="background:white; border-radius:16px; border:1px solid #deecf2; padding:24px; margin-top:20px; box-shadow:0 8px 20px rgba(0,0,0,0.05); font-family: 'Inter', sans-serif;" id="finalReportContent">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:2px solid #0891b2; padding-bottom:12px; flex-wrap:wrap; gap:8px;">
                             <div>
-                                <h2 style="margin:0; font-size:1.4rem; color:#0f172a;">Final Reconciliation Report</h2>
-                                <p style="margin:2px 0 0; color:#64748b; font-size:0.85rem;">${escapeHtml(company)} — ${escapeHtml(month)}</p>
+                                <h2 style="margin:0; font-size:1.5rem; color:#0f172a; font-weight:800;">Final Reconciliation Report</h2>
+                                <p style="margin:2px 0 0; color:#64748b; font-size:0.9rem; font-weight:500;">${escapeHtml(company)} — ${escapeHtml(month)}</p>
+                                <p style="margin:2px 0 0; color:#94a3b8; font-size:0.8rem; font-weight:400;">Source: ${escapeHtml(fileLabel)}</p>
                             </div>
                             <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                                <button class="btn btn-primary" id="exportFinalPdfBtn" style="padding:8px 18px; font-size:0.85rem;">
+                                <button class="btn btn-primary" id="exportPdfBtn" style="padding:8px 20px; font-size:0.85rem;">
                                     <i class="fa-solid fa-file-pdf"></i> Export PDF
+                                </button>
+                                <button class="btn btn-primary" id="exportFinalExcelBtn" style="padding:8px 20px; font-size:0.85rem;">
+                                    <i class="fa-solid fa-file-excel"></i> Export Excel
                                 </button>
                                 <button class="btn btn-outline" id="closeFinalReportBtn" style="padding:8px 18px; font-size:0.85rem;">Close</button>
                             </div>
                         </div>
+
                         <div style="margin-bottom:16px;">
-                            <strong>Per‑Bank Totals (converted to USD)</strong>
-                            <div class="table-wrapper" style="max-height:300px; border:1px solid #e9f0f4; border-radius:12px; overflow:auto;">
-                                <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+                            <div style="font-size:1rem; font-weight:700; color:#0f172a; margin-bottom:8px;">Per‑Bank Totals (converted to USD)</div>
+                            <div style="border:1px solid #e9f0f4; border-radius:12px; overflow:auto;">
+                                <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
                                     <thead>
                                         <tr style="background:#f5fafc; border-bottom:2px solid #d4e5ee;">
-                                            <th style="padding:10px 12px; text-align:left; font-weight:600; color:#116b6b;">Bank</th>
-                                            <th style="padding:10px 12px; text-align:right; font-weight:600; color:#116b6b;">Total (USD)</th>
+                                            <th style="padding:10px 14px; text-align:left; font-weight:600; color:#116b6b;">Bank</th>
+                                            <th style="padding:10px 14px; text-align:right; font-weight:600; color:#116b6b;">Total (USD)</th>
                                         </tr>
                                     </thead>
                                     <tbody>${bankTableRows}</tbody>
                                     <tfoot>
                                         <tr style="font-weight:700; border-top:2px solid #116b6b;">
-                                            <td style="padding:10px 12px;">Combined Bank Total</td>
-                                            <td style="padding:10px 12px; text-align:right; color:#1b8a6f;">${totalBankUsd.toFixed(2)}</td>
+                                            <td style="padding:10px 14px; font-size:1rem;">Combined Bank Total</td>
+                                            <td style="padding:10px 14px; text-align:right; color:#1b8a6f; font-size:1rem;">${totalBankUsd.toFixed(2)}</td>
                                         </tr>
                                     </tfoot>
                                 </table>
                             </div>
                         </div>
-                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:12px; background:#f8fafc; padding:16px; border-radius:12px; border:1px solid #e2eef5;">
-                            <div><span style="color:#64748b; font-size:0.8rem;">C01 (USD)</span><br><strong>${c01Usd.toFixed(2)}</strong></div>
-                            <div><span style="color:#64748b; font-size:0.8rem;">លុយសល់ c01 (USD)</span><br><strong>${c01Remaining.toFixed(2)}</strong></div>
-                            <div><span style="color:#64748b; font-size:0.8rem;">(Combined - C01) - លុយសល់</span><br><strong class="${finalDiff >= 0 ? 'money-positive' : 'money-negative'}">${finalDiff.toFixed(2)}</strong></div>
+
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:12px; background:#f8fafc; padding:16px 20px; border-radius:12px; border:1px solid #e2eef5;">
+                            <div>
+                                <div style="color:#64748b; font-size:0.8rem;">C01 (USD)</div>
+                                <div style="font-size:1.1rem; font-weight:700; color:#0f172a;">${c01Usd.toFixed(2)}</div>
+                            </div>
+                            <div>
+                                <div style="color:#64748b; font-size:0.8rem;">លុយសល់ c01 (USD)</div>
+                                <div style="font-size:1.1rem; font-weight:700; color:#0f172a;">${c01Remaining.toFixed(2)}</div>
+                            </div>
+                            <div>
+                                <div style="color:#64748b; font-size:0.8rem;">(Combined - C01) - លុយសល់</div>
+                                <div style="font-size:1.1rem; font-weight:700; ${finalDiff >= 0 ? 'color:#1b8a6f;' : 'color:#b91c1c;'}">${finalDiff.toFixed(2)}</div>
+                            </div>
                         </div>
-                        <div style="margin-top:12px; font-size:0.75rem; color:#94a3b8; text-align:center; border-top:1px solid #e2eef5; padding-top:12px;">
-                            Report generated: ${new Date().toLocaleString()} | S-CONVERTER Financial Analytics
+
+                        <div style="margin-top:16px; padding-top:12px; border-top:1px solid #e2eef5; text-align:center; color:#94a3b8; font-size:0.75rem;">
+                            Report generated: ${now} | S-CONVERTER Financial Analytics
                         </div>
                     </div>
                 `;
@@ -3550,58 +3947,165 @@
                 reportContainer.innerHTML = reportHtml;
                 reportContainer.style.display = 'block';
 
+                // --- Close button ---
                 document.getElementById('closeFinalReportBtn').addEventListener('click', () => {
                     reportContainer.style.display = 'none';
                 });
 
-                document.getElementById('exportFinalPdfBtn').addEventListener('click', function() {
-                    const pdfContent = document.querySelector('#reportContainer > div');
-                    if (!pdfContent) {
-                        showToast('No content to export', 'error');
-                        return;
-                    }
-                    const opt = {
-                        margin: 10,
-                        filename: `Final_Report_${dateStr}.pdf`,
-                        image: { type: 'jpeg', quality: 0.98 },
-                        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-                        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                    };
-                    const clone = pdfContent.cloneNode(true);
-                    const btns = clone.querySelectorAll('.btn');
-                    btns.forEach(b => b.remove());
-                    const wrapper = document.createElement('div');
-                    wrapper.style.cssText =
-                        'font-family: Inter, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: white;';
-                    wrapper.innerHTML = clone.innerHTML;
-                    const tempDiv = document.createElement('div');
-                    tempDiv.style.cssText = 'position:fixed; left:-9999px; top:0; width:900px; background:white; z-index:99999; padding:20px;';
-                    tempDiv.appendChild(wrapper);
-                    document.body.appendChild(tempDiv);
-                    setTimeout(() => {
-                        html2pdf().set(opt).from(tempDiv).save().then(() => {
-                            document.body.removeChild(tempDiv);
-                            showToast('Final report PDF exported!', 'success');
-                        }).catch(err => {
-                            document.body.removeChild(tempDiv);
-                            showToast('Error exporting PDF: ' + err.message, 'error');
-                        });
-                    }, 300);
+                // --- Excel Export (already working) ---
+                document.getElementById('exportFinalExcelBtn').addEventListener('click', function() {
+                    const excelData = [];
+                    bankRows.forEach(([bank, amount]) => {
+                        excelData.push({ 'Bank': bank, 'Total (USD)': amount });
+                    });
+                    excelData.push({ 'Bank': 'Combined Bank Total', 'Total (USD)': totalBankUsd });
+                    excelData.push({ 'Bank': 'C01 (USD)', 'Total (USD)': c01Usd });
+                    excelData.push({ 'Bank': 'លុយសល់ c01 (USD)', 'Total (USD)': c01Remaining });
+                    excelData.push({ 'Bank': '(Combined - C01) - លុយសល់', 'Total (USD)': finalDiff });
+
+                    const wb = XLSX.utils.book_new();
+                    const ws = XLSX.utils.json_to_sheet(excelData);
+                    XLSX.utils.book_append_sheet(wb, ws, 'Final Report');
+                    XLSX.writeFile(wb, `Final_Report_${dateStr}.xlsx`);
+                    showToast('Final report exported to Excel!', 'success');
+                });
+
+                // --- PDF Export (reliable using html2canvas + jsPDF) ---
+                document.getElementById('exportPdfBtn').addEventListener('click', function() {
+                    exportPdfReport();
                 });
             });
 
+            // ============================================================
+            //  PDF EXPORT FUNCTION — 100% reliable, matches on-screen UI
+            // ============================================================
+            function exportPdfReport() {
+                const reportEl = document.querySelector('#reportContainer > div');
+                if (!reportEl) {
+                    showToast('No report to export. Generate the report first.', 'error');
+                    return;
+                }
+
+                showToast('Generating PDF... Please wait.', 'info');
+
+                // Clone the report element to avoid modifying the visible one
+                const clone = reportEl.cloneNode(true);
+                // Remove all buttons from the clone
+                clone.querySelectorAll('.btn').forEach(b => b.remove());
+
+                // Create a clean wrapper with proper styling for PDF
+                const wrapper = document.createElement('div');
+                wrapper.style.cssText =
+                    'padding: 30px 40px; background: white; font-family: "Inter", "Segoe UI", Arial, sans-serif; max-width: 900px; margin: 0 auto;';
+                wrapper.appendChild(clone);
+
+                // Ensure the clone has the correct styling for PDF
+                const styleFix = document.createElement('style');
+                styleFix.textContent = `
+                    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+                    th { background: #f5fafc; padding: 10px 14px; text-align: left; font-weight: 600; color: #116b6b; border-bottom: 2px solid #d4e5ee; }
+                    td { padding: 10px 14px; border-bottom: 1px solid #e2eef5; }
+                    .money-positive { color: #1b8a6f; font-weight: 500; }
+                    .money-negative { color: #b91c1c; font-weight: 500; }
+                    .report-header { text-align: center; margin-bottom: 16px; border-bottom: 2px solid #0891b2; padding-bottom: 12px; }
+                    .report-header h2 { font-size: 24px; font-weight: 800; color: #0f172a; margin: 0; }
+                    .report-header .sub { color: #64748b; font-size: 14px; font-weight: 500; margin: 2px 0 0; }
+                    .report-header .source { color: #94a3b8; font-size: 13px; margin: 2px 0 0; }
+                    .section-title { font-size: 15px; font-weight: 700; color: #0f172a; margin: 16px 0 8px; }
+                    .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 12px; background: #f8fafc; padding: 16px 20px; border-radius: 12px; border: 1px solid #e2eef5; margin-top: 16px; }
+                    .summary-grid .item .label { font-size: 12px; color: #64748b; }
+                    .summary-grid .item .value { font-size: 16px; font-weight: 700; color: #0f172a; }
+                    .footer-text { margin-top: 16px; padding-top: 12px; border-top: 1px solid #e2eef5; text-align: center; color: #94a3b8; font-size: 11px; }
+                    .total-row { font-weight: 700; border-top: 2px solid #116b6b !important; }
+                    .total-row td { padding-top: 12px; }
+                `;
+                wrapper.prepend(styleFix);
+
+                // Create a temporary container off-screen
+                const tempContainer = document.createElement('div');
+                tempContainer.style.cssText = 'position: fixed; left: -9999px; top: 0; width: 900px; background: white; z-index: 99999; padding: 10px;';
+                tempContainer.appendChild(wrapper);
+                document.body.appendChild(tempContainer);
+
+                // Wait for fonts and styles to render
+                setTimeout(() => {
+                    html2canvas(tempContainer, {
+                        scale: 2.5,
+                        useCORS: true,
+                        backgroundColor: '#ffffff',
+                        logging: false,
+                        width: 900,
+                        height: tempContainer.scrollHeight,
+                        onclone: function(doc) {
+                            // Ensure all styles are applied
+                        }
+                    }).then(canvas => {
+                        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                        const { jsPDF } = window.jspdf;
+                        const pdf = new jsPDF('p', 'mm', 'a4');
+                        const pdfWidth = pdf.internal.pageSize.getWidth();
+                        const pdfHeight = (canvas.height / canvas.width) * pdfWidth;
+
+                        // If the content fits on one page
+                        if (pdfHeight <= pdf.internal.pageSize.getHeight()) {
+                            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+                        } else {
+                            // Split into multiple pages if needed
+                            const pageHeight = pdf.internal.pageSize.getHeight();
+                            let remainingHeight = canvas.height;
+                            let yOffset = 0;
+                            let firstPage = true;
+
+                            while (remainingHeight > 0) {
+                                if (!firstPage) {
+                                    pdf.addPage();
+                                }
+                                const srcY = yOffset;
+                                const srcH = Math.min(remainingHeight, (pageHeight / pdfHeight) * canvas.width);
+
+                                // Create a temporary canvas for the page slice
+                                const pageCanvas = document.createElement('canvas');
+                                pageCanvas.width = canvas.width;
+                                pageCanvas.height = Math.ceil(srcH);
+                                const ctx = pageCanvas.getContext('2d');
+                                ctx.drawImage(canvas, 0, srcY, canvas.width, srcH, 0, 0, canvas.width, srcH);
+
+                                const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.92);
+                                const pagePdfHeight = (srcH / canvas.width) * pdfWidth;
+                                pdf.addImage(pageImgData, 'JPEG', 0, 0, pdfWidth, pagePdfHeight);
+
+                                remainingHeight -= srcH;
+                                yOffset += srcH;
+                                firstPage = false;
+                            }
+                        }
+
+                        pdf.save(`Final_Report_${new Date().toISOString().slice(0,10)}.pdf`);
+                        document.body.removeChild(tempContainer);
+                        showToast('PDF exported successfully! ✅', 'success');
+                    }).catch(err => {
+                        document.body.removeChild(tempContainer);
+                        console.error('PDF export error:', err);
+                        showToast('Error exporting PDF: ' + err.message, 'error');
+                    });
+                }, 600);
+            }
+
             // --- Update UI ---
             function updateFileInfo() {
-                const usdCount = allTransactions.filter(t => t.currency === 'USD').length;
-                const khrCount = allTransactions.filter(t => t.currency === 'KHR').length;
-                const total = allTransactions.length;
-                const usdSum = allTransactions.filter(t => t.currency === 'USD').reduce((s, t) => s + t.moneyIn, 0);
-                const khrSum = allTransactions.filter(t => t.currency === 'KHR').reduce((s, t) => s + t.moneyIn, 0);
+                const data = getFilteredData();
+                const usdCount = data.filter(t => t.currency === 'USD').length;
+                const khrCount = data.filter(t => t.currency === 'KHR').length;
+                const total = data.length;
+                const usdSum = data.filter(t => t.currency === 'USD').reduce((s, t) => s + t.moneyIn, 0);
+                const khrSum = data.filter(t => t.currency === 'KHR').reduce((s, t) => s + t.moneyIn, 0);
+                const totalAll = allTransactions.length;
+                const fileLabel = selectedFile === '__all__' ? 'All Files' : selectedFile;
                 fileInfo.innerHTML = `
-                    <p><i class="fa-solid fa-folder-open"></i> <strong>${total}</strong> transactions</p>
+                    <p><i class="fa-solid fa-folder-open"></i> <strong>${total}</strong> transactions (${fileLabel})</p>
                     <p>USD Money In: ${usdCount} (${usdSum.toFixed(2)})</p>
                     <p>KHR Money In: ${khrCount} (${khrSum.toFixed(0)})</p>
-                    <p>Files: ${uploadedFileNames.length}</p>
+                    <p>Total files: ${uploadedFileNames.length} | Total rows: ${totalAll}</p>
                 `;
                 globalSearch.disabled = false;
             }
@@ -3630,22 +4134,24 @@
             updateFileInfo();
             renderUploadedFiles();
             updateC01Display();
+            updateFileSelector();
 
             uploadedFilesContainer.addEventListener('click', (e) => {
                 if (e.target.classList.contains('remove-file')) {
                     const name = e.target.dataset.name;
                     if (confirm(`Remove file "${name}"? All its transactions will be removed.`)) {
-                        allTransactions = [];
-                        uploadedFileNames = [];
+                        allTransactions = allTransactions.filter(t => t.sourceFile !== name);
+                        uploadedFileNames = uploadedFileNames.filter(f => f !== name);
+                        updateFileSelector();
                         updateFileInfo();
                         renderUploadedFiles();
                         applyFilterAndRender();
-                        showToast('All data cleared. Re-upload files.', 'info');
+                        showToast(`Removed file: ${name}`, 'info');
                     }
                 }
             });
 
-            console.log('✅ Financial analytics loaded with PDF fix and top-bar company info.');
+            console.log('✅ Financial analytics loaded with reliable PDF export (html2canvas + jsPDF).');
         })();
     </script>
 
