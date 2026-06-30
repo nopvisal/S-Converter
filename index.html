@@ -16,7 +16,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
     </script>
-    <!-- html2canvas + jsPDF for reliable PDF export -->
+    <!-- html2canvas and jsPDF for reliable PDF export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
@@ -1407,7 +1407,7 @@
             }
         }
 
-        /* ===== REPORT PDF STYLES ===== */
+        /* ===== REPORT & PDF STYLES ===== */
         .report-pdf-container {
             position: fixed;
             left: -9999px;
@@ -1688,6 +1688,213 @@
             flex: 1;
             justify-content: center;
         }
+
+        /* PDF loading overlay */
+        .pdf-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(4px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            gap: 16px;
+            animation: fadeIn 0.2s ease;
+        }
+        .pdf-overlay .spinner-big {
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* === PROFESSIONAL BANK STATEMENT STYLES === */
+        .statement-container {
+            background: white;
+            padding: 32px 40px;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            max-width: 880px;
+            margin: 0 auto;
+            border-radius: 12px;
+            border: 1px solid #e8edf2;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
+            line-height: 1.6;
+        }
+        .statement-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #0f172a;
+            padding-bottom: 18px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .statement-header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .statement-header-left .logo-text {
+            font-size: 22px;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+        .statement-header-left .logo-text .tagline {
+            font-size: 12px;
+            font-weight: 400;
+            color: #64748b;
+            letter-spacing: 0.3px;
+        }
+        .statement-header-right {
+            text-align: right;
+        }
+        .statement-header-right h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+        .statement-header-right .date-range {
+            font-size: 13px;
+            color: #475569;
+            font-weight: 500;
+        }
+        .statement-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 32px;
+            background: #f8fafc;
+            padding: 14px 20px;
+            border-radius: 10px;
+            border: 1px solid #e9f0f4;
+            margin-bottom: 22px;
+        }
+        .statement-info-grid .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px solid #edf2f6;
+            font-size: 13px;
+        }
+        .statement-info-grid .info-item:last-child {
+            border-bottom: none;
+        }
+        .statement-info-grid .info-item .label {
+            font-weight: 500;
+            color: #64748b;
+        }
+        .statement-info-grid .info-item .value {
+            font-weight: 600;
+            color: #0f172a;
+        }
+        .statement-summary {
+            background: #f0f9ff;
+            padding: 16px 22px;
+            border-radius: 10px;
+            border: 1px solid #dceef3;
+            margin-top: 6px;
+            margin-bottom: 18px;
+        }
+        .statement-summary .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #e2eef5;
+            font-size: 14px;
+        }
+        .statement-summary .summary-row:last-child {
+            border-bottom: none;
+        }
+        .statement-summary .summary-row .label {
+            font-weight: 500;
+            color: #475569;
+        }
+        .statement-summary .summary-row .value {
+            font-weight: 600;
+            font-size: 15px;
+        }
+        .statement-summary .summary-row .value.positive {
+            color: #1b8a6f;
+        }
+        .statement-summary .summary-row .value.negative {
+            color: #b91c1c;
+        }
+        .statement-summary .total-row .value {
+            font-size: 18px;
+            color: #0f172a;
+            font-weight: 700;
+        }
+        .statement-extra {
+            margin-top: 16px;
+            background: #fafcff;
+            border-radius: 10px;
+            padding: 14px 20px;
+            border: 1px solid #e9f0f4;
+            font-size: 13px;
+        }
+        .statement-extra .extra-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 0;
+            border-bottom: 1px solid #f0f4f8;
+        }
+        .statement-extra .extra-item:last-child {
+            border-bottom: none;
+        }
+        .statement-extra .extra-item .label {
+            color: #64748b;
+            font-weight: 500;
+        }
+        .statement-extra .extra-item .value {
+            font-weight: 600;
+            color: #0f172a;
+        }
+        .statement-extra .extra-item .value.positive {
+            color: #1b8a6f;
+        }
+        .statement-extra .extra-item .value.negative {
+            color: #b91c1c;
+        }
+        .statement-extra .divider-line {
+            border: none;
+            border-top: 1px dashed #dce3ec;
+            margin: 6px 0;
+        }
+        .statement-footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 11px;
+            border-top: 1px solid #e9f0f4;
+            padding-top: 12px;
+            letter-spacing: 0.3px;
+        }
+        /* Hide export button in PDF via display:none on clone */
+        .pdf-export-btn {
+            display: inline-flex;
+        }
+        .pdf-export-btn-hidden {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
@@ -1912,7 +2119,7 @@
                         <div class="meta-fields">
                             <div class="field-group">
                                 <label><i class="fa-solid fa-building"></i> Company</label>
-                                <input type="text" id="companyName" value="Your Company" placeholder="Company Name">
+                                <input type="text" id="companyName" value="EB Dental Supply" placeholder="Company Name">
                             </div>
                             <div class="field-group">
                                 <label><i class="fa-solid fa-calendar"></i> Month</label>
@@ -1934,7 +2141,7 @@
                                 </select>
                             </div>
                             <div class="search-box">
-                                <input type="text" id="globalSearch" placeholder="&#x1F50D; Filter transactions..." disabled>
+                                <input type="text" id="globalSearch" placeholder="🔍 Filter transactions..." disabled>
                             </div>
                             <div class="function-group" id="functionButtons">
                                 <button class="function-btn active" data-view="total"><i class="fa-solid fa-coins"></i> Totals by Bank</button>
@@ -1960,6 +2167,13 @@
                             </div>
                             <div style="margin-top:0.5rem;">
                                 <button class="btn btn-outline" id="btnAddManualRow" style="width:100%;"><i class="fa-solid fa-plus"></i> Add Manual Transaction</button>
+                            </div>
+                            <div style="margin-top:1rem; border-top:1px solid #deecf2; padding-top:1rem;">
+                                <div><strong>Opening Balance (USD)</strong></div>
+                                <div class="input-group" style="margin-top:4px;">
+                                    <input type="number" id="openingBalanceInput" placeholder="0.00" step="0.01" value="0" style="flex:1; min-width:80px;">
+                                    <button class="btn btn-primary" id="btnApplyOpening" style="padding:6px 12px; font-size:0.8rem;">Apply</button>
+                                </div>
                             </div>
                             <div style="margin-top:1rem; border-top:1px solid #deecf2; padding-top:1rem;">
                                 <div><strong>C01 (System Total in USD)</strong></div>
@@ -2993,7 +3207,7 @@
         })();
     </script>
 
-    <!-- ==================== FINANCIAL ANALYTICS SCRIPT — with File Selector & PDF Export ==================== -->
+    <!-- ==================== FINANCIAL ANALYTICS SCRIPT ==================== -->
     <script>
         (function() {
             // --- State ---
@@ -3017,8 +3231,10 @@
             const btnApplyRate = document.getElementById('btnApplyRate');
             const btnApplyC01 = document.getElementById('btnApplyC01');
             const btnApplyRemaining = document.getElementById('btnApplyRemaining');
+            const btnApplyOpening = document.getElementById('btnApplyOpening');
             const c01UsdInput = document.getElementById('c01Usd');
             const c01RemainingInput = document.getElementById('c01Remaining');
+            const openingBalanceInput = document.getElementById('openingBalanceInput');
             const c01ResultDisplay = document.getElementById('c01ResultDisplay');
             const khrRateInput = document.getElementById('khrToUsdRate');
             const bankNameInput = document.getElementById('bankNameInput');
@@ -3031,6 +3247,7 @@
 
             let c01Applied = 0;
             let remainingApplied = 0;
+            let openingBalance = 0;
 
             // --- Utility ---
             function parseAmount(val) {
@@ -3401,6 +3618,17 @@
                 }
                 applyFilterAndRender();
                 showToast(`Rate applied: 1 USD = ${rate} KHR`, 'info');
+            });
+
+            // Apply Opening Balance
+            btnApplyOpening.addEventListener('click', () => {
+                const val = parseFloat(openingBalanceInput.value);
+                if (isNaN(val) || val < 0) {
+                    showToast('Enter a valid opening balance', 'error');
+                    return;
+                }
+                openingBalance = val;
+                showToast(`Opening balance set to ${val.toFixed(2)} USD`, 'success');
             });
 
             // Apply C01 button
@@ -3847,12 +4075,16 @@
             }
 
             // ============================================================
-            //  GENERATE FINAL REPORT (on screen) + PDF EXPORT (reliable)
+            //  GENERATE FINAL REPORT + PDF EXPORT (PROFESSIONAL BANK STYLE)
+            //  ENDING BALANCE = OPENING + TOTAL CASH IN (CASH OUT NOT SUBTRACTED)
+            //  HIDE EXPORT BUTTON IN PDF VIA CLONE REMOVAL
+            //  INCLUDES EB DENT SUPPLY LOGO (properly sized SVG text logo)
             // ============================================================
             btnGenerateReport.addEventListener('click', function() {
                 const c01Usd = c01Applied;
                 const c01Remaining = remainingApplied;
                 const rate = parseFloat(khrRateInput.value) || 4000;
+                const opening = openingBalance;
 
                 const data = filteredTransactions;
                 if (!data.length) {
@@ -3860,236 +4092,188 @@
                     return;
                 }
 
-                const bankSummary = {};
+                // Compute totals for the statement
+                let totalCashIn = 0,
+                    totalCashOut = 0;
                 data.forEach(t => {
-                    const bank = t.bank || 'Unknown';
-                    const amountInUsd = t.currency === 'USD' ? t.moneyIn : (t.moneyIn / rate);
-                    if (!bankSummary[bank]) bankSummary[bank] = 0;
-                    bankSummary[bank] += amountInUsd;
+                    const amount = t.currency === 'USD' ? t.moneyIn : (t.moneyIn / rate);
+                    const outAmount = t.currency === 'USD' ? t.moneyOut : (t.moneyOut / rate);
+                    totalCashIn += amount;
+                    totalCashOut += outAmount;
                 });
-                const bankRows = Object.entries(bankSummary).sort((a, b) => b[1] - a[1]);
-                const totalBankUsd = bankRows.reduce((sum, row) => sum + row[1], 0);
-                const diff = totalBankUsd - c01Usd;
-                const finalDiff = diff - c01Remaining;
+                // 🔥 Ending balance = Opening + Total Cash In (Cash Out NOT subtracted)
+                const endingBalance = opening + totalCashIn;
 
-                let bankTableRows = bankRows.map(([bank, amount]) =>
-                    `<tr><td style="padding:8px 12px; border-bottom:1px solid #e2e8f0;">${escapeHtml(bank)}</td><td style="padding:8px 12px; border-bottom:1px solid #e2e8f0; color:#1b8a6f;">${amount.toFixed(2)}</td></tr>`
-                ).join('');
+                // Get min and max date from transactions
+                const dates = data.map(t => t.dateObj).filter(d => d && !isNaN(d.getTime()));
+                let fromDate = 'N/A',
+                    toDate = 'N/A';
+                if (dates.length) {
+                    const minDate = new Date(Math.min(...dates));
+                    const maxDate = new Date(Math.max(...dates));
+                    fromDate = minDate.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+                    toDate = maxDate.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+                } else {
+                    fromDate = reportMonthInput?.value || 'N/A';
+                    toDate = fromDate;
+                }
 
-                const dateStr = new Date().toISOString().slice(0, 10);
                 const company = companyNameInput?.value || 'Your Company';
-                const month = reportMonthInput?.value || new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
-                const fileLabel = selectedFile === '__all__' ? 'All Files' : selectedFile;
-                const now = new Date().toLocaleString();
+                const accountNumber = '1800-03851703-13';
+                const swift = 'ACLBKHP';
 
-                // Build the report HTML (matches the screenshot style)
-                const reportHtml = `
-                    <div style="background:white; border-radius:16px; border:1px solid #deecf2; padding:24px; margin-top:20px; box-shadow:0 8px 20px rgba(0,0,0,0.05); font-family: 'Inter', sans-serif;" id="finalReportContent">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:2px solid #0891b2; padding-bottom:12px; flex-wrap:wrap; gap:8px;">
-                            <div>
-                                <h2 style="margin:0; font-size:1.5rem; color:#0f172a; font-weight:800;">Final Reconciliation Report</h2>
-                                <p style="margin:2px 0 0; color:#64748b; font-size:0.9rem; font-weight:500;">${escapeHtml(company)} — ${escapeHtml(month)}</p>
-                                <p style="margin:2px 0 0; color:#94a3b8; font-size:0.8rem; font-weight:400;">Source: ${escapeHtml(fileLabel)}</p>
+                // EB DENT SUPPLY Logo - Clean text-based SVG with proper sizing
+                const logo = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" width="200" height="50" style="max-width:200px; height:auto;">
+                    <defs>
+                        <linearGradient id="reportLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#0891b2;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <!-- EB badge -->
+                    <rect x="0" y="2" width="46" height="46" rx="10" fill="url(#reportLogoGrad)" />
+                    <text x="23" y="33" font-family="'Inter', Arial, sans-serif" font-size="26" font-weight="800" fill="white" text-anchor="middle">EB</text>
+                    <!-- DENT SUPPLY text -->
+                    <text x="56" y="18" font-family="'Inter', Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a" letter-spacing="-0.3">DENTAL SUPPLY</text>
+                    <!-- Tagline -->
+                    <text x="56" y="36" font-family="'Inter', Arial, sans-serif" font-size="11" font-weight="500" fill="#64748b" letter-spacing="0.2">Partner in Dentistry</text>
+                </svg>`;
+
+                // Build the professional statement HTML with EB DENT SUPPLY logo
+                const statementHtml = `
+                    <div class="statement-container" id="statementReport">
+                        <div class="statement-header">
+                            <div class="statement-header-left">
+                                ${logo}
                             </div>
-                            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                                <button class="btn btn-primary" id="exportPdfBtn" style="padding:8px 20px; font-size:0.85rem;">
-                                    <i class="fa-solid fa-file-pdf"></i> Export PDF
-                                </button>
-                                <button class="btn btn-primary" id="exportFinalExcelBtn" style="padding:8px 20px; font-size:0.85rem;">
-                                    <i class="fa-solid fa-file-excel"></i> Export Excel
-                                </button>
-                                <button class="btn btn-outline" id="closeFinalReportBtn" style="padding:8px 18px; font-size:0.85rem;">Close</button>
+                            <div class="statement-header-right">
+                                <h1>ACCOUNT STATEMENT</h1>
+                                <div class="date-range">ខែ ${fromDate} TO ${toDate}</div>
                             </div>
                         </div>
 
-                        <div style="margin-bottom:16px;">
-                            <div style="font-size:1rem; font-weight:700; color:#0f172a; margin-bottom:8px;">Per‑Bank Totals (converted to USD)</div>
-                            <div style="border:1px solid #e9f0f4; border-radius:12px; overflow:auto;">
-                                <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
-                                    <thead>
-                                        <tr style="background:#f5fafc; border-bottom:2px solid #d4e5ee;">
-                                            <th style="padding:10px 14px; text-align:left; font-weight:600; color:#116b6b;">Bank</th>
-                                            <th style="padding:10px 14px; text-align:right; font-weight:600; color:#116b6b;">Total (USD)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>${bankTableRows}</tbody>
-                                    <tfoot>
-                                        <tr style="font-weight:700; border-top:2px solid #116b6b;">
-                                            <td style="padding:10px 14px; font-size:1rem;">Combined Bank Total</td>
-                                            <td style="padding:10px 14px; text-align:right; color:#1b8a6f; font-size:1rem;">${totalBankUsd.toFixed(2)}</td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
+                        <div class="statement-info-grid">
+                            <div class="info-item"><span class="label">Account name</span><span class="value">${escapeHtml(company)}</span></div>
+                            <div class="info-item"><span class="label">Account number</span><span class="value">${accountNumber}</span></div>
+                            <div class="info-item"><span class="label">Currency</span><span class="value">USD</span></div>
+                            <div class="info-item"><span class="label">Account type</span><span class="value">Savings Accounts</span></div>
+                            <div class="info-item" style="grid-column: span 2;"><span class="label">SWIFT code</span><span class="value">${swift}</span></div>
                         </div>
 
-                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:12px; background:#f8fafc; padding:16px 20px; border-radius:12px; border:1px solid #e2eef5;">
-                            <div>
-                                <div style="color:#64748b; font-size:0.8rem;">C01 (USD)</div>
-                                <div style="font-size:1.1rem; font-weight:700; color:#0f172a;">${c01Usd.toFixed(2)}</div>
-                            </div>
-                            <div>
-                                <div style="color:#64748b; font-size:0.8rem;">លុយសល់ c01 (USD)</div>
-                                <div style="font-size:1.1rem; font-weight:700; color:#0f172a;">${c01Remaining.toFixed(2)}</div>
-                            </div>
-                            <div>
-                                <div style="color:#64748b; font-size:0.8rem;">(Combined - C01) - លុយសល់</div>
-                                <div style="font-size:1.1rem; font-weight:700; ${finalDiff >= 0 ? 'color:#1b8a6f;' : 'color:#b91c1c;'}">${finalDiff.toFixed(2)}</div>
-                            </div>
+                        <div class="statement-summary">
+                            <div class="summary-row"><span class="label">Opening balance</span><span class="value positive">${opening.toFixed(2)} USD</span></div>
+                            <div class="summary-row"><span class="label">Total cash in</span><span class="value positive">+ ${totalCashIn.toFixed(2)} USD</span></div>
+                            <div class="summary-row total-row"><span class="label" style="font-weight:700;">Ending balance</span><span class="value" style="font-size:1.2rem; color:#0f172a;">${endingBalance.toFixed(2)} USD</span></div>
                         </div>
 
-                        <div style="margin-top:16px; padding-top:12px; border-top:1px solid #e2eef5; text-align:center; color:#94a3b8; font-size:0.75rem;">
-                            Report generated: ${now} | S-CONVERTER Financial Analytics
+                        <div class="statement-extra">
+                            <div class="extra-item"><span class="label">Ending Balance (Total Cash In)</span><span class="value">${endingBalance.toFixed(2)} USD</span></div>
+                            <div class="extra-item"><span class="label">C01 (System Total)</span><span class="value">${c01Usd.toFixed(2)} USD</span></div>
+                            <div class="extra-item"><span class="label">លុយសល់ c01</span><span class="value">${c01Remaining.toFixed(2)} USD</span></div>
+                            <hr class="divider-line">
+                            <div class="extra-item"><span class="label" style="font-weight:600;">Variance (Ending - C01 - Remaining)</span><span class="value ${(endingBalance - c01Usd - c01Remaining) >= 0 ? 'positive' : 'negative'}">${(endingBalance - c01Usd - c01Remaining).toFixed(2)} USD</span></div>
+                            <div class="extra-item"><span class="label">Exchange Rate (KHR/USD)</span><span class="value">${rate}</span></div>
+                        </div>
+
+                        <div class="statement-footer">
+                            Report generated: ${new Date().toLocaleString()} | S-CONVERTER Financial Analytics
                         </div>
                     </div>
                 `;
 
-                reportContainer.innerHTML = reportHtml;
+                reportContainer.innerHTML = statementHtml;
                 reportContainer.style.display = 'block';
 
-                // --- Close button ---
-                document.getElementById('closeFinalReportBtn').addEventListener('click', () => {
-                    reportContainer.style.display = 'none';
-                });
+                // --- PDF Export using html2canvas + jsPDF (professional, hides button) ---
+                function exportStatementPDF() {
+                    const element = document.querySelector('#statementReport');
+                    if (!element) {
+                        showToast('Report not found.', 'error');
+                        return;
+                    }
 
-                // --- Excel Export (already working) ---
-                document.getElementById('exportFinalExcelBtn').addEventListener('click', function() {
-                    const excelData = [];
-                    bankRows.forEach(([bank, amount]) => {
-                        excelData.push({ 'Bank': bank, 'Total (USD)': amount });
-                    });
-                    excelData.push({ 'Bank': 'Combined Bank Total', 'Total (USD)': totalBankUsd });
-                    excelData.push({ 'Bank': 'C01 (USD)', 'Total (USD)': c01Usd });
-                    excelData.push({ 'Bank': 'លុយសល់ c01 (USD)', 'Total (USD)': c01Remaining });
-                    excelData.push({ 'Bank': '(Combined - C01) - លុយសល់', 'Total (USD)': finalDiff });
+                    // Show overlay
+                    const overlay = document.createElement('div');
+                    overlay.className = 'pdf-overlay';
+                    overlay.innerHTML = `
+                        <div class="spinner-big"></div>
+                        <span>Generating PDF… please wait</span>
+                    `;
+                    document.body.appendChild(overlay);
 
-                    const wb = XLSX.utils.book_new();
-                    const ws = XLSX.utils.json_to_sheet(excelData);
-                    XLSX.utils.book_append_sheet(wb, ws, 'Final Report');
-                    XLSX.writeFile(wb, `Final_Report_${dateStr}.xlsx`);
-                    showToast('Final report exported to Excel!', 'success');
-                });
+                    // Clone the element so we can remove the button without affecting the UI
+                    const clone = element.cloneNode(true);
+                    // Remove any buttons from the clone (this removes the export button from PDF)
+                    clone.querySelectorAll('.btn').forEach(b => b.remove());
+                    // Also remove any elements with class 'pdf-export-btn'
+                    clone.querySelectorAll('.pdf-export-btn').forEach(el => el.remove());
 
-                // --- PDF Export (reliable using html2canvas + jsPDF) ---
-                document.getElementById('exportPdfBtn').addEventListener('click', function() {
-                    exportPdfReport();
-                });
-            });
+                    // Create a temporary container with the clone
+                    const tempContainer = document.createElement('div');
+                    tempContainer.style.cssText = 'position: fixed; left: -9999px; top: 0; width: 880px; background: white; z-index: 99999; padding: 20px;';
+                    tempContainer.appendChild(clone);
+                    document.body.appendChild(tempContainer);
 
-            // ============================================================
-            //  PDF EXPORT FUNCTION — 100% reliable, matches on-screen UI
-            // ============================================================
-            function exportPdfReport() {
-                const reportEl = document.querySelector('#reportContainer > div');
-                if (!reportEl) {
-                    showToast('No report to export. Generate the report first.', 'error');
-                    return;
+                    // Wait a tick for layout to settle
+                    setTimeout(() => {
+                        // Use html2canvas on the temp container
+                        html2canvas(tempContainer, {
+                            scale: 2.5,
+                            useCORS: true,
+                            backgroundColor: '#ffffff',
+                            logging: false,
+                            width: tempContainer.scrollWidth,
+                            height: tempContainer.scrollHeight,
+                            windowWidth: tempContainer.scrollWidth,
+                            windowHeight: tempContainer.scrollHeight,
+                        }).then(canvas => {
+                            try {
+                                const imgData = canvas.toDataURL('image/png');
+                                const { jsPDF } = window.jspdf;
+                                const pdf = new jsPDF('p', 'mm', 'a4');
+                                const pdfWidth = pdf.internal.pageSize.getWidth();
+                                const pdfHeight = pdf.internal.pageSize.getHeight();
+                                const imgWidth = canvas.width;
+                                const imgHeight = canvas.height;
+                                const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+                                const imgX = (pdfWidth - imgWidth * ratio) / 2;
+                                const imgY = 0;
+                                pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+                                pdf.save(`Account_Statement_${new Date().toISOString().slice(0,10)}.pdf`);
+                                showToast('PDF exported successfully! ✅', 'success');
+                            } catch (err) {
+                                console.error('PDF generation error:', err);
+                                showToast('Error generating PDF: ' + err.message, 'error');
+                            } finally {
+                                document.body.removeChild(tempContainer);
+                                if (overlay.parentNode) document.body.removeChild(overlay);
+                            }
+                        }).catch(err => {
+                            console.error('html2canvas error:', err);
+                            showToast('Error capturing report: ' + err.message, 'error');
+                            document.body.removeChild(tempContainer);
+                            if (overlay.parentNode) document.body.removeChild(overlay);
+                        });
+                    }, 100);
                 }
 
-                showToast('Generating PDF... Please wait.', 'info');
-
-                // Clone the report element to avoid modifying the visible one
-                const clone = reportEl.cloneNode(true);
-                // Remove all buttons from the clone
-                clone.querySelectorAll('.btn').forEach(b => b.remove());
-
-                // Create a clean wrapper with proper styling for PDF
-                const wrapper = document.createElement('div');
-                wrapper.style.cssText =
-                    'padding: 30px 40px; background: white; font-family: "Inter", "Segoe UI", Arial, sans-serif; max-width: 900px; margin: 0 auto;';
-                wrapper.appendChild(clone);
-
-                // Ensure the clone has the correct styling for PDF
-                const styleFix = document.createElement('style');
-                styleFix.textContent = `
-                    table { width: 100%; border-collapse: collapse; font-size: 14px; }
-                    th { background: #f5fafc; padding: 10px 14px; text-align: left; font-weight: 600; color: #116b6b; border-bottom: 2px solid #d4e5ee; }
-                    td { padding: 10px 14px; border-bottom: 1px solid #e2eef5; }
-                    .money-positive { color: #1b8a6f; font-weight: 500; }
-                    .money-negative { color: #b91c1c; font-weight: 500; }
-                    .report-header { text-align: center; margin-bottom: 16px; border-bottom: 2px solid #0891b2; padding-bottom: 12px; }
-                    .report-header h2 { font-size: 24px; font-weight: 800; color: #0f172a; margin: 0; }
-                    .report-header .sub { color: #64748b; font-size: 14px; font-weight: 500; margin: 2px 0 0; }
-                    .report-header .source { color: #94a3b8; font-size: 13px; margin: 2px 0 0; }
-                    .section-title { font-size: 15px; font-weight: 700; color: #0f172a; margin: 16px 0 8px; }
-                    .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 12px; background: #f8fafc; padding: 16px 20px; border-radius: 12px; border: 1px solid #e2eef5; margin-top: 16px; }
-                    .summary-grid .item .label { font-size: 12px; color: #64748b; }
-                    .summary-grid .item .value { font-size: 16px; font-weight: 700; color: #0f172a; }
-                    .footer-text { margin-top: 16px; padding-top: 12px; border-top: 1px solid #e2eef5; text-align: center; color: #94a3b8; font-size: 11px; }
-                    .total-row { font-weight: 700; border-top: 2px solid #116b6b !important; }
-                    .total-row td { padding-top: 12px; }
-                `;
-                wrapper.prepend(styleFix);
-
-                // Create a temporary container off-screen
-                const tempContainer = document.createElement('div');
-                tempContainer.style.cssText = 'position: fixed; left: -9999px; top: 0; width: 900px; background: white; z-index: 99999; padding: 10px;';
-                tempContainer.appendChild(wrapper);
-                document.body.appendChild(tempContainer);
-
-                // Wait for fonts and styles to render
-                setTimeout(() => {
-                    html2canvas(tempContainer, {
-                        scale: 2.5,
-                        useCORS: true,
-                        backgroundColor: '#ffffff',
-                        logging: false,
-                        width: 900,
-                        height: tempContainer.scrollHeight,
-                        onclone: function(doc) {
-                            // Ensure all styles are applied
-                        }
-                    }).then(canvas => {
-                        const imgData = canvas.toDataURL('image/jpeg', 0.95);
-                        const { jsPDF } = window.jspdf;
-                        const pdf = new jsPDF('p', 'mm', 'a4');
-                        const pdfWidth = pdf.internal.pageSize.getWidth();
-                        const pdfHeight = (canvas.height / canvas.width) * pdfWidth;
-
-                        // If the content fits on one page
-                        if (pdfHeight <= pdf.internal.pageSize.getHeight()) {
-                            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
-                        } else {
-                            // Split into multiple pages if needed
-                            const pageHeight = pdf.internal.pageSize.getHeight();
-                            let remainingHeight = canvas.height;
-                            let yOffset = 0;
-                            let firstPage = true;
-
-                            while (remainingHeight > 0) {
-                                if (!firstPage) {
-                                    pdf.addPage();
-                                }
-                                const srcY = yOffset;
-                                const srcH = Math.min(remainingHeight, (pageHeight / pdfHeight) * canvas.width);
-
-                                // Create a temporary canvas for the page slice
-                                const pageCanvas = document.createElement('canvas');
-                                pageCanvas.width = canvas.width;
-                                pageCanvas.height = Math.ceil(srcH);
-                                const ctx = pageCanvas.getContext('2d');
-                                ctx.drawImage(canvas, 0, srcY, canvas.width, srcH, 0, 0, canvas.width, srcH);
-
-                                const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.92);
-                                const pagePdfHeight = (srcH / canvas.width) * pdfWidth;
-                                pdf.addImage(pageImgData, 'JPEG', 0, 0, pdfWidth, pagePdfHeight);
-
-                                remainingHeight -= srcH;
-                                yOffset += srcH;
-                                firstPage = false;
-                            }
-                        }
-
-                        pdf.save(`Final_Report_${new Date().toISOString().slice(0,10)}.pdf`);
-                        document.body.removeChild(tempContainer);
-                        showToast('PDF exported successfully! ✅', 'success');
-                    }).catch(err => {
-                        document.body.removeChild(tempContainer);
-                        console.error('PDF export error:', err);
-                        showToast('Error exporting PDF: ' + err.message, 'error');
-                    });
-                }, 600);
-            }
+                // Add Export PDF button (only in UI, will be removed from clone)
+                if (!document.getElementById('exportPdfBtn')) {
+                    const header = document.querySelector('.statement-header');
+                    if (header) {
+                        const pdfBtn = document.createElement('button');
+                        pdfBtn.id = 'exportPdfBtn';
+                        pdfBtn.className = 'btn btn-primary pdf-export-btn';
+                        pdfBtn.innerHTML = '<i class="fa-solid fa-file-pdf"></i> Export PDF';
+                        pdfBtn.style.cssText = 'margin-top: 14px; padding: 10px 24px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 8px;';
+                        pdfBtn.addEventListener('click', exportStatementPDF);
+                        // Insert after the header
+                        header.parentNode.insertBefore(pdfBtn, header.nextSibling);
+                    }
+                } else {
+                    document.getElementById('exportPdfBtn').addEventListener('click', exportStatementPDF);
+                }
+            });
 
             // --- Update UI ---
             function updateFileInfo() {
@@ -4151,7 +4335,7 @@
                 }
             });
 
-            console.log('✅ Financial analytics loaded with reliable PDF export (html2canvas + jsPDF).');
+            console.log('✅ Professional bank statement with EB DENT SUPPLY logo and clean PDF export.');
         })();
     </script>
 
